@@ -33,5 +33,22 @@ public class DokterModel implements Serializable {
 	
 	@OneToMany(mappedBy="dokter", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<PemeriksaanModel> pemeriksaanList;
+
+	public long getId() {
+		return Id;
+	}
+
+	public String getNama() {
+		return nama;
+	}
+
+	public List<JadwalJagaModel> getJadwalJagaList() {
+		return jadwalJagaList;
+	}
+
+	public List<PemeriksaanModel> getPemeriksaanList() {
+		return pemeriksaanList;
+	}
+	
 	
 }

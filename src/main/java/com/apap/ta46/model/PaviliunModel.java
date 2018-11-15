@@ -42,4 +42,54 @@ public class PaviliunModel implements Serializable {
 	
 	@OneToMany(mappedBy="paviliun", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<JadwalJagaModel> jadwalJagaList;
+
+	public long getId() {
+		return Id;
+	}
+
+	public void setId(long id) {
+		Id = id;
+	}
+
+	public String getNamaPaviliun() {
+		return namaPaviliun;
+	}
+
+	public void setNamaPaviliun(String namaPaviliun) {
+		this.namaPaviliun = namaPaviliun;
+	}
+
+	public String getTipePasien() {
+		return tipePasien;
+	}
+
+	public void setTipePasien(String tipePasien) {
+		this.tipePasien = tipePasien;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public List<KamarModel> getKamarList() {
+		return kamarList;
+	}
+
+	public void setKamarList(List<KamarModel> kamarList) {
+		this.kamarList = kamarList;
+	}
+
+	public List<JadwalJagaModel> getJadwalJagaList() {
+		return jadwalJagaList;
+	}
+
+	public void setJadwalJagaList(List<JadwalJagaModel> jadwalJagaList) {
+		this.jadwalJagaList = jadwalJagaList;
+	}
+	
+	
 }

@@ -37,6 +37,9 @@ public class PasienModel implements Serializable {
 	@OneToMany(mappedBy="pasien", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<PemeriksaanModel> pemeriksaanList;
 	
+	@OneToMany(mappedBy="pasien", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<RequestObatModel> requestObatList;
+	
 	@OneToOne(mappedBy="pasien", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private RequestPasienModel requestPasien;
 	
@@ -66,4 +69,38 @@ public class PasienModel implements Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	public List<PemeriksaanModel> getPemeriksaanList() {
+		return pemeriksaanList;
+	}
+
+	public void setPemeriksaanList(List<PemeriksaanModel> pemeriksaanList) {
+		this.pemeriksaanList = pemeriksaanList;
+	}
+
+	public List<RequestObatModel> getRequestObatList() {
+		return requestObatList;
+	}
+
+	public void setRequestObatList(List<RequestObatModel> requestObatList) {
+		this.requestObatList = requestObatList;
+	}
+
+	public RequestPasienModel getRequestPasien() {
+		return requestPasien;
+	}
+
+	public void setRequestPasien(RequestPasienModel requestPasien) {
+		this.requestPasien = requestPasien;
+	}
+
+	public KamarModel getKamar() {
+		return kamar;
+	}
+
+	public void setKamar(KamarModel kamar) {
+		this.kamar = kamar;
+	}
+	
+	
 }

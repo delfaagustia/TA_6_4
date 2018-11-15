@@ -26,4 +26,32 @@ public class HariModel {
 	@Column(name="hari", nullable=false)
 	private int hari;
 	
+	@OneToMany(mappedBy="hari", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<JadwalJagaDokterModel> jadwalJagaDokterList;
+
+	public long getId() {
+		return Id;
+	}
+
+	public void setId(long id) {
+		Id = id;
+	}
+
+	public int getHari() {
+		return hari;
+	}
+
+	public void setHari(int hari) {
+		this.hari = hari;
+	}
+
+	public List<JadwalJagaDokterModel> getJadwalJagaDokterList() {
+		return jadwalJagaDokterList;
+	}
+
+	public void setJadwalJagaDokterList(List<JadwalJagaDokterModel> jadwalJagaDokterList) {
+		this.jadwalJagaDokterList = jadwalJagaDokterList;
+	}
+	
+	
 }

@@ -42,5 +42,38 @@ public class KamarModel implements Serializable {
 	@NotNull
 	@Column(name="status", nullable=false)
 	private int status;
+
+	public long getId() {
+		return Id;
+	}
+
+	public void setId(long id) {
+		Id = id;
+	}
+
+	public PaviliunModel getPaviliun() {
+		return paviliun;
+	}
+
+	public void setPaviliun(PaviliunModel paviliun) {
+		this.paviliun = paviliun;
+	}
+
+	public PasienModel getPasien() {
+		return pasien;
+	}
+
+	public void setPasien(PasienModel pasien) {
+		this.pasien = pasien;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
 	
 }

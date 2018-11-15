@@ -23,7 +23,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="jadwal_jaga")
+@Table(name="jadwalJaga")
 public class JadwalJagaModel implements Serializable {
 	@Id
 	@NotNull
@@ -46,5 +46,50 @@ public class JadwalJagaModel implements Serializable {
 	@Size(max=255)
 	@Column(name="status_dokter", nullable=false)
 	private String statusDokter;
+	
+	@OneToMany(mappedBy="jadwalJaga", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<JadwalJagaDokterModel> jadwalJagaDokterList;
+
+	public long getId() {
+		return Id;
+	}
+
+	public void setId(long id) {
+		Id = id;
+	}
+
+	public DokterModel getDokter() {
+		return dokter;
+	}
+
+	public void setDokter(DokterModel dokter) {
+		this.dokter = dokter;
+	}
+
+	public PaviliunModel getPaviliun() {
+		return paviliun;
+	}
+
+	public void setPaviliun(PaviliunModel paviliun) {
+		this.paviliun = paviliun;
+	}
+
+	public String getStatusDokter() {
+		return statusDokter;
+	}
+
+	public void setStatusDokter(String statusDokter) {
+		this.statusDokter = statusDokter;
+	}
+
+	public List<JadwalJagaDokterModel> getJadwalJagaDokterList() {
+		return jadwalJagaDokterList;
+	}
+
+	public void setJadwalJagaDokterList(List<JadwalJagaDokterModel> jadwalJagaDokterList) {
+		this.jadwalJagaDokterList = jadwalJagaDokterList;
+	}
+	
+	
 	
 }

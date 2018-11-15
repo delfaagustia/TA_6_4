@@ -40,6 +40,32 @@ public class RequestPasienModel implements Serializable {
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private PasienModel pasien;
+
+	public long getId() {
+		return Id;
+	}
+
+	public void setId(long id) {
+		Id = id;
+	}
+
+	public int getAssign() {
+		return assign;
+	}
+
+	public void setAssign(int assign) {
+		this.assign = assign;
+	}
+
+	public PasienModel getPasien() {
+		return pasien;
+	}
+
+	public void setPasien(PasienModel pasien) {
+		this.pasien = pasien;
+	}
+	
+	
 	
 	
 }

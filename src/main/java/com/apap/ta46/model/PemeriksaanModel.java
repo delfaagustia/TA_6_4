@@ -2,7 +2,9 @@ package com.apap.ta46.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -48,4 +51,57 @@ public class PemeriksaanModel implements Serializable {
 	@NotNull
 	@Column(name="waktu", nullable=false)
 	private Timestamp waktu;
+	
+	@OneToMany(mappedBy="pemeriksaan", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<RequestObatModel> requestObatList;
+
+	public long getId() {
+		return Id;
+	}
+
+	public void setId(long id) {
+		Id = id;
+	}
+
+	public DokterModel getDokter() {
+		return dokter;
+	}
+
+	public void setDokter(DokterModel dokter) {
+		this.dokter = dokter;
+	}
+
+	public PasienModel getPasien() {
+		return pasien;
+	}
+
+	public void setPasien(PasienModel pasien) {
+		this.pasien = pasien;
+	}
+
+	public String getPemeriksaan() {
+		return pemeriksaan;
+	}
+
+	public void setPemeriksaan(String pemeriksaan) {
+		this.pemeriksaan = pemeriksaan;
+	}
+
+	public Timestamp getWaktu() {
+		return waktu;
+	}
+
+	public void setWaktu(Timestamp waktu) {
+		this.waktu = waktu;
+	}
+
+	public List<RequestObatModel> getRequestObatList() {
+		return requestObatList;
+	}
+
+	public void setRequestObatList(List<RequestObatModel> requestObatList) {
+		this.requestObatList = requestObatList;
+	}
+	
+	
 }
