@@ -15,10 +15,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 @Entity
 @Table(name="paviliun")
-public class PaviliunModel implements Serializable{
+public class PaviliunModel implements Serializable {
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -39,49 +38,8 @@ public class PaviliunModel implements Serializable{
 	private int status;
 	
 	@OneToMany(mappedBy="paviliun", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<JadwalJagaModel> jadwalJagaList;
+	private List<KamarModel> kamarList;
 	
 	@OneToMany(mappedBy="paviliun", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<KamarModel> kamarList;
-
-	public long getId() {
-		return Id;
-	}
-
-	public void setId(long id) {
-		Id = id;
-	}
-
-	public String getNamaPaviliun() {
-		return namaPaviliun;
-	}
-
-	public void setNamaPaviliun(String namaPaviliun) {
-		this.namaPaviliun = namaPaviliun;
-	}
-
-	public String getTipePasien() {
-		return tipePasien;
-	}
-
-	public void setTipePasien(String tipePasien) {
-		this.tipePasien = tipePasien;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public List<KamarModel> getKamarList() {
-		return kamarList;
-	}
-
-	public void setKamarList(List<KamarModel> kamarList) {
-		this.kamarList = kamarList;
-	}
-	
+	private List<JadwalJagaModel> jadwalJagaList;
 }

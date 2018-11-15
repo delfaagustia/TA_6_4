@@ -1,6 +1,5 @@
 package com.apap.ta46.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,22 +15,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="dokter")
-public class DokterModel implements Serializable {
+@Table(name="hari")
+public class HariModel {
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long Id;
 	
 	@NotNull
-	@Size(max=255)
-	@Column(name="nama", nullable=false)
-	private String nama;
-	
-	@OneToMany(mappedBy="dokter", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<JadwalJagaModel> jadwalJagaList;
-	
-	@OneToMany(mappedBy="dokter", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<PemeriksaanModel> pemeriksaanList;
+	@Column(name="hari", nullable=false)
+	private int hari;
 	
 }
