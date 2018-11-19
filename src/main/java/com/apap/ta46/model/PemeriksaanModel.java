@@ -31,17 +31,13 @@ public class PemeriksaanModel implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long Id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_dokter", referencedColumnName="id", nullable=false)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
-	@JsonIgnore
-	private DokterModel dokter;
+	@NotNull
+	@Column(name="id_pasien", nullable=false)
+	private long idPasien;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pasien", referencedColumnName="id", nullable=false)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
-	@JsonIgnore
-	private PasienModel pasien;
+	@NotNull
+	@Column(name="id_dokter", nullable=false)
+	private long idDokter;
 	
 	@NotNull
 	@Size(max=255)
@@ -61,22 +57,6 @@ public class PemeriksaanModel implements Serializable {
 
 	public void setId(long id) {
 		Id = id;
-	}
-
-	public DokterModel getDokter() {
-		return dokter;
-	}
-
-	public void setDokter(DokterModel dokter) {
-		this.dokter = dokter;
-	}
-
-	public PasienModel getPasien() {
-		return pasien;
-	}
-
-	public void setPasien(PasienModel pasien) {
-		this.pasien = pasien;
 	}
 
 	public String getPemeriksaan() {
@@ -102,6 +82,21 @@ public class PemeriksaanModel implements Serializable {
 	public void setRequestObatList(List<RequestObatModel> requestObatList) {
 		this.requestObatList = requestObatList;
 	}
-	
+
+	public long getIdPasien() {
+		return idPasien;
+	}
+
+	public void setIdPasien(long idPasien) {
+		this.idPasien = idPasien;
+	}
+
+	public long getIdDokter() {
+		return idDokter;
+	}
+
+	public void setIdDokter(long idDokter) {
+		this.idDokter = idDokter;
+	}
 	
 }

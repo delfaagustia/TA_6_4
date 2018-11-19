@@ -33,11 +33,9 @@ public class KamarModel implements Serializable {
 	@JsonIgnore
 	private PaviliunModel paviliun;
 	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pasien", referencedColumnName="id", nullable=false)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
-	@JsonIgnore
-	private PasienModel pasien;
+	@NotNull
+	@Column(name="id_pasien", nullable=false)
+	private long idPasien;
 	
 	@NotNull
 	@Column(name="status", nullable=false)
@@ -59,14 +57,6 @@ public class KamarModel implements Serializable {
 		this.paviliun = paviliun;
 	}
 
-	public PasienModel getPasien() {
-		return pasien;
-	}
-
-	public void setPasien(PasienModel pasien) {
-		this.pasien = pasien;
-	}
-
 	public int getStatus() {
 		return status;
 	}
@@ -74,6 +64,15 @@ public class KamarModel implements Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	public long getIdPasien() {
+		return idPasien;
+	}
+
+	public void setIdPasien(long idPasien) {
+		this.idPasien = idPasien;
+	}
+	
 	
 	
 }

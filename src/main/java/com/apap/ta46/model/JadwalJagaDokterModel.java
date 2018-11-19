@@ -31,10 +31,10 @@ public class JadwalJagaDokterModel implements Serializable{
 	private int nama;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_hari", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="id_waktu", referencedColumnName="id", nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
-	private HariModel hari;
+	private WaktuModel waktu;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_jadwal_jaga", referencedColumnName="id", nullable=false)
@@ -58,12 +58,12 @@ public class JadwalJagaDokterModel implements Serializable{
 		this.nama = nama;
 	}
 
-	public HariModel getHari() {
-		return hari;
+	public WaktuModel getWaktu() {
+		return waktu;
 	}
 
-	public void setHari(HariModel hari) {
-		this.hari = hari;
+	public void setWaktu(WaktuModel waktu) {
+		this.waktu = waktu;
 	}
 
 	public JadwalJagaModel getJadwalJaga() {

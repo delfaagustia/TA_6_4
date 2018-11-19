@@ -43,11 +43,9 @@ public class RequestObatModel implements Serializable {
 	@JsonIgnore
 	private PemeriksaanModel pemeriksaan;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pasien", referencedColumnName="id", nullable=false)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
-	@JsonIgnore
-	private PasienModel pasien;
+	@NotNull
+	@Column(name="id_pasien", nullable=false)
+	private long idPasien;
 
 	public long getId() {
 		return Id;
@@ -81,12 +79,12 @@ public class RequestObatModel implements Serializable {
 		this.pemeriksaan = pemeriksaan;
 	}
 
-	public PasienModel getPasien() {
-		return pasien;
+	public long getIdPasien() {
+		return idPasien;
 	}
 
-	public void setPasien(PasienModel pasien) {
-		this.pasien = pasien;
+	public void setIdPasien(long idPasien) {
+		this.idPasien = idPasien;
 	}
 	
 	

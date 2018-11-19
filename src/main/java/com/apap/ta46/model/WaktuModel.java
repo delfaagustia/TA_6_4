@@ -1,5 +1,6 @@
 package com.apap.ta46.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,18 +16,19 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="hari")
-public class HariModel {
+@Table(name="waktu")
+public class WaktuModel {
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long Id;
 	
 	@NotNull
-	@Column(name="hari", nullable=false)
-	private int hari;
+	@Column(name="waktu", nullable=false)
+	private Timestamp waktu;
 	
-	@OneToMany(mappedBy="hari", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	
+	@OneToMany(mappedBy="waktu", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<JadwalJagaDokterModel> jadwalJagaDokterList;
 
 	public long getId() {
@@ -37,12 +39,12 @@ public class HariModel {
 		Id = id;
 	}
 
-	public int getHari() {
-		return hari;
+	public Timestamp getWaktu() {
+		return waktu;
 	}
 
-	public void setHari(int hari) {
-		this.hari = hari;
+	public void setWaktu(Timestamp waktu) {
+		this.waktu = waktu;
 	}
 
 	public List<JadwalJagaDokterModel> getJadwalJagaDokterList() {

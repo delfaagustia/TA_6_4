@@ -30,11 +30,9 @@ public class JadwalJagaModel implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long Id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_dokter", referencedColumnName="id", nullable=false)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
-	@JsonIgnore
-	private DokterModel dokter;
+	@NotNull
+	@Column(name="id_dokter", nullable=false)
+	private long idDokter;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_paviliun", referencedColumnName="id", nullable=false)
@@ -56,14 +54,6 @@ public class JadwalJagaModel implements Serializable {
 
 	public void setId(long id) {
 		Id = id;
-	}
-
-	public DokterModel getDokter() {
-		return dokter;
-	}
-
-	public void setDokter(DokterModel dokter) {
-		this.dokter = dokter;
 	}
 
 	public PaviliunModel getPaviliun() {
@@ -89,7 +79,13 @@ public class JadwalJagaModel implements Serializable {
 	public void setJadwalJagaDokterList(List<JadwalJagaDokterModel> jadwalJagaDokterList) {
 		this.jadwalJagaDokterList = jadwalJagaDokterList;
 	}
-	
-	
+
+	public long getIdDokter() {
+		return idDokter;
+	}
+
+	public void setIdDokter(long idDokter) {
+		this.idDokter = idDokter;
+	}
 	
 }
