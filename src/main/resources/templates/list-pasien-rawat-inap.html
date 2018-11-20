@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Pasien Rawat Inap</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   		
+   		<script type="text/javascript" charset="utf8" src="	https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+		
+		<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+  		<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	
+	</head>
+	<body>
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+		<div class="form">
+			<h3>Pasien Rawat Inap</h3>
+			<form th:action="@{/penanganan/}">
+				<div class="form-group">
+				 	<label>Paviliun:</label>
+				  	<select class="form-control" name="idPaviliun" id="paviliun">
+					  	<option disabled="disabled" selected="selected">-- Pilih Paviliun --</option>
+					    <option th:each="paviliun: ${listPaviliun}" 
+					    		th:value="${paviliun.id}" 
+					    		th:text="${paviliun.namaPaviliun}"
+					    		th:selected="${paviliun} == ${paviliunSelected}"></option>
+				  	</select>
+				</div>
+				<button class="button" type="submit">Cari</button>	 
+			</form>
+		</div>
+		<br><br>
+		<table id="pasienRawatInap" class="display">
+		    <thead>
+		        <tr>
+		            <th>Nama</th>
+		            <th>Paviliun</th>
+		            <th>Kamar</th>
+		            <td></td>
+		        </tr>
+		    </thead>
+		    <tbody>	        
+		        <tr th:each = "kamar: ${listKamar}">
+		            <td th:text="${kamar.idPasien}"></td>
+		            <td th:text="${paviliunSelected.namaPaviliun}"></td>
+		            <td th:text="${kamar.id}"></td>
+                  	<td>
+                  		<form th:action="@{'/penanganan/' + ${kamar.idPasien}}">
+                  			<button type="submit">Lihat Pasien</button>
+                  		</form>
+                  	</td>   
+		        </tr>
+		    </tbody>
+		</table>
+		
+		<script>
+			$(document).ready( function () {
+			    $('#pasienRawatInap').DataTable();
+			} );
+		</script>
+		
+	</body>
+</html>
