@@ -9,7 +9,7 @@
     
     <head th:fragment="css">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-         <link rel="stylesheet" th:href="@{/css/style.css}">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
     </head>
 
     <head th:fragment="js">
@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark navbar-ranap">
         <a class="navbar-brand" href="#">SIRANAP</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -28,7 +28,7 @@
             
             	<!-- Untuk semua pasien yang sudah "dirawat" -->
             	<li class="nav-item active">
-                    <a class="nav-link" th:href="@{/penganganan}">Pasien Rawat Inap</a>
+                    <a class="nav-link" th:href="@{/penanganan}">Pasien Rawat Inap</a>
                 </li>
                        
             	<!-- Untuk semua pasien yang "dirujuk" -->

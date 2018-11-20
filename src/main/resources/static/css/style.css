@@ -6,7 +6,7 @@ body {
 .bg-home {
 	background: #00a2b1;  /* fallback for old browsers */
 	background: -webkit-linear-gradient(to right, #00a2b1, #00a2b1);  /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to right, #00a2b1, #034e61 ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: linear-gradient(to right, #00a2b1, #034e61); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	
 }
 
@@ -71,5 +71,12 @@ h2.title{
 h3.title{
 	color:  #034e61 !important;
 	margin-left:30px;
+}
+
+.navbar-ranap{
+	background-color: #00a2b1 !important;
+	color: white;
+	padding-top: 15px;
+	padding-bottom:15px;
 }
 }
