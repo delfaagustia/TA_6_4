@@ -31,6 +31,7 @@ public class RequestPasienModel implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long Id;
 	
+	//0 belum, 1 udah
 	@NotNull
 	@Column(name="assign", nullable=false)
 	private int assign;

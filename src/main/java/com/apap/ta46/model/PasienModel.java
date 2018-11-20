@@ -7,7 +7,7 @@ public class PasienModel {
 	
 	private long Id;
 	private String nama;
-	private StatusPasienModel status;
+	//private StatusPasienModel status;
 	
 	public long getId() {
 		return Id;
@@ -21,12 +21,12 @@ public class PasienModel {
 	public void setNama(String nama) {
 		this.nama = nama;
 	}
-	public StatusPasienModel getStatus() {
-		return status;
-	}
-	public void setStatus(StatusPasienModel status) {
-		this.status = status;
-	}
+	//public StatusPasienModel getStatus() {
+		//return status;
+	//}
+	//public void setStatus(StatusPasienModel status) {
+		//this.status = status;
+	//}
 	
 	
 	

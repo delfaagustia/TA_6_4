@@ -17,11 +17,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure (HttpSecurity http) throws Exception {
 		http
+		.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/js/**").permitAll()
 			.antMatchers("/user/addUser").permitAll()
 			.antMatchers("/register").permitAll()
+			.antMatchers("/api/daftar-ranap").permitAll()
+			
 			
 			//setting hak akses URL disini
 			.antMatchers("/daftar-request/**").hasAnyAuthority("ADMIN")
@@ -30,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/jadwal-jaga/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/kamar/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/daftar-ranap/**").hasAnyAuthority("ADMIN")
+			.antMatchers("/daftar-pasien/**").hasAnyAuthority("ADMIN")
 			.anyRequest().authenticated()
 			
 			.and()
@@ -53,4 +57,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
 	}
+	
 }
