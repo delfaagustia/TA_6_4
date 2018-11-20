@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+			
+		<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+	  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	    
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+	    <style>
+			.card-container {
+			    display: grid;
+			    padding: 1rem;
+			    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+			    grid-gap: 1rem;
+			}
+			
+			#buttonTambahObat{
+				background-color:#00CED1;
+			}
+			   
+		</style>
+	    
+	</head>
+	
+	<body>
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		
+		<h1 th:text="'Nama: ' + ${pasien.nama}"></h1>
+		<h1 th:text="'ID: ' + ${pasien.id}"></h1>
+		
+		<form th:action="@{'/penanganan/' + ${pasien.id} + '/insert'}">
+			<button class="button" type="submit">Tambah Penanganan</button>	 
+		</form>
+		
+		<section class="card-container">
+		<th:block th:each="penanganan: ${listPenanganan}">
+			<div class="w3-container">
+				<div class="w3-card-4" style="width:100%">
+					<header class="w3-container w3-light-grey">
+					  <h4 th:text="'Penanganan ' + ${penanganan.waktu}"></h4>
+					</header>
+					<div class="w3-container"><br>
+					  <p th:text="${penanganan.pemeriksaan}"></p><br>
+					</div>
+					<button class="w3-button w3-block w3-dark-grey">+Edit</button>					
+					<button class="w3-button w3-block" id = "buttonTambahObat">+TambahObat</button>
+				</div>
+			</div>
+		</th:block>	
+		</section>
+		
+	</body>
+</html>
