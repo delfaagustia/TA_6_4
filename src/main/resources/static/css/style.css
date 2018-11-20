@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:500');
+
+body {
+	font-family: 'Raleway' !important;
+}
+.bg-home {
+	background: #00a2b1;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #00a2b1, #00a2b1);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #00a2b1, #034e61 ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	
+}
+
+.bg-left-card-login{
+	border-left: 1px solid #00a2b1;
+	
+}
+.padding-top {
+	padding-top: 180px;
+}
+
+.login-input {
+	border-radius: 25px !important;
+	border: 2px solid #034e61 !important;
+	background-color : #e1e1e1 !important;
+	width: 100%;
+	padding: 20px 20px;
+}
+
+.select-role{
+	border-radius: 25px; 
+	background-color : #e1e1e1;
+	border: 2px solid #034e61;
+	height:45px;
+}
+#rounded-button{
+	border-radius : 50px !important;
+}
+
+.card-login {
+	background-color: #e1e1e1;
+	padding: 50px;
+	border-radius: 3px 65px 25px;	
+}
+
+.page-padding {
+	padding-top: 50px;
+}
+
+@media (max-width: 768px) {
+	.padding-top {
+		padding-top: 70px; 
+	}
+}
+
+
+h4.title{
+	color:  #034e61 !important;
+	margin-left: 160px;
+	margin-bottom: 25px;
+	font-size: 30px;
+}
+
+h2.title{
+	color:  #034e61 !important;
+	padding-left:90px;
+	font-size: 50px;
+	line-spacing : 80px;
+	padding-top: 70px;
+}
+
+h3.title{
+	color:  #034e61 !important;
+	margin-left:30px;
+}
+}
