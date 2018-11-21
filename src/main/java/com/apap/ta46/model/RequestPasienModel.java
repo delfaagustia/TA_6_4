@@ -40,6 +40,8 @@ public class RequestPasienModel implements Serializable {
 	@Column(name="id_pasien", nullable=false)
 	private long idPasien;
 	
+	@NotNull
+	@Column(name ="tanggalRujukan", nullable = false)
 	public long getId() {
 		return Id;
 	}
