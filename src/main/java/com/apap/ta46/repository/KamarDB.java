@@ -7,5 +7,5 @@ import com.apap.ta46.model.KamarModel;
 
 @Repository
 public interface KamarDB extends JpaRepository<KamarModel, Long>{
-
+	KamarModel findByIdPasien(long idPasien);
 }
