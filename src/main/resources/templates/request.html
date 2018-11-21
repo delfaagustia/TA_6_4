@@ -23,14 +23,18 @@
 	        <table id="pasienRawatInap" class="display">
 		    <thead>
 		        <tr>
-			        <th>Nama</th>
-			        <th>Status</th>
+			        <th>Id Pasien</th>
+			        <th>Nama Pasien</th>
+			        <th>Status Pasien</th>
+			        <th>Status Assign Kamar</th>
 		        </tr>
 		    </thead>
 		    <tbody>
-		        <tr th:each="pasien : ${pasienList}">
-					<td><p th:text="${pasien.nama}"></p></td>
-					<td><p th:text="${pasien.status.jenis}"></p></td>
+		        <tr th:each="requestPasien : ${requestPasienList}">
+					<td><p id="idPasien" th:text="${requestPasien.idPasien}"></p></td>
+					<td><p id="nama" th:text="${map.get(requestPasien).getNama()}"></p></td>
+					<td><p th:text="${map.get(requestPasien).getStatusPasien().getJenis()}"></p></td>
+					<td><p th:text="${requestPasien.assign}"></p></td>
 					
 				</tr>
 		    </tbody>
@@ -38,6 +42,7 @@
 	        
 	        
 	    </div>
+	
 	<script>
 		$(document).ready( function () {
 	    $('#pasienRawatInap').DataTable();
