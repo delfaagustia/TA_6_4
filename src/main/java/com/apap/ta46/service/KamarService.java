@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface KamarService {
 	List<KamarModel> getAllKamar();
+	KamarModel getKamarByIdPasien(long idPasien);
 }

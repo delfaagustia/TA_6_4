@@ -19,4 +19,10 @@ public class KamarServiceImpl implements KamarService{
 		return kamarDb.findAll();
 	}
 
+	@Override
+	public KamarModel getKamarByIdPasien(long idPasien) {
+		// TODO Auto-generated method stub
+		return kamarDb.findByIdPasien(idPasien);
+	}
+
 }
