@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Insert title here</title>
+		<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+	  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	</head>
+	<body>
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		
+		<div class="form">
+			<h4 align="center">Tambah Penanganan</h4><br>
+		
+			<form th:action="@{'/penanganan/'+ ${pasien.id} + '/success'}" th:object="${penanganan}" method="POST">
+				<div class="form-group">
+					<label>Nama Pasien:</label>
+					<input disabled class="form-control" type="text" name="nama" th:value="${pasien.nama}"/>
+				</div>
+				
+				<input type="hidden" name="idPasien" th:value="${pasien.id}"/>
+				
+				<div class="form-group">
+				  <label>Nama Dokter:</label>
+				  <select class="form-control" name="dokter" id="dokter">
+				  	<option disabled="disabled" selected="selected" >-- Pilih Dokter --</option>
+				    <option th:each="dokter: ${listDokter}" 
+				    		th:value="${dokter.id}" 
+				    		th:text="${dokter.nama}"></option>
+				  </select>
+				</div>			
+				
+				<div class="form-group">
+				  <label>Waktu:</label>
+				  <input class="form-control" type="datetime-local" step="1" name="waktuFix"/>
+				</div>
+				
+				<div class="form-group">
+				  <input type="hidden" name="waktu" value="2018-11-01 06:08:00"/>
+				</div>
+				
+				<div class="form-group">
+					<label>Pemeriksaan:</label>
+					<input class="form-control" type="text" name="pemeriksaan" maxlength="255"/>
+				</div>
+				
+				<button class="button" type="submit">Submit</button>
+			</form>
+		</div>
+		
+	</body>
+</html>
