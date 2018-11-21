@@ -12,17 +12,28 @@
 	    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 	    <style>
-			.card-container {
+			.container{
 			    display: grid;
-			    padding: 1rem;
-			    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+			    padding: 2rem;
 			    grid-gap: 1rem;
 			}
 			
-			#buttonTambahObat{
+			#button{
 				background-color:#00CED1;
 			}
 			   
+			.card {
+			  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+			  max-width: 400px;
+			  margin: auto;
+			  text-align: center;
+			  font-family: arial;
+			}
+
+			.title {
+			  color: grey;
+			  font-size: 18px;
+			}   
 		</style>
 	    
 	</head>
@@ -30,29 +41,44 @@
 	<body>
 		<nav th:replace="fragments/fragment :: navbar"></nav>
 		
-		<h1 th:text="'Nama: ' + ${pasien.nama}"></h1>
-		<h1 th:text="'ID: ' + ${pasien.id}"></h1>
-		
-		<form th:action="@{'/penanganan/' + ${pasien.id} + '/insert'}">
-			<button class="button" type="submit">Tambah Penanganan</button>	 
-		</form>
-		
-		<section class="card-container">
-		<th:block th:each="penanganan: ${listPenanganan}">
-			<div class="w3-container">
-				<div class="w3-card-4" style="width:100%">
-					<header class="w3-container w3-light-grey">
-					  <h4 th:text="'Penanganan ' + ${penanganan.waktu}"></h4>
-					</header>
-					<div class="w3-container"><br>
-					  <p th:text="${penanganan.pemeriksaan}"></p><br>
+		<div class="w3-third w3-container">
+			<section class="container">
+				<div class="w3-container" align="center">
+					<img src="https://preview.ibb.co/fhMDEq/blank-profile-picture-973460.png" style="width:100%">
+					<div class="w3-card-4" style="width:100%">
+					  	<h1 th:text="${pasien.nama}"></h1>
+
+						<div class="w3-container w3-white"><br>
+						  	<p th:text="'ID: ' + ${pasien.id}"></p>
+						  	<p th:text="'Paviliun: ' + ${paviliun}"></p>
+						  	<p th:text="'Kamar: ' + ${kamar}"></p>
+				  		</div>
 					</div>
-					<button class="w3-button w3-block w3-dark-grey">+Edit</button>					
-					<button class="w3-button w3-block" id = "buttonTambahObat">+TambahObat</button>
+					<form th:action="@{'/penanganan/' + ${pasien.id} + '/insert'}">
+						<button class="w3-button w3-block" id = "button" type="submit">+Tambah Penanganan</button>	 
+					</form>	
 				</div>
-			</div>
-		</th:block>	
+			</section>
+		</div>
+
+		<div class="w3-twothird w3-container">
+			<section class="container">
+			<th:block th:each="penanganan: ${listPenanganan}">
+				<div class="w3-container" align="center">
+					<div class="w3-card-4" style="width:100%">
+						<header class="w3-container w3-light-grey">
+						  <h4 th:text="'Penanganan ' + ${penanganan.waktu}"></h4>
+						</header>
+						<div class="w3-container w3-white"><br>
+						  <p th:text="${penanganan.pemeriksaan}"></p><br>
+						</div>
+						<button class="w3-button w3-block w3-dark-grey">Lihat Penanganan</button>					
+					</div>
+				</div>
+			</th:block>	
 		</section>
+</div>
+
 		
 	</body>
 </html>
