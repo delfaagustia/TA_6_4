@@ -27,7 +27,7 @@ public class PasienServiceImpl implements PasienService {
 	@Override
 	public PasienModel getPasien(String id) throws IOException {
 		String path = "http://si-appointment.herokuapp.com/api/getPasien/" + id;
-		String pasien= restTemplate.getForObject(path, String.class);
+		String pasien= restTemplate.getForEntity(path, String.class).getBody();
 		    	
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode node = mapper.readTree(pasien);

@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.apap.ta46.model.PasienModel;
 import com.apap.ta46.model.RequestPasienModel;
+import com.apap.ta46.model.StatusPasienModel;
 import com.apap.ta46.repository.RequestPasienDb;
 import com.apap.ta46.rest.BaseResponse;
 import com.apap.ta46.service.PasienService;
@@ -28,7 +30,10 @@ public class ApiIgdController {
 	
 	@Autowired
 	    RestTemplate restTemplate;
-	   
+	@Bean
+	public RestTemplate restTemplate() {
+	    return new RestTemplate();
+	}
 	@Autowired
 		private PasienService pasienService;
 	
@@ -48,13 +53,28 @@ public class ApiIgdController {
             response.setMessage("success");
             response.setResult(pasienRujukan);
            
-        
+            //get objek pasien dari si appt
+            System.out.println("masuksini del");
             PasienModel pasienFull = pasienService.getPasien(Long.toString(pasienRujukan.getIdPasien()));
         	
-            //get dulu, bukak objeknya, ganti ,post lagi
+          //get dulu, bukak objeknya, ganti ,post lagi
+            //buat objek status
+            StatusPasienModel statusMasukRanap = new StatusPasienModel();
+            statusMasukRanap.setId(4);
+            statusMasukRanap.setJenis("Mendaftar di Rawat Inap");
+            
+            //set baru status pasien biar di ranap
+            pasienFull.setStatusPasien(statusMasukRanap);
+            
+            System.out.println(pasienFull.getStatusPasien().getId() + pasienFull.getStatusPasien().getJenis());
+            
             //post status ke si appointment
-           //// String path = "http://si-appointment.herokuapp.com/api/4/updatePasien";
-          // BaseResponse<PasienModel> detail = restTemplate.postForObject(path, pasienRujukan, BaseResponse.class);
+            String path = "http://si-appointment.herokuapp.com/api/4/updatePasien";
+            BaseResponse<PasienModel> detail = restTemplate.postForObject(path, pasienFull, BaseResponse.class);
+            
+            PasienModel pasienEdited = pasienService.getPasien(Long.toString(pasienRujukan.getIdPasien()));
+            System.out.println(pasienEdited.getStatusPasien().getId() + pasienEdited.getStatusPasien().getJenis() + "ini");
+            
         }
         return response;
     }
