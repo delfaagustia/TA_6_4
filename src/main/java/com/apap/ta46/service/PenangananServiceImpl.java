@@ -26,4 +26,10 @@ public class PenangananServiceImpl implements PenangananService{
 		penangananDb.save(penanganan);
 	}
 
+	@Override
+	public PemeriksaanModel getPenangananById(long idPenanganan) {
+		// TODO Auto-generated method stub
+		return penangananDb.findById(idPenanganan).get();
+	}
+
 }

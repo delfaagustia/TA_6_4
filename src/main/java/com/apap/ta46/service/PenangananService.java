@@ -6,4 +6,5 @@ import java.util.List;
 public interface PenangananService {
 	List<PemeriksaanModel> getPenangananByIdPasien(long idPasien);
 	void add(PemeriksaanModel penanganan);
+	PemeriksaanModel getPenangananById(long idPenanganan);
 }

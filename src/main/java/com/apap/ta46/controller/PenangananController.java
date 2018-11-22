@@ -135,6 +135,15 @@ public class PenangananController {
 		return "detail-pasien";
 	}
 	
+	@RequestMapping("/{idPasien}/lihat-penanganan/{idPenanganan}")
+	private String viewPenanganan(@PathVariable(value="idPasien") long idPasien,
+								  @PathVariable(value="idPenanganan") long idPenanganan, Model model) throws IOException{
+		PemeriksaanModel penanganan = penangananService.getPenangananById(idPenanganan);
+		model.addAttribute("penanganan", penanganan);
+		return "detail-penanganan";
+	}
+	
+	
 	//method yang mengembalikan object Dokter dari API
 	private DokterModel getDokterById(Long idDokter) throws IOException {
 		String path = Setting.dokterUrl + idDokter;

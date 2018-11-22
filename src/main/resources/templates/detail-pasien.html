@@ -72,7 +72,9 @@
 						<div class="w3-container w3-white"><br>
 						  <p th:text="${penanganan.pemeriksaan}"></p><br>
 						</div>
-						<button class="w3-button w3-block w3-dark-grey">Lihat Penanganan</button>					
+						<form th:action="@{'/penanganan/' + ${pasien.id} + '/lihat-penanganan/' + ${penanganan.id}}">
+							<button class="w3-button w3-block w3-dark-grey">Lihat Penanganan</button>					
+						</form>	
 					</div>
 				</div>
 			</th:block>	
