@@ -63,7 +63,7 @@ public class KamarController {
 	
 	@RequestMapping(value = "/kamar/{id}", method = RequestMethod.GET)
 	private String viewDetailKamar(@PathVariable(value="id") long id, Model model){
-		KamarModel kamar = kamarService.getKamarDetailById(id);
+		KamarModel kamar = kamarService.getKamar(id);
 		model.addAttribute("kamar", kamar);
 		
 		List<PaviliunModel> listPaviliun = paviliunService.getAllPaviliun();
@@ -71,7 +71,7 @@ public class KamarController {
 		
 		return "detailKamar";
 	}
-	
+
 	@GetMapping(value="/addkamar")
 	private String addKamar(Model model) {
 		KamarModel kamar = new KamarModel();
@@ -89,7 +89,7 @@ public class KamarController {
 	@GetMapping(value="/updatekamar/{id}")
 	private String updateKamar(@PathVariable("id") String id, Model model) throws IOException {
 		PasienModel[] pas = pasienService.getAllPasien();
-		KamarModel kamar = kamarService.getKamarDetailById(Long.parseLong(id));
+		KamarModel kamar = kamarService.getKamar(Long.parseLong(id));
 		model.addAttribute("kamar", kamar);
 		model.addAttribute("listPaviliun", paviliunService.getAllPaviliun());
 		model.addAttribute("listPasien", pas);
@@ -107,7 +107,7 @@ public class KamarController {
 //		PasienModel[] pas = pasienService.getAllPasien();
 //		System.out.println(pas);
 //	}
-	
+
 //	@GetMapping(value="/pasien/{id}")
 //	private void getPasien(@PathVariable("id") String id) throws IOException {
 //		pasienService.getPasien(id);

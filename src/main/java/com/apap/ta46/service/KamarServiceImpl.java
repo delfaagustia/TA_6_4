@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.repository.KamarDb;
 
@@ -18,7 +17,7 @@ public class KamarServiceImpl implements KamarService {
 	private KamarDb kamarDb;
 	
 	@Override
-	public KamarModel getKamarDetailById(long id) {
+	public KamarModel getKamar(long id) {
 		return kamarDb.findById(id);
 	}
 
@@ -71,12 +70,12 @@ public class KamarServiceImpl implements KamarService {
 	@Override
 	public void updateKamar(KamarModel kamar) {
 		System.out.println(kamar.getId());
-		KamarModel archiveKamar = this.getKamarDetailById(kamar.getId());
+		KamarModel archiveKamar = this.getKamar(kamar.getId());
 		archiveKamar.setIdPasien(kamar.getIdPasien());
 		archiveKamar.setPaviliun(kamar.getPaviliun());
 		archiveKamar.setStatus(kamar.getStatus());
 	}
-	
+
 	@Override
 	public void addKamar(KamarModel kamar) {
 		String idPaviliun = String.valueOf(kamar.getPaviliun().getId());
@@ -89,9 +88,7 @@ public class KamarServiceImpl implements KamarService {
 		}
 		String id = idPaviliun + urutan;
 		kamar.setId(Long.parseLong(id));
-		kamarDb.save(kamar);		
+		kamarDb.save(kamar);
 	}
 	
-	
-
 }

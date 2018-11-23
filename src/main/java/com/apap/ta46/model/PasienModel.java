@@ -16,27 +16,21 @@ public class PasienModel {
 	public Date getTanggalRujukan() {
 		return tanggalRujukan;
 	}
-	
 	public void setTanggalRujukan(Date tanggalRujukan) {
 		this.tanggalRujukan = tanggalRujukan;
 	}
-	
 	public StatusPasienModel getStatusPasien() {
 		return statusPasien;
 	}
-	
 	public void setStatusPasien(StatusPasienModel statusPasien) {
 		this.statusPasien = statusPasien;
 	}
-	
 	public String getPoliRujukan() {
 		return poliRujukan;
 	}
-	
 	public void setPoliRujukan(String poliRujukan) {
 		this.poliRujukan = poliRujukan;
 	}
-	
 	public long getId() {
 		return Id;
 	}

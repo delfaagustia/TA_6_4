@@ -55,7 +55,6 @@ public class RequestObatModel implements Serializable {
 		Id = id;
 	}
 
-	
 	public String getNamaObat() {
 		return namaObat;
 	}

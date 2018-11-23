@@ -42,4 +42,5 @@ public class BaseResponse<T> {
     public void setResult(T result) {
         this.result = result;
     }
+
 }
