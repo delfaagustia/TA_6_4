@@ -12,8 +12,6 @@ import com.apap.ta46.model.PasienModel;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-
 @Service
 @Transactional
 public class PasienServiceImpl implements PasienService {
@@ -33,9 +31,6 @@ public class PasienServiceImpl implements PasienService {
     	JsonNode node = mapper.readTree(allpasien);
     	JsonNode result = node.get("result");
     	PasienModel[] listpasien = mapper.treeToValue(result, PasienModel[].class);
-    	for(PasienModel pas : listpasien) {
-    		System.out.println(pas.getNama() +";"+ pas.getStatusPasien().getJenis());
-    	}
 		return listpasien;
 	}
 	
