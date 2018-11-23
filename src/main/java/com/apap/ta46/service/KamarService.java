@@ -9,4 +9,8 @@ public interface KamarService {
 	KamarModel findKamarDetailByStatus(int status);
 	List<KamarModel> getAllKamar();
 	List<KamarModel> findKamarByPaviliun(long idPaviliun);
+	List<KamarModel> findKamarByStatus(int status);
+	List<KamarModel> findKamarByPaviliunAndStatus(long idPaviliun, int status);
+	void addKamar(KamarModel kamar);
+	void updateKamar(KamarModel kamar);
 }

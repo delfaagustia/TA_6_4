@@ -33,15 +33,63 @@ public class KamarServiceImpl implements KamarService {
 	}
 	
 	@Override
-	public List<KamarModel> findKamarByPaviliun(long idPaviliun) {
+	public List<KamarModel> findKamarByStatus(int status) {
 		List<KamarModel> search = new ArrayList<>();
 		
 		for(KamarModel kamar : kamarDb.findAll()) {
-			if (kamar.getPaviliun().getId() == idPaviliun && kamar.getStatus() == 0) {
+			if (kamar.getStatus() == status) {
 				search.add(kamar);
 			}
 		}
 		return search;
+	}
+	
+	@Override
+	public List<KamarModel> findKamarByPaviliun(long idPaviliun) {
+		List<KamarModel> search = new ArrayList<>();
+		
+		for(KamarModel kamar : kamarDb.findAll()) {
+			if (kamar.getPaviliun().getId() == idPaviliun) {
+				search.add(kamar);
+			}
+		}
+		return search;
+	}
+	
+	@Override
+	public List<KamarModel> findKamarByPaviliunAndStatus(long idPaviliun, int status) {
+		List<KamarModel> search = new ArrayList<>();
+		
+		for(KamarModel kamar : kamarDb.findAll()) {
+			if (kamar.getPaviliun().getId() == idPaviliun && kamar.getStatus() == status) {
+				search.add(kamar);
+			}
+		}
+		return search;
+	}
+	
+	@Override
+	public void updateKamar(KamarModel kamar) {
+		System.out.println(kamar.getId());
+		KamarModel archiveKamar = this.getKamarDetailById(kamar.getId());
+		archiveKamar.setIdPasien(kamar.getIdPasien());
+		archiveKamar.setPaviliun(kamar.getPaviliun());
+		archiveKamar.setStatus(kamar.getStatus());
+	}
+	
+	@Override
+	public void addKamar(KamarModel kamar) {
+		String idPaviliun = String.valueOf(kamar.getPaviliun().getId());
+		int banyakKamar = kamar.getPaviliun().getKamarList().size();
+		String urutan = "";
+		if(banyakKamar < 10) {
+			urutan = "0" + String.valueOf(banyakKamar);
+		}else {
+			urutan = String.valueOf(banyakKamar);
+		}
+		String id = idPaviliun + urutan;
+		kamar.setId(Long.parseLong(id));
+		kamarDb.save(kamar);		
 	}
 	
 	

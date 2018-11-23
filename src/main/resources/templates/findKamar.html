@@ -36,6 +36,13 @@
 			        </option>
 			</select>
 			<br>
+			Status Kamar : <br>
+			<select class="form-control" name="status" id="status">
+				<option disabled="disabled" selected="selected">Pilih Status</option>
+				<option th:value="'0'" th:text="In-active"></option>
+    			<option th:value="'1'" th:text="Active"></option>
+			</select>
+			<br>
 			<button type="submit" class="btn btn-primary">Tampilkan</button>
 			</div>
 			
@@ -45,7 +52,7 @@
 	       <thead>
 	            <tr>
 					<th>Nomor Kamar</th>
-					<th>Status</th>
+					<th>Status Kamar</th>
 	            </tr>
 	        </thead>
 	        <tbody>

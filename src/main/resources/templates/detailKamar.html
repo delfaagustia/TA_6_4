@@ -13,12 +13,22 @@
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<div class="container-fluid">
 		<br>
-		<h3 style="text-align:center;">Detail Kamar</h3>
-		<h3 style="text-align:center;" th:text="${kamar.paviliun.namaPaviliun} + ' ' + 
+		<h3 style="text-align:center;" th:text="'Detail Kamar ' + ${kamar.paviliun.namaPaviliun} + ' ' + 
 		${kamar.id}"></h3>
-		<p th:text="${kamar.status == 0} ? 'In-active' : 'Active'"></p>
-		<p th:text="'Nama Pasien : ' + ${kamar.idPasien}"></p>
-
+		<br>
+		<div class="col-md-3">
+			Paviliun : <br>
+			<select class="form-control" name="idPaviliun" id="paviliun">
+				<option disabled="disabled" selected="selected">Pilih Paviliun</option>
+			        <option th:each="paviliun : ${listPaviliun}"
+			                th:value="${paviliun.id}"
+			                th:text="${paviliun.namaPaviliun}">
+			        </option>
+			</select>
+			<br>
+			<p th:text="${kamar.status == 0} ? 'Status : In-active' : 'Status : Active'"></p>
+			<p th:text="'Nama Pasien : ' + ${kamar.idPasien}"></p>
+		</div>
 	</div>
 </body>
 </html>
