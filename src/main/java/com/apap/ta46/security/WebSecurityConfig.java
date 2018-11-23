@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/user/addUser").permitAll()
 			.antMatchers("/register").permitAll()
 			.antMatchers("/api/daftar-ranap").permitAll()
-			
+			.antMatchers("/api/get-all-kamar").permitAll()
 			
 			//setting hak akses URL disini
 			.antMatchers("/daftar-request/**").hasAnyAuthority("ADMIN")
@@ -60,3 +60,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 }
+
