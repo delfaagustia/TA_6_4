@@ -1,0 +1,23 @@
+<style>
+
+<head>
+    <title>SIRANAP-Home</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: red;
+   color: white;
+   text-align: center;
+}
+</style>
+
+<div th:fragment="footer" class="footer">
+  <p>Footer</p>
+</div>

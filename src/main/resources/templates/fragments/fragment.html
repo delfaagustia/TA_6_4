@@ -19,9 +19,9 @@
 
 <body>
     <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark navbar-ranap">
-        <a class="navbar-brand" href="#">SIRANAP</a>
+        <a class="navbar-brand siranap" href="#">SIRANAP</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto" style = "margin-left: 50px">
                 <li class="nav-item active">
                     <a class="nav-link" th:href="@{/}">Home</a>
                 </li>
@@ -54,7 +54,8 @@
             
              <ul class = "navbar-nav pull-right">
             	<li class = "nav-item active">
-            		<a class="nav-link" th:href="@{/logout}">Logout</a>
+            		
+            		<a id = "rounded-text" th:href="@{/logout}"  class="btn btn-outline-light" role="button">Logout</a>
             	</li>
             </ul>
         </div>
