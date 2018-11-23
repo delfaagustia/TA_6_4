@@ -25,17 +25,34 @@
 				<h2 th:text="${pasien.nama}"></h2>
 				<input class="form-control" type="hidden" name="idPasien" th:value="${pasien.id}"/>
 				<br>
-				<td th:text="'Paviliun'"></td>
-		 		<td>
+				<h2 th:text="'Paviliun'"></h2>
+		 		<h2>
 						<select id="paviliun" class="form-control"/>
 							<option disabled="disabled" selected="selected" >Pilih Paviliun</option>
-						<option th:each="paviliun : ${paviliunList}"
+						<div th:each="paviliun : ${paviliunList}">
+						<option 
 						th:value="${paviliun.id}"
 						th:text="${paviliun.namaPaviliun}"></option>
 						</select>
-		 		</td>
+						
+						<select id="kamar" class="form-control"/>
+							<option disabled="disabled" selected="selected" >Pilih Kamar</option>
+						<option th:each="kamar : ${map.get(paviliun)}"
+						th:value="${kamar.id}"
+						th:text="${kamar.id}"></option>
+						</div>
+		 		</h2>
 				<br>
-				
+				<h2 th:text="'Kamar'"></h2>
+		 		<h2>
+						<select id="kamar" class="form-control"/>
+							<option disabled="disabled" selected="selected" >Pilih Kamar</option>
+						<option th:each="kamar : ${map.get(paviliun)}"
+						th:value="${kamar.id}"
+						th:text="${kamar.id}"></option>
+						</select>
+		 		</h2>
+				<br>
 
 				<br>
 				<button  class="btn btn-primary btn" type="submit">Submit</button>

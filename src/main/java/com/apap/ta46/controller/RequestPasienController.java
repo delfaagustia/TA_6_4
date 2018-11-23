@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.model.PasienModel;
+import com.apap.ta46.model.PaviliunModel;
 import com.apap.ta46.model.RequestPasienModel;
 import com.apap.ta46.service.KamarService;
 import com.apap.ta46.service.PasienService;
@@ -70,7 +71,16 @@ public class RequestPasienController {
 		PasienModel pasien = pasienService.getPasien(idPasien);
 		model.addAttribute("pasien", pasien);
 		
-		model.addAttribute("paviliunList", paviliunService.getAllPaviliun());
+		List<PaviliunModel> paviliunList = paviliunService.getAllPaviliun();
+		
+		model.addAttribute("paviliunList", paviliunList);
+		
+		Map<PaviliunModel, List<KamarModel>> map = new HashMap<>();
+		for(PaviliunModel paviliun : paviliunList) {
+			map.put(paviliun, paviliun.getKamarList());
+		}
+		
+		model.addAttribute("map", map);
 		
 		return "request-assign-kamar";
 	}
