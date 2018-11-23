@@ -45,6 +45,7 @@ public class KamarController {
 	private String updateKamar(@PathVariable("id") String id, Model model) throws IOException {
 		PasienModel[] pas = pasienService.getAllPasien();
 		KamarModel kamar = kamarService.getKamar(Long.parseLong(id));
+		System.out.println(kamar.getIdPasien());
 		model.addAttribute("kamar", kamar);
 		model.addAttribute("listPaviliun", paviliunService.getAllPaviliun());
 		model.addAttribute("listPasien", pas);
@@ -53,6 +54,8 @@ public class KamarController {
 	
 	@PostMapping(value="/updatekamar")
 	private String updateKamarSubmit(@ModelAttribute KamarModel kamar, Model model){
+		System.out.println(kamar.getIdPasien());
+		System.out.println(kamar.getStatus());
 		kamarService.updateKamar(kamar);
 		return "sukses";
 	}

@@ -42,18 +42,14 @@ public class PasienServiceImpl implements PasienService {
 	}
 	
 	@Override
-	public void getPasien(String id) throws IOException {
+	public PasienModel getPasien(String id) throws IOException {
 		String path = "http://si-appointment.herokuapp.com/api/getPasien/" + id;
 		String pasien= restTemplate.getForObject(path, String.class);
     	ObjectMapper mapper = new ObjectMapper();
     	JsonNode node = mapper.readTree(pasien);
     	JsonNode result = node.get("result");
-    	System.out.println(pasien);
-    	System.out.println(result.get("statusPasien").get("jenis"));
-    	//PasienModel[] listpasien = mapper.treeToValue(result, PasienModel[].class);
-//    	for(PasienModel pas : listpasien) {
-//    		System.out.println(pas.getNama() +";"+pas.getId());
-//    	}
+    	PasienModel pas = mapper.treeToValue(result, PasienModel.class);
+    	return pas;
 	}
 
 }
