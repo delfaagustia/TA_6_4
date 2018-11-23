@@ -31,7 +31,7 @@ public class RequestObatModel implements Serializable {
 	@NotNull
 	@Size(max=255)
 	@Column(name="nama_obat", nullable=false)
-	private String nama_obat;
+	private String namaObat;
 	
 	@NotNull
 	@Column(name="jumlah", nullable=false)
@@ -55,12 +55,12 @@ public class RequestObatModel implements Serializable {
 		Id = id;
 	}
 
-	public String getNama_obat() {
-		return nama_obat;
+	public String getNamaObat() {
+		return namaObat;
 	}
 
-	public void setNama_obat(String nama_obat) {
-		this.nama_obat = nama_obat;
+	public void setNamaObat(String namaObat) {
+		this.namaObat = namaObat;
 	}
 
 	public int getJumlah() {
