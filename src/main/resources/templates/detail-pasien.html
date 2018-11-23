@@ -48,15 +48,13 @@
 					<div class="w3-card-4" style="width:100%">
 					  	<h1 th:text="${pasien.nama}"></h1>
 
-						<div class="w3-container w3-white"><br>
+						<div class="w3-container w3-white">
 						  	<p th:text="'ID: ' + ${pasien.id}"></p>
 						  	<p th:text="'Paviliun: ' + ${paviliun}"></p>
 						  	<p th:text="'Kamar: ' + ${kamar}"></p>
 				  		</div>
+						<a th:href="@{'/pasien-ranap/' + ${pasien.id} + '/insert'}" class="w3-button w3-block" id="button" style="text-decoration:none">+Tambah Penanganan</a>
 					</div>
-					<form th:action="@{'/penanganan/' + ${pasien.id} + '/insert'}">
-						<button class="w3-button w3-block" id = "button" type="submit">+Tambah Penanganan</button>	 
-					</form>	
 				</div>
 			</section>
 		</div>
@@ -72,9 +70,7 @@
 						<div class="w3-container w3-white"><br>
 						  <p th:text="${penanganan.pemeriksaan}"></p><br>
 						</div>
-						<form th:action="@{'/penanganan/' + ${pasien.id} + '/lihat-penanganan/' + ${penanganan.id}}">
-							<button class="w3-button w3-block w3-dark-grey">Lihat Penanganan</button>					
-						</form>	
+						<a th:href="@{'/pasien-ranap/' + ${pasien.id} + '/penanganan/' + ${penanganan.id}}" class="w3-button w3-block" id="button" style="text-decoration:none">Lihat Penanganan</a>
 					</div>
 				</div>
 			</th:block>	
