@@ -5,14 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.apap.ta46.model.PaviliunModel;
-import com.apap.ta46.repository.PaviliunDB;
+import com.apap.ta46.repository.PaviliunDb;
 
 @Service
 @Transactional
 public class PaviliunServiceImpl implements PaviliunService{
 
 	@Autowired
-	PaviliunDB paviliunDb;
+	PaviliunDb paviliunDb;
 	
 	@Override
 	public List<PaviliunModel> getAllPaviliun() {

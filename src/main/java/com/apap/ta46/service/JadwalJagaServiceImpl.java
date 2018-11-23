@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.apap.ta46.model.JadwalJagaModel;
-import com.apap.ta46.repository.JadwalJagaDB;
+import com.apap.ta46.repository.JadwalJagaDb;
 
 @Service
 @Transactional
 public class JadwalJagaServiceImpl implements JadwalJagaService{
 	
 	@Autowired
-	JadwalJagaDB jadwalJagaDb;
+	JadwalJagaDb jadwalJagaDb;
 	
 	@Override
 	public List<JadwalJagaModel> getAllJadwalJaga() {

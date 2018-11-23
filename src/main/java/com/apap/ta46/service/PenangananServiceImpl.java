@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.apap.ta46.model.PemeriksaanModel;
-import com.apap.ta46.repository.PenangananDB;
+import com.apap.ta46.repository.PenangananDb;
 
 @Service
 @Transactional
 public class PenangananServiceImpl implements PenangananService{
 	@Autowired
-	PenangananDB penangananDb;
+	PenangananDb penangananDb;
 	
 	@Override
 	public List<PemeriksaanModel> getPenangananByIdPasien(long idPasien) {

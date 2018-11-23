@@ -7,6 +7,6 @@ import java.lang.Long;
 import java.util.List;
 
 @Repository
-public interface PenangananDB extends JpaRepository<PemeriksaanModel, Long>{
+public interface PenangananDb extends JpaRepository<PemeriksaanModel, Long>{
 	List<PemeriksaanModel> findAllByIdPasien(long idPasien);
 }
