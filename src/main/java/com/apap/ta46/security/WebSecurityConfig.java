@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//setting hak akses URL disini
 			.antMatchers("/daftar-request/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/penanganan/**").hasAnyAuthority("ADMIN", "DOKTER")
+			.antMatchers("/pasien-ranap/**").hasAnyAuthority("ADMIN", "DOKTER")
 			.antMatchers("/obat/request/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/jadwal-jaga/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/kamar/**").hasAnyAuthority("ADMIN")

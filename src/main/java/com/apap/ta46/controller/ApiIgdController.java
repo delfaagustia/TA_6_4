@@ -66,14 +66,17 @@ public class ApiIgdController {
             //set baru status pasien biar di ranap
             pasienFull.setStatusPasien(statusMasukRanap);
             
-            System.out.println(pasienFull.getStatusPasien().getId() + pasienFull.getStatusPasien().getJenis());
+            System.out.println(pasienFull.getStatusPasien().getId() + pasienFull.getStatusPasien().getJenis() +"sebelum");
             
-            //post status ke si appointment
+            //post status ke si appointment (ini yang buat post ulangnya)
             String path = "http://si-appointment.herokuapp.com/api/4/updatePasien";
+            System.out.println(path);
             BaseResponse<PasienModel> detail = restTemplate.postForObject(path, pasienFull, BaseResponse.class);
-            
+            System.out.println(detail.getStatus() + "ahhaha");
+            System.out.println(detail.getMessage() + "ini pesan");
             PasienModel pasienEdited = pasienService.getPasien(Long.toString(pasienRujukan.getIdPasien()));
-            System.out.println(pasienEdited.getStatusPasien().getId() + pasienEdited.getStatusPasien().getJenis() + "ini");
+            System.out.println(pasienEdited.getStatusPasien().getId() + pasienEdited.getStatusPasien().getJenis() + "ini harusnya");
+            
             
         }
         return response;
