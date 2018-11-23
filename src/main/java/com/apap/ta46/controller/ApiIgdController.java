@@ -40,12 +40,14 @@ public class ApiIgdController {
 	@PostMapping(value = "/daftar-ranap")
     public BaseResponse<RequestPasienModel> addPasienRujukan (@RequestBody @Valid PasienModel pasien, BindingResult bindingResult) throws IOException {
         BaseResponse<RequestPasienModel> response = new BaseResponse<RequestPasienModel>();
-        
+        System.out.println(pasien.getId() + "ini id masuk");
         RequestPasienModel pasienRujukan = new RequestPasienModel ();
         if (bindingResult.hasErrors() || pasien.equals(null) || pasien.getId() <= 0) { //INI TANYA LAGI
             response.setStatus(500);
             response.setMessage("error data");
-        } else {
+        } 
+        
+        else {
         	pasienRujukan.setIdPasien(pasien.getId());
         	pasienRujukan.setAssign(0);//belum assign kamar
         	requestPasienDb.save(pasienRujukan);
@@ -54,10 +56,8 @@ public class ApiIgdController {
             response.setResult(pasienRujukan);
            
             //get objek pasien dari si appt
-            System.out.println("masuksini del");
             PasienModel pasienFull = pasienService.getPasien(Long.toString(pasienRujukan.getIdPasien()));
         	
-          //get dulu, bukak objeknya, ganti ,post lagi
             //buat objek status
             StatusPasienModel statusMasukRanap = new StatusPasienModel();
             statusMasukRanap.setId(4);
@@ -66,19 +66,10 @@ public class ApiIgdController {
             //set baru status pasien biar di ranap
             pasienFull.setStatusPasien(statusMasukRanap);
             
-            System.out.println(pasienFull.getStatusPasien().getId() + pasienFull.getStatusPasien().getJenis() +"sebelum");
-            
             //post status ke si appointment (ini yang buat post ulangnya)
             String path = "http://si-appointment.herokuapp.com/api/4/updatePasien";
-            System.out.println(path);
             BaseResponse<PasienModel> detail = restTemplate.postForObject(path, pasienFull, BaseResponse.class);
-            System.out.println(detail.getStatus() + "ahhaha");
-            System.out.println(detail.getMessage() + "ini pesan");
-            PasienModel pasienEdited = pasienService.getPasien(Long.toString(pasienRujukan.getIdPasien()));
-            System.out.println(pasienEdited.getStatusPasien().getId() + pasienEdited.getStatusPasien().getJenis() + "ini harusnya");
-            
-            
-        }
+         	}
         return response;
     }
 }

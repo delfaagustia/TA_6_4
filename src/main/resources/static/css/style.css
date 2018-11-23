@@ -3,6 +3,11 @@
 body {
 	font-family: 'Raleway' !important;
 }
+
+.siranap{
+	font-size: 30px;
+}
+
 .bg-home {
 	background: #00a2b1;  /* fallback for old browsers */
 	background: -webkit-linear-gradient(to right, #00a2b1, #00a2b1);  /* Chrome 10-25, Safari 5.1-6 */
@@ -12,6 +17,7 @@ body {
 
 .bg-left-card-login{
 	border-left: 1px solid #00a2b1;
+	
 	
 }
 .padding-top {
@@ -32,8 +38,19 @@ body {
 	border: 2px solid #034e61;
 	height:45px;
 }
+
 #rounded-button{
 	border-radius : 50px !important;
+}
+
+#rounded-text{
+	border-radius : 50px !important;
+	display:block !important;
+	height:40px !important;
+	width: 100px !important;
+	border-radius: 25px !important;
+	border: 3px solid #e1e1e1; !important;
+	margin-right: 40px;
 }
 
 .card-login {
@@ -55,7 +72,8 @@ body {
 
 h4.title{
 	color:  #034e61 !important;
-	margin-left: 160px;
+	margin-left: 150px;
+	margin-right: 150px;
 	margin-bottom: 25px;
 	font-size: 30px;
 }
@@ -63,20 +81,20 @@ h4.title{
 h2.title{
 	color:  #034e61 !important;
 	padding-left:90px;
-	font-size: 50px;
+	font-size: 45px;
 	line-spacing : 80px;
 	padding-top: 70px;
 }
 
 h3.title{
 	color:  #034e61 !important;
-	margin-left:30px;
+	margin-left:25px;
 }
 
 .navbar-ranap{
 	background-color: #00a2b1 !important;
 	color: white;
-	padding-top: 15px;
-	padding-bottom:15px;
+	padding-top: 7px;
+	padding-bottom: 7x;
 }
 }
