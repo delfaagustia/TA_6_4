@@ -16,3 +16,4 @@ public interface KamarService {
 	KamarModel getKamarByIdPasien(long idPasien);
 
 }
+

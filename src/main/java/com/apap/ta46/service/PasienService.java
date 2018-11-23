@@ -8,3 +8,4 @@ public interface PasienService {
 	PasienModel[] getAllPasien() throws IOException;
 	PasienModel getPasien(String id) throws IOException;
 }
+
