@@ -20,7 +20,7 @@
 		<div class="update-penanganan-container">
 			<h4 align="center">Ubah Penanganan</h4><br>
 		
-			<form th:action="@{'/penanganan/' + ${pasien.id} + '/lihat-penanganan/' + ${penanganan.id} + '/success'}" th:object="${penanganan}" method="POST">
+			<form th:action="@{'/pasien-ranap/' + ${pasien.id} + '/lihat-penanganan/' + ${penanganan.id} + '/success'}" th:object="${penanganan}" method="POST">
 				<div class="form-group">
 					<label>Nama Pasien:</label>
 					<input disabled class="form-control" type="text" name="nama" th:value="${pasien.nama}"/>
