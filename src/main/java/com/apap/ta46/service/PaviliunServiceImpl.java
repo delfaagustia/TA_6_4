@@ -22,4 +22,9 @@ public class PaviliunServiceImpl implements PaviliunService{
 		return paviliunDb.findAll();
 	}
 
+	@Override
+	public PaviliunModel getPaviliun(Long id) {
+		// TODO Auto-generated method stub
+		return paviliunDb.findById(id).get();
+	}
 }

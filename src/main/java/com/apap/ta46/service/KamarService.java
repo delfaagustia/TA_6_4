@@ -13,5 +13,6 @@ public interface KamarService {
 	List<KamarModel> findKamarByPaviliunAndStatus(long idPaviliun, int status);
 	void addKamar(KamarModel kamar);
 	void updateKamar(KamarModel kamar);
+	KamarModel getKamarByIdPasien(long idPasien);
 
 }

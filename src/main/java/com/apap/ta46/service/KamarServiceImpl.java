@@ -7,6 +7,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.repository.KamarDb;
 
@@ -23,6 +26,7 @@ public class KamarServiceImpl implements KamarService {
 
 	@Override
 	public List<KamarModel> getAllKamar() {
+		// TODO Auto-generated method stub
 		return kamarDb.findAll();
 	}
 
@@ -91,4 +95,9 @@ public class KamarServiceImpl implements KamarService {
 		kamarDb.save(kamar);
 	}
 	
+	public KamarModel getKamarByIdPasien(long idPasien) {
+		// TODO Auto-generated method stub
+		return kamarDb.findByIdPasien(idPasien);
+	}
+
 }
