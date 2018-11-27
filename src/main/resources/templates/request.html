@@ -23,7 +23,6 @@
 	        <table id="pasienRawatInap" class="display">
 		    <thead>
 		        <tr>
-			        <th>Id Pasien</th>
 			        <th>Nama Pasien</th>
 			        <th>Status Pasien</th>
 			        <th>Status Assign Kamar</th>
@@ -31,10 +30,13 @@
 		    </thead>
 		    <tbody>
 		        <tr th:each="requestPasien : ${requestPasienList}">
-					<td><p id="idPasien" th:text="${requestPasien.idPasien}"></p></td>
 					<td><p id="nama" th:text="${map.get(requestPasien).getNama()}"></p></td>
 					<td><p th:text="${map.get(requestPasien).getStatusPasien().getJenis()}"></p></td>
-					<td><p th:text="${requestPasien.assign}"></p></td>
+					
+					
+					<td> <a th:href="@{'/daftar-request/assign/'+ ${requestPasien.idPasien}}" 
+					th:text="${requestPasien.assign == 0} ? 'Not-assigned' : 'Assigned'"></a>
+					</td>
 					
 				</tr>
 		    </tbody>
