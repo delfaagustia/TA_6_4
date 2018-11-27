@@ -19,4 +19,10 @@ public class RequestPasienServiceImpl implements RequestPasienService{
 		return requestPasienDb.findAll();
 	}
 
+	@Override
+	public RequestPasienModel getRequestPasienByIdPasien(long idPasien) {
+		// TODO Auto-generated method stub
+		return requestPasienDb.findByIdPasien(idPasien);
+	}
+
 }

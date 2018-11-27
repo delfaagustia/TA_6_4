@@ -75,22 +75,20 @@ public class RequestPasienController {
 		
 		model.addAttribute("paviliunList", paviliunList);
 		
-		Map<PaviliunModel, List<KamarModel>> map = new HashMap<>();
-		for(PaviliunModel paviliun : paviliunList) {
-			map.put(paviliun, paviliun.getKamarList());
-		}
-		
-		model.addAttribute("map", map);
-		
 		return "request-assign-kamar";
 	}
 	
 	@RequestMapping(value="/assign", method = RequestMethod.POST)
-	private @ResponseBody KamarModel assignKamarPasienSubmit(@ModelAttribute KamarModel kamarPalsu, Model model) {
+	private String assignKamarPasienSubmit(@ModelAttribute KamarModel kamarPalsu, Model model) {
 		KamarModel kamarAsli = kamarService.getKamar(kamarPalsu.getId());
-		//kamarAsli.setIdPasien(kamarAsli.);
 		
-		kamarService.addKamar(kamarAsli);
-		return kamarAsli;
+		RequestPasienModel rp = requestPasienService.getRequestPasienByIdPasien(kamarPalsu.getIdPasien());
+		rp.setAssign(1);
+		
+		kamarAsli.setIdPasien(kamarPalsu.getIdPasien());
+		kamarAsli.setStatus(1);
+		
+		kamarService.updateKamar(kamarAsli);
+		return "sukses";
 	}
 }

@@ -10,4 +10,5 @@ import com.apap.ta46.model.RequestPasienModel;
 @Repository
 public interface RequestPasienDb extends JpaRepository<RequestPasienModel, Long>{
 	List<RequestPasienModel> findAll();
+	RequestPasienModel findByIdPasien(long idPasien);
 }

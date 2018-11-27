@@ -20,7 +20,7 @@
 	        <h2 th:text = " 'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
 	    	
 	        <div class="row">
-	        <form th:action="@{/request/assign}" method="POST">
+	        <form th:action="@{/daftar-request/assign}" method="POST">
 				Nama: <br>
 				<h2 th:text="${pasien.nama}"></h2>
 				<input class="form-control" type="hidden" name="idPasien" th:value="${pasien.id}"/>
@@ -29,31 +29,25 @@
 		 		<h2>
 						<select id="paviliun" class="form-control"/>
 							<option disabled="disabled" selected="selected" >Pilih Paviliun</option>
-						<div th:each="paviliun : ${paviliunList}">
-						<option 
+						<option th:each="paviliun : ${paviliunList}"
 						th:value="${paviliun.id}"
 						th:text="${paviliun.namaPaviliun}"></option>
 						</select>
-						
-						<select id="kamar" class="form-control"/>
-							<option disabled="disabled" selected="selected" >Pilih Kamar</option>
-						<option th:each="kamar : ${map.get(paviliun)}"
-						th:value="${kamar.id}"
-						th:text="${kamar.id}"></option>
-						</div>
 		 		</h2>
 				<br>
 				<h2 th:text="'Kamar'"></h2>
 		 		<h2>
-						<select id="kamar" class="form-control"/>
+						<select name="Id" id="Id" class="form-control"/>
 							<option disabled="disabled" selected="selected" >Pilih Kamar</option>
-						<option th:each="kamar : ${map.get(paviliun)}"
+						<!-- <option th:each="kamar : ${map.get(paviliun)}" -->
+						<div th:each = "paviliun :${paviliunList}">
+						<option th:each = "kamar : ${paviliun.kamarList}"
 						th:value="${kamar.id}"
-						th:text="${kamar.id}"></option>
+						th:text="${paviliun.namaPaviliun} +'-'+ ${kamar.id}"></option>
+						</div>
 						</select>
+						
 		 		</h2>
-				<br>
-
 				<br>
 				<button  class="btn btn-primary btn" type="submit">Submit</button>
 			</form>
