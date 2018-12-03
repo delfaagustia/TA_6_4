@@ -26,12 +26,14 @@
                         	<br/>
                             <div class="form-group">
 							    <label>Pemeriksaan:</label>
-							    <select  class="form-control" name="paviliun">
+							    <select  class="form-control" name="pemeriksaan">
 							      <option disabled="disabled" selected="selected"> --Pilih Pemeriksaan-- </option>
 							      <option th:each="periksa : ${listPemeriksaan}" th:value="${periksa.id}" 
 							      th:text="${periksa.idPasien + '-' + periksa.idDokter}"></option>
 							    </select>
 							</div>
+							<label>Id Pasien:</label><br>
+                        	<input type="number" class="form-control" name="idPasien" required/>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>

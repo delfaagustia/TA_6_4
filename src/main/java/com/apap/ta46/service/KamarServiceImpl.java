@@ -30,51 +30,50 @@ public class KamarServiceImpl implements KamarService {
 		return kamarDb.findAll();
 	}
 
-	@Override
-	public KamarModel findKamarDetailByStatus(int status) {
-		return kamarDb.findByStatus(status);
-	}
+//	@Override
+//	public KamarModel findKamarDetailByStatus(int status) {
+//		return kamarDb.findByStatus(status);
+//	}
+//	
+//	@Override
+//	public List<KamarModel> findKamarByStatus(int status) {
+//		List<KamarModel> search = new ArrayList<>();
+//		
+//		for(KamarModel kamar : kamarDb.findAll()) {
+//			if (kamar.getStatus() == status) {
+//				search.add(kamar);
+//			}
+//		}
+//		return search;
+//	}
+//	
+//	@Override
+//	public List<KamarModel> findKamarByPaviliun(long idPaviliun) {
+//		List<KamarModel> search = new ArrayList<>();
+//		
+//		for(KamarModel kamar : kamarDb.findAll()) {
+//			if (kamar.getPaviliun().getId() == idPaviliun) {
+//				search.add(kamar);
+//			}
+//		}
+//		return search;
+//	}
+//	
+//	@Override
+//	public List<KamarModel> findKamarByPaviliunAndStatus(long idPaviliun, int status) {
+//		List<KamarModel> search = new ArrayList<>();
+//		
+//		for(KamarModel kamar : kamarDb.findAll()) {
+//			if (kamar.getPaviliun().getId() == idPaviliun && kamar.getStatus() == status) {
+//				search.add(kamar);
+//			}
+//		}
+//		return search;
+//	}
 	
 	@Override
-	public List<KamarModel> findKamarByStatus(int status) {
-		List<KamarModel> search = new ArrayList<>();
-		
-		for(KamarModel kamar : kamarDb.findAll()) {
-			if (kamar.getStatus() == status) {
-				search.add(kamar);
-			}
-		}
-		return search;
-	}
-	
-	@Override
-	public List<KamarModel> findKamarByPaviliun(long idPaviliun) {
-		List<KamarModel> search = new ArrayList<>();
-		
-		for(KamarModel kamar : kamarDb.findAll()) {
-			if (kamar.getPaviliun().getId() == idPaviliun) {
-				search.add(kamar);
-			}
-		}
-		return search;
-	}
-	
-	@Override
-	public List<KamarModel> findKamarByPaviliunAndStatus(long idPaviliun, int status) {
-		List<KamarModel> search = new ArrayList<>();
-		
-		for(KamarModel kamar : kamarDb.findAll()) {
-			if (kamar.getPaviliun().getId() == idPaviliun && kamar.getStatus() == status) {
-				search.add(kamar);
-			}
-		}
-		return search;
-	}
-	
-	@Override
-	public void updateKamar(KamarModel kamar) {
-		System.out.println(kamar.getId());
-		KamarModel archiveKamar = this.getKamar(kamar.getId());
+	public void updateKamar(long id, KamarModel kamar) {
+		KamarModel archiveKamar = this.getKamar(id);
 		archiveKamar.setIdPasien(kamar.getIdPasien());
 		archiveKamar.setPaviliun(kamar.getPaviliun());
 		archiveKamar.setStatus(kamar.getStatus());
