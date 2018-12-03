@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Request Obat</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br>
+	<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Request Obat
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/obat/request}" th:object="${obat}" method="POST">
+                        	<label>Nama Obat:</label><br>
+                        	<input type="text" class="form-control" name="namaObat" required/>
+                        	<br/>
+                        	<label>Jumlah:</label><br>
+                        	<input type="number" class="form-control" name="jumlah" required/>
+                        	<br/>
+                            <div class="form-group">
+							    <label>Pemeriksaan:</label>
+							    <select  class="form-control" name="paviliun">
+							      <option disabled="disabled" selected="selected"> --Pilih Pemeriksaan-- </option>
+							      <option th:each="periksa : ${listPemeriksaan}" th:value="${periksa.id}" 
+							      th:text="${periksa.idPasien + '-' + periksa.idDokter}"></option>
+							    </select>
+							</div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

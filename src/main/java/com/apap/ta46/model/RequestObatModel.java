@@ -40,7 +40,6 @@ public class RequestObatModel implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_pemeriksaan", referencedColumnName="id", nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
-	@JsonIgnore
 	private PemeriksaanModel pemeriksaan;
 	
 	@NotNull
