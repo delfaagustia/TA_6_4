@@ -7,6 +7,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.repository.KamarDb;
 
@@ -23,54 +26,54 @@ public class KamarServiceImpl implements KamarService {
 
 	@Override
 	public List<KamarModel> getAllKamar() {
+		// TODO Auto-generated method stub
 		return kamarDb.findAll();
 	}
 
-	@Override
-	public KamarModel findKamarDetailByStatus(int status) {
-		return kamarDb.findByStatus(status);
-	}
+//	@Override
+//	public KamarModel findKamarDetailByStatus(int status) {
+//		return kamarDb.findByStatus(status);
+//	}
+//	
+//	@Override
+//	public List<KamarModel> findKamarByStatus(int status) {
+//		List<KamarModel> search = new ArrayList<>();
+//		
+//		for(KamarModel kamar : kamarDb.findAll()) {
+//			if (kamar.getStatus() == status) {
+//				search.add(kamar);
+//			}
+//		}
+//		return search;
+//	}
+//	
+//	@Override
+//	public List<KamarModel> findKamarByPaviliun(long idPaviliun) {
+//		List<KamarModel> search = new ArrayList<>();
+//		
+//		for(KamarModel kamar : kamarDb.findAll()) {
+//			if (kamar.getPaviliun().getId() == idPaviliun) {
+//				search.add(kamar);
+//			}
+//		}
+//		return search;
+//	}
+//	
+//	@Override
+//	public List<KamarModel> findKamarByPaviliunAndStatus(long idPaviliun, int status) {
+//		List<KamarModel> search = new ArrayList<>();
+//		
+//		for(KamarModel kamar : kamarDb.findAll()) {
+//			if (kamar.getPaviliun().getId() == idPaviliun && kamar.getStatus() == status) {
+//				search.add(kamar);
+//			}
+//		}
+//		return search;
+//	}
 	
 	@Override
-	public List<KamarModel> findKamarByStatus(int status) {
-		List<KamarModel> search = new ArrayList<>();
-		
-		for(KamarModel kamar : kamarDb.findAll()) {
-			if (kamar.getStatus() == status) {
-				search.add(kamar);
-			}
-		}
-		return search;
-	}
-	
-	@Override
-	public List<KamarModel> findKamarByPaviliun(long idPaviliun) {
-		List<KamarModel> search = new ArrayList<>();
-		
-		for(KamarModel kamar : kamarDb.findAll()) {
-			if (kamar.getPaviliun().getId() == idPaviliun) {
-				search.add(kamar);
-			}
-		}
-		return search;
-	}
-	
-	@Override
-	public List<KamarModel> findKamarByPaviliunAndStatus(long idPaviliun, int status) {
-		List<KamarModel> search = new ArrayList<>();
-		
-		for(KamarModel kamar : kamarDb.findAll()) {
-			if (kamar.getPaviliun().getId() == idPaviliun && kamar.getStatus() == status) {
-				search.add(kamar);
-			}
-		}
-		return search;
-	}
-	
-	@Override
-	public void updateKamar(KamarModel kamar) {
-		System.out.println(kamar.getId());
-		KamarModel archiveKamar = this.getKamar(kamar.getId());
+	public void updateKamar(long id, KamarModel kamar) {
+		KamarModel archiveKamar = this.getKamar(id);
 		archiveKamar.setIdPasien(kamar.getIdPasien());
 		archiveKamar.setPaviliun(kamar.getPaviliun());
 		archiveKamar.setStatus(kamar.getStatus());
@@ -91,4 +94,9 @@ public class KamarServiceImpl implements KamarService {
 		kamarDb.save(kamar);
 	}
 	
+	public KamarModel getKamarByIdPasien(long idPasien) {
+		// TODO Auto-generated method stub
+		return kamarDb.findByIdPasien(idPasien);
+	}
+
 }

@@ -3,7 +3,11 @@ package com.apap.ta46.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,10 +21,12 @@ public class RequestObatRestController {
 	@Autowired
 	private RequestObatDb requestObatDb;
 	
-	@PostMapping(value="/obat/request/")
+
+	@PostMapping(value="/obat/save")
 	public BaseResponse<RequestObatModel> addRequestObat(
             @RequestBody @Valid RequestObatModel obat, BindingResult bindingResult) {
 		BaseResponse<RequestObatModel> response = new BaseResponse<RequestObatModel>();
+		System.out.println("masuk");
 		if (bindingResult.hasErrors()) {
             response.setStatus(500);
             response.setMessage("error data");
@@ -31,5 +37,11 @@ public class RequestObatRestController {
             response.setResult(obat);
         }
 		return response;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+	}
+	
+	@PostMapping(value="/obat/simpan")
+	public ResponseEntity<RequestObatModel> saveInfo(@RequestBody RequestObatModel obat) {
+		System.out.println("masuk");
+		return new ResponseEntity<RequestObatModel>(obat, HttpStatus.CREATED);
 	}
 }

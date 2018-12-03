@@ -20,25 +20,25 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="kamar")
+@Table(name = "kamar")
 public class KamarModel implements Serializable {
 	@Id
 	@NotNull
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long Id;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_paviliun", referencedColumnName="id", nullable=false)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_paviliun", referencedColumnName = "id", nullable = false)
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private PaviliunModel paviliun;
-	
+
 	@NotNull
-	@Column(name="id_pasien", nullable=false)
+	@Column(name = "id_pasien", nullable = false)
 	private long idPasien;
-	
+
 	@NotNull
-	@Column(name="status", nullable=false)
+	@Column(name = "status", nullable = false)
 	private int status;
 
 	public long getId() {
@@ -72,7 +72,5 @@ public class KamarModel implements Serializable {
 	public void setIdPasien(long idPasien) {
 		this.idPasien = idPasien;
 	}
-	
-	
-	
+
 }

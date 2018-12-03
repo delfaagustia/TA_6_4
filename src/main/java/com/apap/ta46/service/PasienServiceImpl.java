@@ -1,6 +1,9 @@
 package com.apap.ta46.service;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import com.apap.ta46.model.PasienModel;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @Service
 @Transactional

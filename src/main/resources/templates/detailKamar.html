@@ -11,24 +11,58 @@
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br>
 	<div class="container-fluid">
-		<br>
-		<h3 style="text-align:center;" th:text="'Detail Kamar ' + ${kamar.paviliun.namaPaviliun} + ' ' + 
-		${kamar.id}"></h3>
-		<br>
-		<div class="col-md-3">
-			Paviliun : <br>
-			<select class="form-control" name="idPaviliun" id="paviliun">
-				<option disabled="disabled" selected="selected">Pilih Paviliun</option>
-			        <option th:each="paviliun : ${listPaviliun}"
-			                th:value="${paviliun.id}"
-			                th:text="${paviliun.namaPaviliun}">
-			        </option>
-			</select>
-			<br>
-			<p th:text="${kamar.status == 0} ? 'Status : In-active' : 'Status : Active'"></p>
-			<p th:text="'Nama Pasien : ' + ${kamar.idPasien}"></p>
-		</div>
-	</div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Detail Kamar
+                    </div>
+                    <div class="card-body">
+                    	<div class="container">
+						  <div class="row">
+						    <div class="col-sm">
+						      Nomor Kamar 
+						    </div>
+						    <div class="col-sm">
+						      <p th:text="':  ' + ${kamar.paviliun.namaPaviliun} + '-' + ${kamar.id}"></p>
+						    </div>
+						  </div>
+						  <div class="row">
+						    <div class="col-sm">
+						      Paviliun 
+						    </div>
+						    <div class="col-sm">
+						      <p th:text="':  ' + ${kamar.paviliun.namaPaviliun}"></p> 
+						    </div>
+						   </div>
+						   <div class="row">
+						   	<div class="col-sm">
+						      Status 
+						    </div>
+						    <div class="col-sm">
+						      <p th:text="${kamar.status == 0} ? ': In-active' : ': Active'"></p>
+						    </div>
+						   </div>
+						   <div class="row">
+						    <div class="col-sm">
+						      Nama Pasien 
+						    </div>
+						    <div class="col-sm">
+						      <p th:text="${pasien == null} ? ': -' : ': ' + ${pasien.nama}"></p> 
+						    </div>
+						   </div>
+						   <div class="row">
+						   		<form th:action="@{'/updatekamar/' + ${kamar.id}}">
+									<button type="submit" class="btn btn-success btn-sm">Update Kamar</button>
+								</form>
+						   </div>
+						</div>     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

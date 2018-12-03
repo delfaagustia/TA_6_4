@@ -2,6 +2,9 @@ package com.apap.ta46.service;
 
 import com.apap.ta46.model.RequestObatModel;
 
+import com.apap.ta46.rest.BaseResponse;
+
 public interface RequestObatService {
-	RequestObatModel addObat(RequestObatModel obat);
+	BaseResponse<RequestObatModel> addObat(RequestObatModel obat);
+
 }

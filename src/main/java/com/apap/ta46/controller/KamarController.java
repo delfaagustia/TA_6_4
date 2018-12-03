@@ -34,56 +34,57 @@ public class KamarController {
 	@Autowired
 	private PasienService pasienService;
 	
-	@RequestMapping(value="/kamar", method=RequestMethod.GET)
-	private String findKamar(@RequestParam(value="idPaviliun", required = false)
-	Optional<String> idPaviliun, @RequestParam(value="status", required = false) 
-	Optional<String> statusKamar, Model model) {
-		List<PaviliunModel> listPaviliun = paviliunService.getAllPaviliun();
-		model.addAttribute("listPaviliun", listPaviliun);
-		
-		List<KamarModel> kamarResult = new ArrayList<>();
-		
-		if(idPaviliun.isPresent()) {
-			kamarResult = kamarService.findKamarByPaviliun(Long.parseLong(idPaviliun.get()));
-			if (statusKamar.isPresent()) {
-				kamarResult = kamarService.findKamarByPaviliunAndStatus(Long.parseLong(idPaviliun.get()), 
-						Integer.parseInt(statusKamar.get()));
-			}
-		}
-		else {
-			if(statusKamar.isPresent()) {
-				kamarResult = kamarService.findKamarByStatus(Integer.parseInt(statusKamar.get()));
-			}
-		}
-		
-		model.addAttribute("listKamar", kamarResult);
-		
-		return "findKamar";
-	}
+//	@RequestMapping(value="/kamar", method=RequestMethod.GET)
+//	private String findKamar(@RequestParam(value="idPaviliun", required = false)
+//	Optional<String> idPaviliun, @RequestParam(value="status", required = false) 
+//	Optional<String> statusKamar, Model model) {
+//		List<PaviliunModel> listPaviliun = paviliunService.getAllPaviliun();
+//		model.addAttribute("listPaviliun", listPaviliun);
+//		
+//		List<KamarModel> kamarResult = new ArrayList<>();
+//		
+//		if(idPaviliun.isPresent()) {
+//			kamarResult = kamarService.findKamarByPaviliun(Long.parseLong(idPaviliun.get()));
+//			if (statusKamar.isPresent()) {
+//				kamarResult = kamarService.findKamarByPaviliunAndStatus(Long.parseLong(idPaviliun.get()), 
+//						Integer.parseInt(statusKamar.get()));
+//			}
+//		}
+//		else {
+//			if(statusKamar.isPresent()) {
+//				kamarResult = kamarService.findKamarByStatus(Integer.parseInt(statusKamar.get()));
+//			}
+//		}
+//		
+//		model.addAttribute("listKamar", kamarResult);
+//		
+//		return "findKamar";
+//	}
 	
 	@RequestMapping(value = "/kamar/{id}", method = RequestMethod.GET)
-	private String viewDetailKamar(@PathVariable(value="id") long id, Model model){
+	private String viewDetailKamar(@PathVariable(value="id") long id, Model model) throws IOException{
 		KamarModel kamar = kamarService.getKamar(id);
+		System.out.println(kamar.getPaviliun().getNamaPaviliun());
 		model.addAttribute("kamar", kamar);
-		
-		List<PaviliunModel> listPaviliun = paviliunService.getAllPaviliun();
-		model.addAttribute("listPaviliun", listPaviliun);
-		
+		PasienModel pasien = pasienService.getPasien(String.valueOf(kamar.getIdPasien()));
+		model.addAttribute("pasien", pasien);
 		return "detailKamar";
 	}
 
-	@GetMapping(value="/addkamar")
+	@GetMapping(value="/kamar")
 	private String addKamar(Model model) {
 		KamarModel kamar = new KamarModel();
 		model.addAttribute("kamar", kamar);
 		model.addAttribute("listPaviliun", paviliunService.getAllPaviliun());
+		model.addAttribute("listKamar", kamarService.getAllKamar());
 		return "addKamar";
 	}
 	
-	@PostMapping(value="/addkamar")
-	private String addKamarSubmit(@ModelAttribute KamarModel kamar) {
+	@PostMapping(value="/kamar/insert")
+	private String addKamarSubmit(@ModelAttribute KamarModel kamar, Model model) {
 		kamarService.addKamar(kamar);
-		return "sukses";
+		model.addAttribute("listKamar", kamarService.getAllKamar());
+		return "redirect:/kamar";
 	}
 	
 	@GetMapping(value="/updatekamar/{id}")
@@ -96,21 +97,11 @@ public class KamarController {
 		return "updateKamar";
 	}
 	
-	@PostMapping(value="/updatekamar")
-	private String updateKamarSubmit(@ModelAttribute KamarModel kamar, Model model){
-		kamarService.updateKamar(kamar);
-		return "sukses";
+	@PostMapping(value="/kamar/{id}")
+	private String updateKamarSubmit(@PathVariable("id") String id, @ModelAttribute KamarModel kamar, Model model){
+		kamarService.updateKamar(Long.parseLong(id), kamar);
+		return "redirect:/kamar";
 	}
 	
-//	@GetMapping(value="/getallpasien")
-//	private void getAllPasien() throws IOException {
-//		PasienModel[] pas = pasienService.getAllPasien();
-//		System.out.println(pas);
-//	}
-
-//	@GetMapping(value="/pasien/{id}")
-//	private void getPasien(@PathVariable("id") String id) throws IOException {
-//		pasienService.getPasien(id);
-//	}
 	
 }
