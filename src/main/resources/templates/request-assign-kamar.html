@@ -30,6 +30,7 @@
 						<select id="paviliun" class="form-control"/>
 							<option disabled="disabled" selected="selected" >Pilih Paviliun</option>
 						<option th:each="paviliun : ${paviliunList}"
+						
 						th:value="${paviliun.id}"
 						th:text="${paviliun.namaPaviliun}"></option>
 						</select>
@@ -41,7 +42,9 @@
 							<option disabled="disabled" selected="selected" >Pilih Kamar</option>
 						<!-- <option th:each="kamar : ${map.get(paviliun)}" -->
 						<div th:each = "paviliun :${paviliunList}">
-						<option th:each = "kamar : ${paviliun.kamarList}"
+						<option
+						th:each = "kamar : ${paviliun.kamarList}"
+						
 						th:value="${kamar.id}"
 						th:text="${paviliun.namaPaviliun} +'-'+ ${kamar.id}"></option>
 						</div>
