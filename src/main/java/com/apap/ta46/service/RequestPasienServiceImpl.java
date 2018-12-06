@@ -25,4 +25,10 @@ public class RequestPasienServiceImpl implements RequestPasienService{
 		return requestPasienDb.findByIdPasien(idPasien);
 	}
 
+	@Override
+	public void updateRequestPasien(RequestPasienModel req) {
+		// TODO Auto-generated method stub
+		requestPasienDb.save(req);
+	}
+
 }

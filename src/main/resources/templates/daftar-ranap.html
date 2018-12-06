@@ -25,6 +25,7 @@
 		        <tr>
 			        <th>Nama Pasien</th>
 			        <th>Nomor Kamar</th>
+			        <th>Pulangkan Pasien</th>
 			        
 		        </tr>
 		    </thead>
@@ -33,7 +34,9 @@
 					<td><p id="nama" th:text="${map.get(kamar).getNama()}"></p></td>
 					<td><p th:text="${kamar.id}"></p></td>
 					
-					
+					<td> <a th:href="@{'/daftar-ranap/pulang/'+ ${kamar.id}}" 
+					th:text="Pulangkan"></a>
+					</td>
 					
 					
 				</tr>

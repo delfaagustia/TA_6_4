@@ -25,6 +25,7 @@ import com.apap.ta46.model.RequestPasienModel;
 import com.apap.ta46.service.KamarService;
 import com.apap.ta46.service.PasienService;
 import com.apap.ta46.service.PaviliunService;
+import com.apap.ta46.service.RequestPasienService;
 
 @Controller
 public class KamarController {
@@ -36,6 +37,9 @@ public class KamarController {
 	
 	@Autowired
 	private PasienService pasienService;
+	
+	@Autowired
+	private RequestPasienService requestPasienService;
 	
 	@RequestMapping(value="/kamar", method=RequestMethod.GET)
 	private String findKamar(@RequestParam(value="idPaviliun", required = false)
@@ -105,6 +109,7 @@ public class KamarController {
 		return "sukses";
 	}
 	
+	//HALOOO SEMENTARA GUA TARO SINI YA, SOALNYA BERHUBUNGAN BANGET SAMA KAMAR NIH//
 	@RequestMapping(value = "/daftar-ranap")
 	private String viewAllPasienRanap(Model model) throws IOException {
 		List<KamarModel> kamarList = kamarService.findKamarByStatus(1);
@@ -121,6 +126,22 @@ public class KamarController {
 		model.addAttribute("map", map);
 		model.addAttribute("kamarList", kamarList);
 		return "daftar-ranap";
+	}
+	
+	@RequestMapping(value="/daftar-ranap/pulang/{idKamar}")
+	private String kosongkanKamar(@PathVariable("idKamar") String idKamar, Model model) throws IOException {
+		
+		KamarModel kamar = kamarService.getKamar(Long.parseLong(idKamar));
+		
+		RequestPasienModel req = requestPasienService.getRequestPasienByIdPasien(kamar.getIdPasien());
+		req.setAssign(0);
+		requestPasienService.updateRequestPasien(req);
+		
+		kamar.setIdPasien(0);
+		kamar.setStatus(0);
+		kamarService.updateKamar(kamar);
+		
+		return "sukses";
 	}
 	
 //	@GetMapping(value="/getallpasien")
