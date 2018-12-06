@@ -14,6 +14,5 @@ public interface KamarService {
 	void addKamar(KamarModel kamar);
 	void updateKamar(KamarModel kamar);
 	KamarModel getKamarByIdPasien(long idPasien);
-
 }
 

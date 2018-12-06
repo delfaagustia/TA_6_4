@@ -109,41 +109,6 @@ public class KamarController {
 		return "sukses";
 	}
 	
-	//HALOOO SEMENTARA GUA TARO SINI YA, SOALNYA BERHUBUNGAN BANGET SAMA KAMAR NIH//
-	@RequestMapping(value = "/daftar-ranap")
-	private String viewAllPasienRanap(Model model) throws IOException {
-		List<KamarModel> kamarList = kamarService.findKamarByStatus(1);
-		
-		Map<KamarModel, PasienModel> map = new HashMap<>();
-		
-		for(KamarModel kamar : kamarList) {
-			System.out.println(kamar.getStatus());
-			String idPasien = String.valueOf(kamar.getIdPasien());
-			
-			map.put(kamar, pasienService.getPasien(idPasien));
-		}
-		
-		model.addAttribute("map", map);
-		model.addAttribute("kamarList", kamarList);
-		return "daftar-ranap";
-	}
-	
-	@RequestMapping(value="/daftar-ranap/pulang/{idKamar}")
-	private String kosongkanKamar(@PathVariable("idKamar") String idKamar, Model model) throws IOException {
-		
-		KamarModel kamar = kamarService.getKamar(Long.parseLong(idKamar));
-		
-		RequestPasienModel req = requestPasienService.getRequestPasienByIdPasien(kamar.getIdPasien());
-		req.setAssign(0);
-		requestPasienService.updateRequestPasien(req);
-		
-		kamar.setIdPasien(0);
-		kamar.setStatus(0);
-		kamarService.updateKamar(kamar);
-		
-		return "sukses";
-	}
-	
 //	@GetMapping(value="/getallpasien")
 //	private void getAllPasien() throws IOException {
 //		PasienModel[] pas = pasienService.getAllPasien();
