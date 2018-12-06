@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>SIRANAP-Home</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <script type="text/javascript" charset="utf8" src=" https://code.jquery.com/jquery-3.3.1.js"></script>
+  	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	    <div class="container-fluid">
+	        <h2 th:text = " 'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
+	    	
+	        <p>*klik Status Assign Kamar untuk melakukan perubahan pada assignment kamar pasien</p>
+	        <table id="pasienRawatInap" class="display">
+		    <thead>
+		        <tr>
+			        <th>Nama Pasien</th>
+			        <th>Nomor Kamar</th>
+			        
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr th:each="kamar : ${kamarList}">
+					<td><p id="nama" th:text="${map.get(kamar).getNama()}"></p></td>
+					<td><p th:text="${kamar.id}"></p></td>
+					
+					
+					
+					
+				</tr>
+		    </tbody>
+			</table>
+	        
+	        
+	    </div>
+	
+	<script>
+		$(document).ready( function () {
+	    $('#pasienRawatInap').DataTable();
+	   	} );
+	</script>
+	   
+</body>
+</html>

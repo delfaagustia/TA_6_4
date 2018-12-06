@@ -91,4 +91,6 @@ public class RequestPasienController {
 		kamarService.updateKamar(kamarAsli);
 		return "sukses";
 	}
+	
+	
 }

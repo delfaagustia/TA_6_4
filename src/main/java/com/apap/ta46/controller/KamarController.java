@@ -2,7 +2,9 @@ package com.apap.ta46.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.model.PasienModel;
 import com.apap.ta46.model.PaviliunModel;
+import com.apap.ta46.model.RequestPasienModel;
 import com.apap.ta46.service.KamarService;
 import com.apap.ta46.service.PasienService;
 import com.apap.ta46.service.PaviliunService;
@@ -100,6 +103,24 @@ public class KamarController {
 	private String updateKamarSubmit(@ModelAttribute KamarModel kamar, Model model){
 		kamarService.updateKamar(kamar);
 		return "sukses";
+	}
+	
+	@RequestMapping(value = "/daftar-ranap")
+	private String viewAllPasienRanap(Model model) throws IOException {
+		List<KamarModel> kamarList = kamarService.findKamarByStatus(1);
+		
+		Map<KamarModel, PasienModel> map = new HashMap<>();
+		
+		for(KamarModel kamar : kamarList) {
+			System.out.println(kamar.getStatus());
+			String idPasien = String.valueOf(kamar.getIdPasien());
+			
+			map.put(kamar, pasienService.getPasien(idPasien));
+		}
+		
+		model.addAttribute("map", map);
+		model.addAttribute("kamarList", kamarList);
+		return "daftar-ranap";
 	}
 	
 //	@GetMapping(value="/getallpasien")
