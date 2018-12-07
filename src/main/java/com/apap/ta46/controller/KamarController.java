@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.model.PasienModel;
@@ -62,12 +63,20 @@ public class KamarController {
 	}
 	
 	@RequestMapping(value = "/kamar/{id}", method = RequestMethod.GET)
-	private String viewDetailKamar(@PathVariable(value="id") long id, Model model){
+	private String viewDetailKamar(@PathVariable(value="id") long id, Model model) throws IOException{
 		KamarModel kamar = kamarService.getKamar(id);
 		model.addAttribute("kamar", kamar);
 		
 		List<PaviliunModel> listPaviliun = paviliunService.getAllPaviliun();
 		model.addAttribute("listPaviliun", listPaviliun);
+		
+		long idPasien = kamar.getIdPasien();
+		if (idPasien != 0) {
+			PasienModel pasien = pasienService.getPasien(Long.toString(idPasien));
+			model.addAttribute("nama", pasien.getNama());
+		}
+		System.out.println("Id pasien ----------");
+		System.out.println(kamar.getIdPasien());
 		
 		return "detailKamar";
 	}
