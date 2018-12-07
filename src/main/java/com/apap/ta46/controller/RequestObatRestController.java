@@ -4,12 +4,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apap.ta46.model.RequestObatModel;
@@ -39,7 +41,7 @@ public class RequestObatRestController {
 		return response;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 	}
 	
-	@PostMapping(value="/obat/simpan")
+	@RequestMapping(value="/obat/simpan", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RequestObatModel> saveInfo(@RequestBody RequestObatModel obat) {
 		System.out.println("masuk");
 		return new ResponseEntity<RequestObatModel>(obat, HttpStatus.CREATED);

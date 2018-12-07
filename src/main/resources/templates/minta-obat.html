@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Request Obat</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br/>
+	<br/>
+	<form th:action="@{'/obat/request/' + ${idPemeriksaan}}" th:object="${pemeriksaan}" method="POST">
+		<table class="table">
+		  <thead>
+		    <tr>
+		    	<th style="text-align: center">No. </th>
+		      <th style="text-align: center">Nama Obat</th>
+		      <th style="text-align: center">Jumlah</th>
+		      <th style="text-align: center">Id Pasien</th>
+		      <th>
+		        <button type="submit" name="addRow" class="btn btn-primary btn-sm">Tambah Obat</button>
+		      </th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="obat, rowStat : *{requestObatList}">
+		      <td th:text="${rowStat.count}">1</td>
+		      <td>
+		        <input class="form-control" type="text" th:field="*{requestObatList[__${rowStat.index}__].namaObat}" />
+		      </td>
+		      <td>
+		        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].jumlah}" />
+		      </td>
+		      <td>
+		        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].idPasien}"/>
+		      </td>
+		      <td>
+		        <button type="submit" name="removeRow" 
+		                th:value="${rowStat.index}" class="btn btn-danger btn-sm">Hapus Obat</button>
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+		<button type="submit" name="save" class="btn btn-primary btn-sm">Submit</button>
+	</form>
+</body>
+</html>

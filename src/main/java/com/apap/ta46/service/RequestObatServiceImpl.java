@@ -2,7 +2,6 @@ package com.apap.ta46.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -22,5 +21,11 @@ public class RequestObatServiceImpl implements RequestObatService {
 		RestTemplate restTemplate = new RestTemplate();
 		BaseResponse<RequestObatModel> reqObat = restTemplate.postForObject("http://localhost:2000/obat/save", obat, BaseResponse.class);
 		return reqObat;
+	}
+
+	@Override
+	public RequestObatModel findObatById(long id) {
+		// TODO Auto-generated method stub
+		return requestObatDb.findById(id);
 	}
 }
