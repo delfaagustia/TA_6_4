@@ -29,7 +29,7 @@ public class WaktuModel {
 	
 	
 	@OneToMany(mappedBy="waktu", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<JadwalJagaDokterModel> jadwalJagaDokterList;
+	private List<JadwalJagaModel> jadwalJagaList;
 
 	public long getId() {
 		return Id;
@@ -47,12 +47,12 @@ public class WaktuModel {
 		this.waktu = waktu;
 	}
 
-	public List<JadwalJagaDokterModel> getJadwalJagaDokterList() {
-		return jadwalJagaDokterList;
+	public List<JadwalJagaModel> getJadwalJagaDokterList() {
+		return jadwalJagaList;
 	}
 
-	public void setJadwalJagaDokterList(List<JadwalJagaDokterModel> jadwalJagaDokterList) {
-		this.jadwalJagaDokterList = jadwalJagaDokterList;
+	public void setJadwalJagaDokterList(List<JadwalJagaModel> jadwalJagaList) {
+		this.jadwalJagaList = jadwalJagaList;
 	}
 	
 	
