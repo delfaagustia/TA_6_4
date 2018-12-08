@@ -40,10 +40,10 @@ public class ApiIgdController {
 	@PostMapping(value = "/daftar-ranap")
     public BaseResponse<RequestPasienModel> addPasienRujukan (@RequestBody @Valid PasienModel pasien, BindingResult bindingResult) throws IOException {
         BaseResponse<RequestPasienModel> response = new BaseResponse<RequestPasienModel>();
-       
+        System.out.println(pasien.getId()+"hahah");
         if (bindingResult.hasErrors() || pasien.equals (null) || pasien.getId() <= 0) { //INI TANYA LAGI
             response.setStatus(500);
-            response.setMessage("error data");
+            response.setMessage("error data Pasien");
         } 
         
         else {
