@@ -31,7 +31,7 @@
 		    </thead>
 		    <tbody>
 		        <tr th:each="jadwalJaga : ${listAllJadwalJaga}">
-					<td><p th:text="${jadwalJaga.idDokter}"></p></td>
+					<td><p th:text="${map.get(jadwalJaga).getNama()}"></p></td>
 					<td><p th:text="${jadwalJaga.statusDokter}"></p></td>
 					<td> <p th:text="${jadwalJaga.paviliun.namaPaviliun}"></p></td>
 					<td> <th:block th:each="jadwalJagaDokter : ${jadwalJaga.jadwalJagaDokterList}">
