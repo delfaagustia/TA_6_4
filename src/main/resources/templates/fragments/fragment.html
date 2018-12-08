@@ -10,6 +10,9 @@
     <head th:fragment="css">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/css/style.css}">
+        <link rel="stylesheet" th:href="@{/css/footer.css}">
+        <link rel="stylesheet" th:href="@{/css/home.css}">
+        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
     </head>
 
     <head th:fragment="js">
@@ -18,48 +21,82 @@
 </head>
 
 <body>
-    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark navbar-ranap">
-        <a class="navbar-brand siranap" href="#">SIRANAP</a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto" style = "margin-left: 50px">
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/}">Home</a>
-                </li>
-            
-            	<!-- Untuk semua pasien yang sudah "dirawat" -->
-            	<li class="nav-item active">
-                    <a class="nav-link" th:href="@{/pasien-ranap}">Pasien Rawat Inap</a>
-                </li>
-                       
-            	<!-- Untuk semua pasien yang "dirujuk" -->
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/daftar-request}">Pasien Rujukan</a>
-                </li>
-            
-            	<!-- Untuk semua pasien yang "akan dipulangkan" --><li class="nav-item active">
-            	<li class="nav-item active">
-                    <a class="nav-link" th:href="@{/daftar-ranap}">Pemulangan Pasien</a>
-                </li>
-           
-            	<!-- Untuk kelola jadwal jaga" -->
-            	<li class="nav-item active">
-                    <a class="nav-link" th:href="@{/jadwal-jaga}">Jadwal Jaga</a>
-                </li>
+
+    <div th:fragment="navbar">
+    	<div style = "background-color: #e1e1e1">
+    		 <nav class = "navbar navbar-expand-md navbar navbar-ranap-atas">
+			  	<i class = 'far fa-envelope' style = "margin-left: 120px; font-size: 12px;"></i>
+			  	<p style ="padding-left:5px;margin-top:15px;font-size: 11px;"> siranap_rsap@rsap.ac.id |</p>
+    			
+    			<i class='fas fa-phone' style="padding-left:5px;font-size: 12px;"></i>
+    			<p style ="padding-left:5px;margin-top:15px;font-size: 11px;"> 021 7653 987</p>     		
+			  	
+			  	<i class='fas fa-map-marker-alt' style="margin-left: 550px;font-size: 12px"></i>
+			  	<p style ="padding-left:5px;margin-top:15px;font-size: 11px;"> Margonda Raya No. 19 B, Depok. Indonesia</p>
+			  </nav>
+			</div>
+    		
+    	
+    		
+    		
+    	
+    	
+	    <nav class = "navbar navbar-expand-lg navbar-dark bg-dark navbar-ranap">
+	    	
+	        <a class="navbar-brand siranap" href="@{/}"> SIRANAP </a>
+	       
+	        <div class="collapse navbar-collapse">
+	            <ul class="navbar-nav mr-auto" style = "margin-left: 50px">
+	                <li class="nav-item active">
+	                    <a class="nav-link" th:href="@{/}">Home</a>
+	                </li>
+	            
+	            	<!-- Untuk semua pasien yang sudah "dirawat" -->
+	            	<li class="nav-item active">
+	                    <a class="nav-link" th:href="@{/pasien-ranap}">Pasien Rawat Inap</a>
+	                </li>
+	                       
+	            	<!-- Untuk semua pasien yang "dirujuk" -->
+	                <li class="nav-item active">
+	                    <a class="nav-link" th:href="@{/daftar-request}">Pasien Rujukan</a>
+	                </li>
+	            
+	            	<!-- Untuk semua pasien yang "akan dipulangkan" --><li class="nav-item active">
+	            	<li class="nav-item active">
+	                    <a class="nav-link" th:href="@{/daftar-ranap}">Pemulangan Pasien</a>
+	                </li>
+	           
+	            	<!-- Untuk kelola jadwal jaga" -->
+	            	<li class="nav-item active">
+	                    <a class="nav-link" th:href="@{/jadwal-jaga}">Jadwal Jaga</a>
+	                </li>
                 
-                <!-- Untuk kelola jadwal jaga" -->
-            	<li class="nav-item active">
-                    <a class="nav-link" th:href="@{/kamar}">Kelola Kamar</a>
-                </li>
-            </ul>
+	                <!-- Untuk kelola jadwal jaga" -->
+	            	<li class="nav-item active">
+	                    <a class="nav-link" th:href="@{/kamar}">Kelola Kamar</a>
+	                </li>
+	            </ul>
             
-             <ul class = "navbar-nav pull-right">
-            	<li class = "nav-item active">
-            		
-            		<a id = "rounded-text" th:href="@{/logout}"  class="btn btn-outline-light" role="button">Logout</a>
-            	</li>
-            </ul>
-        </div>
-    </nav>
+	             <ul class = "navbar-nav pull-right">
+	            	<li class = "nav-item active">
+	            		
+	            		<a id = "rounded-text" th:href="@{/logout}"  class="btn btn-outline-light" role="button">Logout</a>
+	            	</li>
+	            </ul>
+	            
+        	</div>
+        	
+        	
+        	
+       	
+    	</nav>
+    	
+    	
+        	
+    	
+    </div>
+    
+
 </body>
 
 </html>

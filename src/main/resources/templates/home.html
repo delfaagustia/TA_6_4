@@ -12,11 +12,64 @@
 <body>
 
 	<nav th:replace="fragments/fragment :: navbar"></nav>
+	    <div style = "border-top: 1px solid #e1e1e1"></div>
 	    <div class="container-fluid">
-	        <h2 th:text = " 'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
-	    	<div class="row">
-	        </div>
+	      
+	    	<div class="row" id = "row-gambar" align="right">
+	   			<img id = "gambar" src = "http://www.acehimage.com/wp-content/uploads/2018/10/Istri-dokter.png">
+	       	</div>
+	       
+	       <!-- <div class = row id ="fitur">
+	       		<div class="col-md-12" align = "middle">
+	       			<h3> JUDULNYA</h3>
+	       		</div>
+	       </div> -->
+	       
+	       
+	       <div class="row">
+  				<div class="col-md-12" align = "middle">
+				  
+				  <div class="box first">
+				    <span class="icon-cont"><i class='fas fa-people-carry'></i></span>
+				    <h3>PASIEN</h3>
+				    <ul class="hidden">
+				      <li><a class="nav-link" th:href="@{/}">Pasien Rawat Inap</a></li>
+				      <li>Pasien Rujukan</li>
+				      <li>Pemulangan Pasien</li>
+				    </ul>
+				    <a class="expand"><span class="plus">+</span><span class="minus">-</span></a>
+				  </div>
+				  
+				  <div class="box second">
+				    <span class="icon-cont"><i class="fas fa-hand-holding-heart"></i></span>
+				    <h3>JADWAL JAGA</h3>
+				    <ul class="hidden">
+				      <li>Daftar Jadwal Jaga</li>
+				    </ul>
+				    <a class="expand"><span class="plus">+</span><span class="minus">-</span></a>
+				  </div>
+				  
+				  <div class="box third">
+				    <span class="icon-cont"><i class="fas fa-procedures"></i></span>
+				    <h3>KAMAR</h3>				    
+				    <ul class="hidden">
+				      <li>Daftar Kamar</li>				      
+				    </ul>				        
+				    <a class="expand"><span class="plus">+</span><span class="minus">-</span></a>
+				  </div>				  
+				</div>
+			</div>
+  			
+  			
 	    </div>
 	<nav th:replace="fragments/footer :: footer"></nav>
 </body>
+
+
+<script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
+<script th:inline="javascript">
+$('.box').click(function() {
+	  $(this).toggleClass('selected');  
+	});
+</script>
 </html>
