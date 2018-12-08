@@ -35,9 +35,9 @@ public class KamarModel implements Serializable {
 	@Column(name = "status", nullable = false)
 	private int status;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_paviliun", referencedColumnName = "id", nullable = false)
-	@OnDelete(action = OnDeleteAction.NO_ACTION)
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_paviliun", referencedColumnName="id", nullable=false)
+	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private PaviliunModel paviliun;
 

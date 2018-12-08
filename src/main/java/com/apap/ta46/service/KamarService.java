@@ -6,13 +6,14 @@ import com.apap.ta46.model.KamarModel;
 
 public interface KamarService {
 	KamarModel getKamar(long id);
-	KamarModel findKamarDetailByStatus(int status);
+//	KamarModel findKamarDetailByStatus(int status);
 	List<KamarModel> getAllKamar();
-	List<KamarModel> findKamarByPaviliun(long idPaviliun);
-	List<KamarModel> findKamarByStatus(int status);
-	List<KamarModel> findKamarByPaviliunAndStatus(long idPaviliun, int status);
+	List<KamarModel> getPasienInKamar();
+//	List<KamarModel> findKamarByPaviliun(long idPaviliun);
+//	List<KamarModel> findKamarByStatus(int status);
+//	List<KamarModel> findKamarByPaviliunAndStatus(long idPaviliun, int status);
 	void addKamar(KamarModel kamar);
-	void updateKamar(KamarModel kamar);
+	void updateKamar(long id, KamarModel kamar);
 	KamarModel getKamarByIdPasien(long idPasien);
 
 }

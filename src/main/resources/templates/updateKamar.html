@@ -18,7 +18,7 @@
                     </div>
                     <div class="card-body">
                       
-                        <form th:action="@{/updatekamar}" th:object="${kamar}" method="POST">
+                        <form th:action="@{'/kamar/' + ${kamar.id}}" th:object="${kamar}" method="POST">
                         	<input type="hidden" name="id" th:value="*{id}"/>
                             <div class="form-group">
 							    <label>Paviliun:</label>
