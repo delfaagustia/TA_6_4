@@ -34,17 +34,17 @@ public class PasienModel {
 	public long getId() {
 		return Id;
 	}
+	
 	public void setId(long id) {
 		Id = id;
 	}
+	
 	public String getNama() {
 		return nama;
 	}
+	
 	public void setNama(String nama) {
 		this.nama = nama;
 	}
-	
-	
-	
 	
 }
