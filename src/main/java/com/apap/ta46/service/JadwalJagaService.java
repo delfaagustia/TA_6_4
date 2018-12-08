@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface JadwalJagaService {
 	List<JadwalJagaModel> getAllJadwalJaga();
+	void add(JadwalJagaModel jadwalJaga);
 }

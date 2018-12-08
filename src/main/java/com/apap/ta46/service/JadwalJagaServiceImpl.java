@@ -22,4 +22,10 @@ public class JadwalJagaServiceImpl implements JadwalJagaService{
 		return jadwalJagaDb.findAll();
 	}
 
+	@Override
+	public void add(JadwalJagaModel jadwalJaga) {
+		// TODO Auto-generated method stub
+		jadwalJagaDb.save(jadwalJaga);
+	}
+
 }

@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.apap.ta46.model.DokterModel;
 import com.apap.ta46.model.JadwalJagaModel;
+import com.apap.ta46.model.PasienModel;
 import com.apap.ta46.rest.Setting;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -54,6 +55,17 @@ public class DokterServiceImpl implements DokterService {
 		}
 		
 		return listDokter;
+	}
+	
+	@Override
+	public DokterModel[] getAllDokterSIAppointment() throws IOException {
+		String path = "http://si-appointment.herokuapp.com/api/4/getAllDokter";
+		String alldokter= restTemplate.getForObject(path, String.class);
+    	ObjectMapper mapper = new ObjectMapper();
+    	JsonNode node = mapper.readTree(alldokter);
+    	JsonNode result = node.get("result");
+    	DokterModel[] listdokter = mapper.treeToValue(result, DokterModel[].class);
+		return listdokter;
 	}
 
 }

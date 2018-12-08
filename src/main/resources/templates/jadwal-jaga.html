@@ -19,6 +19,7 @@
 	    <div class="container-fluid">
 	        <h2 th:text = " 'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
 	    	
+	    	<h3><a th:text = "'Tambah jadwal jaga'" th:href="@{'/jadwal-jaga/tambah'}"></a></h3>
 	       
 	        <table id="jadwalJaga" class="display">
 		    <thead>
