@@ -8,41 +8,38 @@
 <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 
-<body class="bg-home">
-	<div class="container-fluid">
-		<div class="row padding-top">
-			<div class="col-sm-8 offset-sm-2">
+<body class = "bg-home">
+     <div class="container-fluid"> 
+        <div class="row padding-top">
+            <div class="col-sm-8 offset-sm-2">
+            	
+            	<div class="card-login">
+            		<div class = "row">
+		            	<div class="col-sm-6">    		
+		            		<h2 class = "title" align = "center"> SIRANAP </h2>
+		            		<h3 class = "title" align = "center"> Sistem Informasi Rawat Inap </h3>
+		            	</div>
+            			<div class="col-sm-6 bg-left-card-login">
+            				<h4 class = "title" align = "center"> Sign Up </h4>
+            				                     	
+            		   		<form th:action="@{/user/addUser}" th:object = ${user} method="POST">
+				        		<div class="row" style="padding: 10px">
+				        			<div class="col-sm-10 offset-sm-1">
+				        				<div class="form group">
+				        					<input class="form-control login-input input-sm" placeholder="Username" type="text" name="username"/>
+						        		</div>
+				        			</div>
+					        		<div class="col-sm-10 offset-sm-1" style="padding-top: 15px">
+					        			<div class="form group">
+				          					<input class="form-control login-input input-sm" placeholder="Password" type="password" name="password"/>
+							        	</div>
+					        		</div>
+					        	
+					        		<div class="col-sm-10 offset-sm-1" style="padding-top: 15px">
+					        			<div class="form group">
+					        				<select class="col-sm-12 form-control select-role" name="role">
+							        			<option value="" disabled selected>Role</option>
 
-				<div class="card-login">
-					<div class="row">
-						<div class="col-sm-6">
-							<h2 class="title">SIRANAP</h2>
-							<h3 class="title">Sistem Informasi Rawat Inap</h3>
-						</div>
-						<div class="col-sm-6 bg-left-card-login">
-							<h4 class="title">Sign Up</h4>
-
-							<form th:action="@{/user/addUser}" th:object=${user}
-								method="POST">
-								<div class="row" style="padding: 10px">
-									<div class="col-sm-10 offset-sm-1">
-										<div class="form group">
-											<input class="form-control login-input input-sm"
-												placeholder="Username" type="text" name="username" />
-										</div>
-									</div>
-									<div class="col-sm-10 offset-sm-1" style="padding-top: 15px">
-										<div class="form group">
-											<input class="form-control login-input input-sm"
-												placeholder="Password" type="password" name="password" />
-										</div>
-									</div>
-
-									<div class="col-sm-10 offset-sm-1" style="padding-top: 15px">
-										<div class="form group">
-											<select class="col-sm-12 form-control select-role"
-												name="role">
-												<option value="" disabled selected>Role</option>
 												<option value="DOKTER">DOKTER</option>
 												<option value="ADMIN">ADMIN</option>
 											</select>
