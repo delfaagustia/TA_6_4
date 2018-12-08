@@ -27,12 +27,6 @@ public class KamarModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long Id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_paviliun", referencedColumnName = "id", nullable = false)
-	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	@JsonIgnore
-	private PaviliunModel paviliun;
-
 	@NotNull
 	@Column(name = "id_pasien", nullable = false)
 	private long idPasien;
@@ -40,6 +34,12 @@ public class KamarModel implements Serializable {
 	@NotNull
 	@Column(name = "status", nullable = false)
 	private int status;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_paviliun", referencedColumnName="id", nullable=false)
+	@OnDelete(action=OnDeleteAction.NO_ACTION)
+	@JsonIgnore
+	private PaviliunModel paviliun;
 
 	public long getId() {
 		return Id;

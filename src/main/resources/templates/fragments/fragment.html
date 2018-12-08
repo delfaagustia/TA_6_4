@@ -40,46 +40,61 @@
     		 	
 	    <nav class = "navbar navbar-expand-lg navbar-dark bg-dark navbar-ranap">
 	    	
-	        <a class="navbar-brand siranap" href="@{/}"> SIRANAP </a>
+	        <a class="navbar-brand siranap"> SIRANAP </a>
 	       
 	        <div class="collapse navbar-collapse">
 	            <ul class="navbar-nav mr-auto" style = "margin-left: 50px">
 	                <li class="nav-item active">
 	                    <a class="nav-link menu" th:href="@{/}">Home</a>
-	                </li>
-	            
-	            	<!-- Untuk semua pasien yang sudah "dirawat" -->
-	            	<li class="nav-item active">
-	                    <a class="nav-link menu" th:href="@{/pasien-ranap}">Pasien Rawat Inap</a>
-	                </li>
-	                       
-	            	<!-- Untuk semua pasien yang "dirujuk" -->
-	                <li class="nav-item active">
-	                    <a class="nav-link menu" th:href="@{/daftar-request}">Pasien Rujukan</a>
-	                </li>
-	            
-	            	<!-- Untuk semua pasien yang "akan dipulangkan" --><li class="nav-item active">
-	            	<li class="nav-item active">
-	                    <a class="nav-link menu" th:href="@{/daftar-ranap}">Pemulangan Pasien</a>
-	                </li>
-	           
-	            	<!-- Untuk kelola jadwal jaga" -->
-	            	<li class="nav-item active">
+	                </li>	               	                         
+	                
+	                <li class="nav-item dropdown">
+        				<a class="nav-link dropdown-toggle menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+          					Pasien
+        				</a>
+        				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        					<!-- Untuk semua pasien yang sudah "dirawat" -->
+        					<a class="dropdown-item" th:href="@{/pasien-ranap}">Pasien Rawat Inap</a>
+        					<!-- Untuk semua pasien yang "dirujuk" -->
+        					<a class="dropdown-item" th:href="@{/daftar-request}">Pasien Rujukan</a>
+        					<!-- Untuk semua pasien yang "akan dipulangkan" -->
+        					<a class="dropdown-item" th:href="@{/daftar-ranap}">Pemulangan Pasien</a>
+        				</div>
+     	 			</li>
+     	 			
+     	 			<li class="nav-item active">
 	                    <a class="nav-link menu" th:href="@{/jadwal-jaga}">Jadwal Jaga</a>
 	                </li>
-                
-	                <!-- Untuk kelola jadwal jaga" -->
-	            	<li class="nav-item active">
-	                    <a class="nav-link menu" th:href="@{/kamar}">Kelola Kamar</a>
-	                </li>
+     	 			
+     	 			<li class="nav-item active">
+	                    <a class="nav-link menu" th:href="@{/kamar}">Kamar</a>
+	                </li>					
 	            </ul>
-            
-	             <ul class = "navbar-nav pull-right">
+	            
+	            <ul class = "navbar-nav ml-auto" id = "user-logout">
+	            	<li class="nav-item dropdown">
+        				
+        				<a class="nav-link dropdown-toggle menu" th:href="@{/}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+        					<i class='far fa-user' style = "font-size:25px;"></i>
+        					<span th:text="${#httpServletRequest.remoteUser}" style="padding-left:5px;"/>
+        				</a>
+        				
+        				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        					<a class="dropdown-item" th:href="@{/logout}">Logout</a>
+        				</div>
+     	 			</li>	
+	            </ul>
+	            
+	            <!--             
+	             <ul class = "navbar-nav ml-auto">
+	             	<li class="nav-item active">
+	                    <a class="nav-link menu" th:href="@{/}" th:text="${#httpServletRequest.remoteUser}"></a>
+	                </li>
 	            	<li class = "nav-item active">
-	            		
 	            		<a id = "rounded-text" th:href="@{/logout}"  class="btn btn-outline-light" role="button">Logout</a>
 	            	</li>
 	            </ul>
+	            -->
 	            
         	</div>
         	

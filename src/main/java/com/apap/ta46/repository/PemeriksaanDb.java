@@ -7,5 +7,5 @@ import com.apap.ta46.model.PemeriksaanModel;
 
 @Repository
 public interface PemeriksaanDb extends JpaRepository<PemeriksaanModel, Long> {
-
+	PemeriksaanModel findById(long id);
 }
