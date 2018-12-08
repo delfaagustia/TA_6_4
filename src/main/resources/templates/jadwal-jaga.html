@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>SIRANAP-Home</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <script type="text/javascript" charset="utf8" src=" https://code.jquery.com/jquery-3.3.1.js"></script>
+  	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	    <div class="container-fluid">
+	        <h2 th:text = " 'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
+	    	
+	       
+	        <table id="jadwalJaga" class="display">
+		    <thead>
+		        <tr>
+			        <th>Nama Dokter</th>
+			        <th>Status Dokter</th>
+			        <th>Paviliun </th>
+			        <th>Bila waktu telah berhenti</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr th:each="jadwalJaga : ${listAllJadwalJaga}">
+					<td><p th:text="${jadwalJaga.idDokter}"></p></td>
+					<td><p th:text="${jadwalJaga.statusDokter}"></p></td>
+					<td> <p th:text="${jadwalJaga.paviliun.namaPaviliun}"></p></td>
+					<td> <th:block th:each="jadwalJagaDokter : ${jadwalJaga.jadwalJagaDokterList}">
+							<p th:text="${jadwalJagaDokter.waktu.waktu}"></p>
+						</th:block>
+					</td>
+				</tr>
+		    </tbody>
+			</table>
+	        
+	        
+	    </div>
+	
+	<script>
+		$(document).ready( function () {
+	    $('#jadwalJaga').DataTable();
+	   	} );
+	</script>
+	   
+</body>
+</html>

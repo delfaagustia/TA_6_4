@@ -20,7 +20,7 @@ public class JadwalJagaController {
 	@Autowired
 	DokterService dokterService;
 	
-	@RequestMapping("/")
+	@RequestMapping("")
 	public String viewAllJadwalJaga(Model model) {
 		List<JadwalJagaModel> listAllJadwalJaga = jadwalJagaService.getAllJadwalJaga();
 		model.addAttribute("listAllJadwalJaga", listAllJadwalJaga);
