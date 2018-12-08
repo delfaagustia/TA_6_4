@@ -108,5 +108,18 @@ h3.title{
 	color: #e1e1e1 !important;
 }
 
+.detail-kamar{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 200;
+}
+
+#gambar-kamar {
+	width: 500px;
+	height: 300px;
+}
+
+
 
 
