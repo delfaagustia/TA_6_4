@@ -33,7 +33,7 @@
 		        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].jumlah}" />
 		      </td>
 		      <td>
-		        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].idPasien}"/>
+		        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].idPasien}" readonly/>
 		      </td>
 		      <td>
 		        <button type="submit" name="removeRow" 

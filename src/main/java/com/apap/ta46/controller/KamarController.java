@@ -89,7 +89,7 @@ public class KamarController {
 	
 	@GetMapping(value="/updatekamar/{id}")
 	private String updateKamar(@PathVariable("id") String id, Model model) throws IOException {
-		PasienModel[] pas = pasienService.getAllPasien();
+		List<PasienModel> pas = pasienService.getAllPasienRawatInap();
 		KamarModel kamar = kamarService.getKamar(Long.parseLong(id));
 		model.addAttribute("kamar", kamar);
 		model.addAttribute("listPaviliun", paviliunService.getAllPaviliun());

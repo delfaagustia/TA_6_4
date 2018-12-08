@@ -37,10 +37,12 @@ public class RequestObatController {
 	private String addObat(@PathVariable(value = "idPemeriksaan") String idPemeriksaan, Model model) {
 		PemeriksaanModel pemeriksaan = new PemeriksaanModel();
 		PemeriksaanModel archive = pemeriksaanService.getPemeriksaan(Long.parseLong(idPemeriksaan));
-		model.addAttribute("cek", archive);
-		pemeriksaan.setIdPasien(archive.getIdPasien());
+		
 		pemeriksaan.setRequestObatList(new ArrayList<RequestObatModel>());
-		pemeriksaan.getRequestObatList().add(new RequestObatModel());
+		RequestObatModel obat = new RequestObatModel();
+		obat.setIdPasien(archive.getIdPasien());
+		pemeriksaan.getRequestObatList().add(obat);
+		
 		model.addAttribute("pemeriksaan", pemeriksaan);
 		model.addAttribute("idPemeriksaan", idPemeriksaan);
 		return "minta-obat";
@@ -48,9 +50,11 @@ public class RequestObatController {
 	
 	@PostMapping(value="/obat/request/{idPemeriksaan}", params={"addRow"})
 	private String addRowObat(@PathVariable(value = "idPemeriksaan") String idPemeriksaan,@ModelAttribute PemeriksaanModel pemeriksaan, Model model) {
-		pemeriksaan.getRequestObatList().add(new RequestObatModel());
 		PemeriksaanModel archive = pemeriksaanService.getPemeriksaan(Long.parseLong(idPemeriksaan));
-		model.addAttribute("idPasien", archive.getIdPasien());
+		RequestObatModel obat = new RequestObatModel();
+		obat.setIdPasien(archive.getIdPasien());
+		
+		pemeriksaan.getRequestObatList().add(obat);
 		model.addAttribute("pemeriksaan", pemeriksaan);
 		model.addAttribute("idPemeriksaan", idPemeriksaan);
 		return "minta-obat";
@@ -66,36 +70,8 @@ public class RequestObatController {
 	}
 	
 	@PostMapping(value="/obat/request/{idPemeriksaan}", params={"save"})
-	private String saveObat(@PathVariable(value = "idPemeriksaan") String idPemeriksaan, @ModelAttribute PemeriksaanModel pemeriksaan, Model model) {
-		for(RequestObatModel pem: pemeriksaan.getRequestObatList()) {
-			 HttpEntity<RequestObatModel> entity = new HttpEntity<RequestObatModel>(pem);
-			 RestTemplate restTemplate = new RestTemplate();
-			 String response ="";
-			 try {
-				 ResponseEntity<String> obatEntity = restTemplate.exchange("https://335d9e5c-f224-4922-ad16-1388bfe9068d.mock.pstmn.io/obat", HttpMethod.POST, entity, String.class);
-				 response = obatEntity.getBody();
-				 
-			 } catch (Exception e) {
-				 response = e.getMessage();
-			 }
-			 System.out.println(response);
-		}
+	private String saveObat(@PathVariable(value = "idPemeriksaan") String idPemeriksaan, @ModelAttribute PemeriksaanModel pemeriksaan, Model model) {		
+		requestObatService.postRequestObat(pemeriksaan.getRequestObatList(), Long.parseLong(idPemeriksaan));
 		return "redirect:/";
-	}
-	
-	@GetMapping(value="/obat/service")
-	private String simpanObat(@PathVariable(value = "idPemeriksaan") String idObat) {
-		 RequestObatModel pem = requestObatService.findObatById(1);
-		 HttpEntity<RequestObatModel> entity = new HttpEntity<RequestObatModel>(pem);
-		 RestTemplate restTemplate = new RestTemplate();
-		 String response = "";
-		 try {
-			 ResponseEntity<String> obatEntity = restTemplate.exchange("https://335d9e5c-f224-4922-ad16-1388bfe9068d.mock.pstmn.io/obat", HttpMethod.POST, entity, String.class);
-			 response = obatEntity.getBody();
-		 } catch (Exception e){
-			 response = e.getMessage(); 
-		 }
-		 System.out.println(response);
-		 return "redirect:/";
 	}
 }

@@ -1,6 +1,7 @@
 package com.apap.ta46.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.apap.ta46.model.PasienModel;
+import com.apap.ta46.model.RequestPasienModel;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -20,8 +22,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 @Transactional
 public class PasienServiceImpl implements PasienService {
 	@Autowired
+	RequestPasienService requestPasienService;
+	
+	@Autowired
     RestTemplate restTemplate;
-    
+	
     @Bean
     public RestTemplate rest() {
     	return new RestTemplate();
@@ -47,6 +52,16 @@ public class PasienServiceImpl implements PasienService {
     	JsonNode result = node.get("result");
     	PasienModel pas = mapper.treeToValue(result, PasienModel.class);
     	return pas;
+	}
+
+	@Override
+	public List<PasienModel> getAllPasienRawatInap() throws IOException {
+		List<RequestPasienModel> pasienAntrian = requestPasienService.getAllRequestPasien();
+		ArrayList<PasienModel> listPasien = new ArrayList<>();
+		for (RequestPasienModel pas : pasienAntrian) {
+			listPasien.add(this.getPasien(String.valueOf(pas.getIdPasien())));
+		}
+		return listPasien;
 	}
 
 }

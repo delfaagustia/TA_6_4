@@ -23,8 +23,7 @@ public class RequestObatRestController {
 	@Autowired
 	private RequestObatDb requestObatDb;
 	
-
-	@PostMapping(value="/obat/save")
+	@PostMapping(value="/api/obat/saves/")
 	public BaseResponse<RequestObatModel> addRequestObat(
             @RequestBody @Valid RequestObatModel obat, BindingResult bindingResult) {
 		BaseResponse<RequestObatModel> response = new BaseResponse<RequestObatModel>();
@@ -39,11 +38,5 @@ public class RequestObatRestController {
             response.setResult(obat);
         }
 		return response;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-	}
-	
-	@RequestMapping(value="/obat/simpan", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RequestObatModel> saveInfo(@RequestBody RequestObatModel obat) {
-		System.out.println("masuk");
-		return new ResponseEntity<RequestObatModel>(obat, HttpStatus.CREATED);
 	}
 }
