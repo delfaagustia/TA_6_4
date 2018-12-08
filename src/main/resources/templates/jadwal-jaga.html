@@ -11,6 +11,13 @@
     <script type="text/javascript" charset="utf8" src=" https://code.jquery.com/jquery-3.3.1.js"></script>
   	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  	
+  	<style>
+	  	tr.group,
+		tr.group:hover {
+	    background-color: #ddd !important;
+		}
+  	</style>
 </head>
 
 <body>
@@ -21,23 +28,23 @@
 	    	
 	    	<h3><a th:text = "'Tambah jadwal jaga'" th:href="@{'/jadwal-jaga/tambah'}"></a></h3>
 	       
-	        <table id="jadwalJaga" class="display">
+	        <table id="example" class="display">
 		    <thead>
-		        <tr>
+		        <tr align="center">
 			        <th>Nama Dokter</th>
-			        <th>Status Dokter</th>
 			        <th>Paviliun </th>
-			        <th>Bila waktu telah berhenti</th>
+			        <th>Status Dokter</th>
+			        <th>Waktu</th>
 		        </tr>
 		    </thead>
 		    <tbody>
-		        <tr th:each="jadwalJaga : ${listAllJadwalJaga}">
+		        <tr th:each="jadwalJaga : ${listAllJadwalJaga}" align="center">
 		            <td>
 			            <a th:text="${map.get(jadwalJaga).getNama()}" th:href="@{'jadwal-jaga/dokter/' + ${jadwalJaga.idDokter}}"></a>
 		            </td>
+					<td><p th:text="${jadwalJaga.paviliun.namaPaviliun}"></p></td>
 					<td><p th:text="${jadwalJaga.statusDokter}"></p></td>
-					<td> <p th:text="${jadwalJaga.paviliun.namaPaviliun}"></p></td>
-					<td> <p th:text="${jadwalJaga.waktu.waktu}"></p>
+					<td><p th:text="${jadwalJaga.waktu.waktu}"></p>
 					</td>
 				</tr>
 		    </tbody>
@@ -47,9 +54,42 @@
 	    </div>
 	
 	<script>
-		$(document).ready( function () {
-	    $('#jadwalJaga').DataTable();
-	   	} );
+	$(document).ready(function() {
+	    var groupColumn = 0;
+	    var table = $('#example').DataTable({
+	        "columnDefs": [
+	            { "visible": false, "targets": groupColumn }
+	        ],
+	        "order": [ groupColumn, 'asc' ],
+	        "displayLength": 25,
+	        "drawCallback": function ( settings ) {
+	            var api = this.api();
+	            var rows = api.rows( {page:'current'} ).nodes();
+	            var last=null;
+	 
+	            api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+	                if ( last !== group ) {
+	                    $(rows).eq( i ).before(
+	                        '<tr class="group" align="center"><td colspan="3">'+group+'</td></tr>'
+	                    );
+	 
+	                    last = group;
+	                }
+	            } );
+	        }
+	    } );
+	 
+	    // Order by the grouping
+	    $('#example tbody').on( 'click', 'tr.group', function () {
+	        var currentOrder = table.order()[0];
+	        if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
+	            table.order( [ groupColumn, 'desc' ] ).draw();
+	        }
+	        else {
+	            table.order( [ groupColumn, 'asc' ] ).draw();
+	        }
+	    } );
+	} );
 	</script>
 	   
 </body>
