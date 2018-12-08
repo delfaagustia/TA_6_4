@@ -25,8 +25,8 @@
 				
 				<div class="form-group">
 				  <label>Nama Dokter:</label>
-				  <select class="form-control" name="idDokter">
-				  	<option disabled="disabled" selected="selected" >-- Pilih Dokter --</option>
+				  <select class="form-control" name="idDokter" id="dokter">
+				  	<option disabled="disabled" selected="selected" value="null">-- Pilih Dokter --</option>
 				    <option th:each="dokter: ${listDokter}" 
 				    		th:value="${dokter.id}" 
 				    		th:text="${dokter.nama}"></option>
@@ -40,8 +40,8 @@
 				
 				<div class="form-group">
 				  <label>Paviliun:</label>
-				  <select class="form-control" name="paviliun">
-				  	<option disabled="disabled" selected="selected" >-- Pilih Paviliun --</option>
+				  <select class="form-control" name="paviliun" id="paviliun">
+				  	<option disabled="disabled" selected="selected" value="null">-- Pilih Paviliun --</option>
 				    <option th:each="paviliun: ${listPaviliun}" 
 				    		th:value="${paviliun.id}" 
 				    		th:text="${paviliun.namaPaviliun}"></option>
@@ -50,11 +50,8 @@
 				
 				<div class="form-group">
 				  <label>Waktu Jaga:</label>
-				  <select class="form-control" name="waktu">
-				  	<option disabled="disabled" selected="selected" >-- Pilih Waktu Jaga --</option>
-				    <option th:each="waktu: ${listWaktu}" 
-				    		th:value="${waktu.id}" 
-				    		th:text="${waktu.waktu}"></option>
+				  <select class="form-control" name="waktu" id="waktu">
+				  	<option disabled="disabled" selected="selected">-- Pilih Waktu Jaga --</option>
 				  </select>
 				</div>	
 				
@@ -62,5 +59,30 @@
 			</form>
 		</div>
 		
+		<script>
+		$('#dokter').change(
+			function() {
+				alert(this.value);
+	            $.getJSON("http://localhost:2000/waktu-available", {
+	                idDokter : $(this).val(),
+	                ajax : 'true'
+	            }, 
+	            function(data) {
+	                var html = '<option disabled="disabled" selected="selected">-- Pilih Waktu Jaga --</option>';
+	                var len = data.length;
+	                for ( var i = 0; i < len; i++) {
+	                    html += 
+	                    	'<option value= "'+ data[i].id +'" + th:text="'+ data[i].waktu +'">' + data[i].waktu.replace("T", " ") + '</option>';
+	                }
+	            	$('#waktu').html(html);
+            	});
+        });
+		
+		$("waktu").change(
+			function() {
+				alert(this.value);
+			}		
+		);
+		</script>
 	</body>
 </html>

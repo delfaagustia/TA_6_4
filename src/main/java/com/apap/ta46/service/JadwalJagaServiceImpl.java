@@ -27,5 +27,9 @@ public class JadwalJagaServiceImpl implements JadwalJagaService{
 		// TODO Auto-generated method stub
 		jadwalJagaDb.save(jadwalJaga);
 	}
-
+	
+	@Override
+	public List<JadwalJagaModel> getAllJadwalJagaByIdDokter(long idDokter) {
+		return jadwalJagaDb.findAllByIdDokter(idDokter);
+	}
 }
