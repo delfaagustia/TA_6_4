@@ -35,33 +35,6 @@ public class KamarController {
 	@Autowired
 	private PasienService pasienService;
 	
-//	@RequestMapping(value="/kamar", method=RequestMethod.GET)
-//	private String findKamar(@RequestParam(value="idPaviliun", required = false)
-//	Optional<String> idPaviliun, @RequestParam(value="status", required = false) 
-//	Optional<String> statusKamar, Model model) {
-//		List<PaviliunModel> listPaviliun = paviliunService.getAllPaviliun();
-//		model.addAttribute("listPaviliun", listPaviliun);
-//		
-//		List<KamarModel> kamarResult = new ArrayList<>();
-//		
-//		if(idPaviliun.isPresent()) {
-//			kamarResult = kamarService.findKamarByPaviliun(Long.parseLong(idPaviliun.get()));
-//			if (statusKamar.isPresent()) {
-//				kamarResult = kamarService.findKamarByPaviliunAndStatus(Long.parseLong(idPaviliun.get()), 
-//						Integer.parseInt(statusKamar.get()));
-//			}
-//		}
-//		else {
-//			if(statusKamar.isPresent()) {
-//				kamarResult = kamarService.findKamarByStatus(Integer.parseInt(statusKamar.get()));
-//			}
-//		}
-//		
-//		model.addAttribute("listKamar", kamarResult);
-//		
-//		return "findKamar";
-//	}
-	
 	@RequestMapping(value = "/kamar/{id}", method = RequestMethod.GET)
 	private String viewDetailKamar(@PathVariable(value="id") long id, Model model) throws IOException{
 		KamarModel kamar = kamarService.getKamar(id);
@@ -90,7 +63,7 @@ public class KamarController {
 	
 	@GetMapping(value="/updatekamar/{id}")
 	private String updateKamar(@PathVariable("id") String id, Model model) throws IOException {
-		PasienModel[] pas = pasienService.getAllPasien();
+		List<PasienModel> pas = pasienService.getAllPasienRawatInap();
 		KamarModel kamar = kamarService.getKamar(Long.parseLong(id));
 		model.addAttribute("kamar", kamar);
 		model.addAttribute("listPaviliun", paviliunService.getAllPaviliun());
@@ -103,5 +76,5 @@ public class KamarController {
 		kamarService.updateKamar(Long.parseLong(id), kamar);
 		return "redirect:/kamar";
 	}
-		
+
 }

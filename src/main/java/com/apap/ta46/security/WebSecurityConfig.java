@@ -25,8 +25,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/register").permitAll()
 			.antMatchers("/api/daftar-ranap").permitAll()
 			.antMatchers("/api/get-all-kamar").permitAll()
-			.antMatchers("/api/get-kamar").permitAll()
-			.antMatchers("/obat/request/").permitAll()
+			.antMatchers("/api/obat/saves/").permitAll()
+			.antMatchers("/obat/simpan").permitAll()
+			.antMatchers("/obat/request/**").permitAll()
+			.antMatchers("/obat/service").permitAll()
 			//setting hak akses URL disini
 			.antMatchers("/daftar-request/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/penanganan/**").hasAnyAuthority("ADMIN", "DOKTER")
@@ -36,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/kamar/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/daftar-ranap/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/daftar-pasien/**").hasAnyAuthority("ADMIN")
+			.antMatchers("/obat/save").hasAnyAuthority("ADMIN", "DOKTER")
 			.anyRequest().authenticated()
 			
 			.and()

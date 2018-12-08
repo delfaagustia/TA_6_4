@@ -21,4 +21,9 @@ public class PemeriksaanServiceImpl implements PemeriksaanService {
 		return pemeriksaanDb.findAll();
 	}
 
+	@Override
+	public PemeriksaanModel getPemeriksaan(long id) {
+		return pemeriksaanDb.findById(id);
+	}
+
 }
