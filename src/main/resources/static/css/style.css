@@ -104,6 +104,9 @@ h3.title{
 .navbar-ranap-atas.p{
 	font-size: 1px;
 }
+.menu:hover{
+	color: #e1e1e1 !important;
+}
 
 
 
