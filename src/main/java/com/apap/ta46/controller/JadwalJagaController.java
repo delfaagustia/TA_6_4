@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.apap.ta46.model.DokterModel;
@@ -42,5 +43,12 @@ public class JadwalJagaController {
 		
 		model.addAttribute("listAllJadwalJaga", listAllJadwalJaga);
 		return "jadwal-jaga";
+	}
+	
+	@RequestMapping("/dokter/{idDokter}")
+	public String viewDokter(@PathVariable(value="idDokter") long idDokter, Model model) throws IOException {
+		DokterModel dokter = dokterService.getDokterById(idDokter);
+		model.addAttribute("dokter", dokter);
+		return ("detail-dokter");
 	}
 }
