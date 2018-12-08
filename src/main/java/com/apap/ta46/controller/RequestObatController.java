@@ -42,7 +42,6 @@ public class RequestObatController {
 		RequestObatModel obat = new RequestObatModel();
 		obat.setIdPasien(archive.getIdPasien());
 		pemeriksaan.getRequestObatList().add(obat);
-		
 		model.addAttribute("pemeriksaan", pemeriksaan);
 		model.addAttribute("idPemeriksaan", idPemeriksaan);
 		return "minta-obat";

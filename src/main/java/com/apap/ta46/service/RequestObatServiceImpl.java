@@ -39,10 +39,9 @@ public class RequestObatServiceImpl implements RequestObatService {
 	@Override
 	public String postRequestObat(List<RequestObatModel> requestObat, long idPemeriksaan) {
 		PemeriksaanModel archive = pemeriksaanService.getPemeriksaan(idPemeriksaan);
-		String response ="";
+		String response = "";
 		for(RequestObatModel pem: requestObat) { 
-			HttpEntity<RequestObatModel> entity = new HttpEntity<RequestObatModel>(pem);
-			System.out.println(entity.getBody());
+			 HttpEntity<RequestObatModel> entity = new HttpEntity<RequestObatModel>(pem);
 			 RestTemplate restTemplate = new RestTemplate();
 			 try {
 				 ResponseEntity<String> obatEntity = restTemplate.exchange("https://335d9e5c-f224-4922-ad16-1388bfe9068d.mock.pstmn.io/obat", HttpMethod.POST, entity, String.class);
