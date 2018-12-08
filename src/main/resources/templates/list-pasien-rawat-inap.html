@@ -15,14 +15,14 @@
     	<style>
     		.paviliun-search-container{
 			    border-radius: 20px;
-			    padding: 50px;
+			    padding: 30px;
 			    width: 100%;
 		        margin: auto;
 			}
 			
 			.datatable-container{
 			    border-radius: 20px;
-			    padding: 50px;
+			    padding: 30px;
 			    width: 100%;
 		        margin: auto;
 			}
@@ -56,19 +56,15 @@
 			            <th>Nama</th>
 			            <th>Paviliun</th>
 			            <th>Kamar</th>
-			            <td></td>
 			        </tr>
 			    </thead>
 			    <tbody>	        
 			        <tr th:each = "kamar: ${listKamar}" align="center">
-			            <td th:text="${map.get(kamar).nama}"></td>
+			            <td>
+			            	<a th:text="${map.get(kamar).nama}" th:href="@{'/pasien-ranap/' + ${kamar.idPasien}}"></a>
+			            </td>
 			            <td th:text="${paviliunSelected.namaPaviliun}"></td>
 			            <td th:text="${kamar.id}"></td>
-	                  	<td>
-	                  		<form th:action="@{'/pasien-ranap/' + ${kamar.idPasien}}">
-	                  			<button type="submit">Lihat Pasien</button>
-	                  		</form>
-	                  	</td>   
 			        </tr>
 			    </tbody>
 			</table>
