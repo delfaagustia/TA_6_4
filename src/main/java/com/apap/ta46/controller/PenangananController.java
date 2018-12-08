@@ -96,12 +96,13 @@ public class PenangananController {
 		String statusPenanganan = null;
 		
 		if (listPenanganan.isEmpty()) {
-			statusPenanganan = "kosong";
+			statusPenanganan = "empty";
 		}
 		else {
-			statusPenanganan = "ada";
+			statusPenanganan = "exist";
 			model.addAttribute("listPenanganan", listPenanganan);
 		}
+		
 		model.addAttribute("statusPenanganan", statusPenanganan);
 
 		model.addAttribute("kamar", kamarService.getKamarByIdPasien(idPasien).getId());
@@ -140,6 +141,7 @@ public class PenangananController {
 		model.addAttribute("kamar", kamarService.getKamarByIdPasien(idPasien).getId());
 		model.addAttribute("paviliun", kamarService.getKamarByIdPasien(idPasien).getPaviliun().getNamaPaviliun());
 		
+		model.addAttribute("statusPenanganan", "exist");
 		return "detail-pasien";
 	}
 	
