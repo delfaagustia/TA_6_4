@@ -26,6 +26,7 @@ import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.model.PasienModel;
 import com.apap.ta46.model.PaviliunModel;
 import com.apap.ta46.model.RequestPasienModel;
+import com.apap.ta46.model.StatusPasienModel;
 import com.apap.ta46.service.KamarService;
 import com.apap.ta46.service.PasienService;
 import com.apap.ta46.service.PaviliunService;
@@ -88,6 +89,14 @@ public class RequestPasienController {
 		kamarAsli.setIdPasien(kamarPalsu.getIdPasien());
 		kamarAsli.setStatus(1);
 		
+		//ambil pasien buat di post ke api appointment
+		PasienModel pasien = pasienService.getPasien(String.valueOf(rp.getIdPasien()));
+		StatusPasienModel status = pasien.getStatusPasien();
+		status.setId(5);
+		status.setJenis("Berada di Rawat Inap");
+		pasien.setStatusPasien(status);
+		pasienService.postPasien(pasien);
+		
 		kamarService.updateKamar(kamarAsli);
 		return this.viewAllPasienRanap(model);
 	}
@@ -116,10 +125,20 @@ public class RequestPasienController {
 			
 			KamarModel kamar = kamarService.getKamar(Long.parseLong(idKamar));
 			
+			//ambil pasien buat di post ke api appointment
+			PasienModel pasien = pasienService.getPasien(String.valueOf(kamar.getIdPasien()));
+			StatusPasienModel status = pasien.getStatusPasien();
+			status.setId(6);
+			status.setJenis("Selesai di Rawat Inap");
+			pasien.setStatusPasien(status);
+			pasienService.postPasien(pasien);
+			
+			//di request pasiennya jadi 0
 			RequestPasienModel req = requestPasienService.getRequestPasienByIdPasien(kamar.getIdPasien());
 			req.setAssign(0);
 			requestPasienService.updateRequestPasien(req);
 			
+			//di kamar pasiennya jadi 0 statusnya juga
 			kamar.setIdPasien(0);
 			kamar.setStatus(0);
 			kamarService.updateKamar(kamar);
