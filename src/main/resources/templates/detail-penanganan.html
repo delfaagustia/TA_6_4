@@ -34,5 +34,8 @@
 			<p>blablabla</p><br>
 			<a th:href="@{'/pasien-ranap/' + ${penanganan.idPasien} + '/ubah-penanganan/' + ${penanganan.id}}" class="w3-button w3-block" id="button" style="text-decoration:none">Ubah Penanganan</a>
 		</div>
+		
+		<nav th:replace="fragments/footer :: footer"></nav>
+		
 	</body>
 </html>
