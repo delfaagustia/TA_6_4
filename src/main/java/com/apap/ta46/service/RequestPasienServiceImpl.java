@@ -40,4 +40,19 @@ public class RequestPasienServiceImpl implements RequestPasienService{
 		requestPasienDb.save(req);
 	}
 
+	@Override
+	public RequestPasienModel getRequestPasienByIdPasienPulang(long idPasien) {
+		// TODO Auto-generated method stub
+		List<RequestPasienModel> requestList = requestPasienDb.findAll();
+		for(RequestPasienModel request : requestList) {
+			if(request.getAssign()==1) {
+				if(request.getIdPasien()==idPasien) {
+					return request;
+				}
+			}
+		}
+		return null;
+		
+	}
+
 }
