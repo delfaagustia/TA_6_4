@@ -10,7 +10,7 @@
 	<link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.jqueryui.min.js"></script>
-	
+	<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
 	<script type="text/javascript">
 		$(document).ready( function () {
 		    $('#kamarTable').DataTable();
@@ -20,6 +20,7 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<br>
+	<h3 align="CENTER">Kelola Kamar</h3>
 	<div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -41,7 +42,7 @@
 							<div class="form-group">
 							    <label>Status:</label>
 							    <select class="form-control" name="status" id="status" readonly>
-							      <option selected="selected" th:value="0"> Inactive </option>
+							      <option selected="selected" th:value="0"> Kosong </option>
 							    </select>
 							</div>
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -51,6 +52,7 @@
             </div>
         </div>
         <br/>
+        <h3 align="CENTER">Daftar Kamar</h3>
         <table id="kamarTable" class="display">
 	       <thead>
 	            <tr>
@@ -64,8 +66,8 @@
 				<tr th:each="kamar : *{listKamar}">
 					<td th:text="${kamar.paviliun.namaPaviliun + '-' + kamar.id}"></td>
 					<td th:text="${kamar.paviliun.namaPaviliun}"></td>
-					<td th:if="${kamar.status == 0}">Inactive</td>
-					<td th:if="${kamar.status == 1}">Active</td>
+					<td th:if="${kamar.status == 0}">Kosong</td>
+					<td th:if="${kamar.status == 1}">Terisi</td>
 					<td>
 						<form th:action="@{'/kamar/' + ${kamar.id}}">
 							<button type="submit" class="btn btn-success btn-sm">Detail Kamar</button>

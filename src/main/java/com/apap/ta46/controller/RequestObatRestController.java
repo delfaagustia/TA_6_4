@@ -32,7 +32,7 @@ public class RequestObatRestController {
             response.setStatus(500);
             response.setMessage("error data");
         } else {
-        	requestObatDb.save(obat);
+        	//requestObatDb.save(obat);
         	response.setStatus(200);
             response.setMessage("success");
             response.setResult(obat);

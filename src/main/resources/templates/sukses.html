@@ -9,6 +9,18 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<br/>
-	<b><h3>Sukses!</h3></b>
+	
+	<div class="container">
+		<div class="alert alert-success" th:if="${alert == 1}">
+			<h3 th:text="${hasil}"></h3>
+		</div>
+		
+		<div class="alert alert-danger" th:if="${alert == 0}">
+			<h3 th:text="${hasil}"></h3>
+		</div>
+		
+		<nav th:replace="fragments/footer :: footer"></nav>
+	</div>
+	
 </body>
 </html>
