@@ -3,12 +3,14 @@ package com.apap.ta46.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.apap.ta46.model.UserRoleModel;
 import com.apap.ta46.repository.UserRoleDb;
 
 
 @Service
+@Transactional
 public class UserRoleServiceImpl implements UserRoleService {
 	@Autowired
 	private UserRoleDb userDb;

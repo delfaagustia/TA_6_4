@@ -71,18 +71,19 @@ body {
 h4.title{
 	color:  #034e61 !important;
 	margin-bottom: 25px;
-	font-size: 30px;
+	font-size: 35px;
 }
 
 h2.title{
 	color:  #034e61 !important;
-	font-size: 45px;
+	font-size: 40px;
 	line-spacing : 80px;
 	padding-top: 70px;
 }
 
 h3.title{
 	color:  #034e61 !important;
+	font-size:20px;
 }
 
 .navbar-ranap{
@@ -104,6 +105,11 @@ h3.title{
 .navbar-ranap-atas.p{
 	font-size: 1px;
 }
+
+.menu{
+	margin-left:15px;
+	letter-spacing:0.9px;
+}
 .menu:hover{
 	color: #e1e1e1 !important;
 }
@@ -120,6 +126,13 @@ h3.title{
 	height: 300px;
 }
 
+#user {
+	margin-right: 200;
+}
+
+#user-logout{
+	margin-right:40px;
+}
 
 
 
