@@ -32,4 +32,10 @@ public class JadwalJagaServiceImpl implements JadwalJagaService{
 	public List<JadwalJagaModel> getAllJadwalJagaByIdDokter(long idDokter) {
 		return jadwalJagaDb.findAllByIdDokter(idDokter);
 	}
+
+	@Override
+	public JadwalJagaModel getJadwalJagaById(long idJadwalJaga) {
+		// TODO Auto-generated method stub
+		return jadwalJagaDb.findById(idJadwalJaga).get();
+	}
 }

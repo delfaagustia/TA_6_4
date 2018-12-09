@@ -44,7 +44,8 @@
 		            </td>
 					<td><p th:text="${jadwalJaga.paviliun.namaPaviliun}"></p></td>
 					<td><p th:text="${jadwalJaga.statusDokter}"></p></td>
-					<td><p th:text="${jadwalJaga.waktu.waktu}"></p>
+					<td>
+						<a th:text="${jadwalJaga.waktu.waktu}" th:href="@{'jadwal-jaga/ubah/' + ${jadwalJaga.id}}"></a>
 					</td>
 				</tr>
 		    </tbody>

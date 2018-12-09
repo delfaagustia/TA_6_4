@@ -97,4 +97,30 @@ public class JadwalJagaController {
 		
 		return this.viewAllJadwalJaga(model);
 	}
+	
+	@RequestMapping(value="/ubah/{idJadwalJaga}", method = RequestMethod.GET)
+	private String ubahJadwalJaga(@PathVariable(value = "idJadwalJaga") long idJadwalJaga, Model model) throws IOException {
+		JadwalJagaModel jadwalJaga = jadwalJagaService.getJadwalJagaById(idJadwalJaga);
+		model.addAttribute("jadwalJaga", jadwalJaga);
+		
+		DokterModel dokter = dokterService.getDokterById(jadwalJaga.getIdDokter());
+		model.addAttribute("dokter", dokter);
+		
+		List<PaviliunModel> listPaviliun = paviliunService.getAllPaviliun();
+		model.addAttribute("listPaviliun", listPaviliun);
+		
+		List<WaktuModel> listWaktuAvailable = dokterService.getWaktuAvailable(jadwalJaga.getIdDokter());
+		listWaktuAvailable.add(jadwalJaga.getWaktu());
+		model.addAttribute("listWaktuAvailable", listWaktuAvailable);
+		
+		return "ubah-jadwal-jaga";
+	}
+	
+	@RequestMapping(value="/success", method = RequestMethod.POST)
+	private String ubahJadwalJagaSubmit(@ModelAttribute JadwalJagaModel jadwalJaga, Model model) throws IOException {
+		jadwalJagaService.add(jadwalJaga);
+		
+		return this.viewAllJadwalJaga(model);
+	}
+	
 }

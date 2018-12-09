@@ -12,30 +12,26 @@
 			    width: 50%;
 		        margin: auto;
 			}
-		</style>			
+		</style>	
 	</head>
 	<body>
 		<nav th:replace="fragments/fragment :: navbar"></nav>
 		
 		<div class="add-penanganan-container">
-			<h4 align="center">Tambah Jadwal Jaga</h4><br>
+			<h4 align="center">Ubah Jadwal Jaga</h4><br>
 		
 			<form th:action="@{'/jadwal-jaga'}" th:object="${jadwalJaga}" method="POST">
-				
-				
-				<div class="form-group">
+            	<input type="hidden" name="id" th:value="${jadwalJaga.id}">
+            	<input type="hidden" name="idDokter" th:value="${dokter.id}" id="dokter">
+				  
+  				<div class="form-group">
 				  <label>Nama Dokter:</label>
-				  <select class="form-control" name="idDokter" id="dokter">
-				  	<option disabled="disabled" selected="selected" value="null">-- Pilih Dokter --</option>
-				    <option th:each="dokter: ${listDokter}" 
-				    		th:value="${dokter.id}" 
-				    		th:text="${dokter.nama}"></option>
-				  </select>
-				</div>		
+				  <input disabled class="form-control" type="text" th:value="${dokter.nama}"/>
+				</div>
 				
 				<div class="form-group">
 					<label>Status Dokter:</label>
-					<input class="form-control" type="text" name="statusDokter"/>
+					<input class="form-control" type="text" name="statusDokter" th:value="${jadwalJaga.statusDokter}"/>
 				</div>	
 				
 				<div class="form-group">
@@ -44,7 +40,8 @@
 				  	<option disabled="disabled" selected="selected" value="null">-- Pilih Paviliun --</option>
 				    <option th:each="paviliun: ${listPaviliun}" 
 				    		th:value="${paviliun.id}" 
-				    		th:text="${paviliun.namaPaviliun}"></option>
+				    		th:text="${paviliun.namaPaviliun}"
+				    		th:selected="(${paviliun.id} == ${jadwalJaga.paviliun.id})"></option>
 				  </select>
 				</div>	
 				
@@ -52,30 +49,15 @@
 				  <label>Waktu Jaga:</label>
 				  <select class="form-control" name="waktu" id="waktu">
 				  	<option disabled="disabled" selected="selected">-- Pilih Waktu Jaga --</option>
+				  	<option th:each="waktu: ${listWaktuAvailable}" 
+				    		th:value="${waktu.id}" 
+				    		th:text="${waktu.waktu}"
+				    		th:selected="(${waktu.id} == ${jadwalJaga.waktu.id})"></option>
 				  </select>
 				</div>	
 				
 				<button class="button" type="submit">Submit</button>
 			</form>
 		</div>
-		
-		<script>
-			$('#dokter').change(
-				function() {
-		            $.getJSON("http://localhost:2000/waktu-available", {
-		                idDokter : $(this).val(),
-		                ajax : 'true'
-		            }, 
-		            function(data) {
-		                var html = '<option disabled="disabled" selected="selected">-- Pilih Waktu Jaga --</option>';
-		                var len = data.length;
-		                for ( var i = 0; i < len; i++) {
-		                    html += 
-		                    	'<option value= "'+ data[i].id +'" + th:text="'+ data[i].waktu +'">' + data[i].waktu.replace("T", " ") + '</option>';
-		                }
-		            	$('#waktu').html(html);
-	            	});
-	        });
-		</script>
 	</body>
 </html>

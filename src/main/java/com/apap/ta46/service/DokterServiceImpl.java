@@ -1,6 +1,7 @@
 package com.apap.ta46.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,14 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.apap.ta46.model.DokterModel;
 import com.apap.ta46.model.JadwalJagaModel;
 import com.apap.ta46.model.PasienModel;
+import com.apap.ta46.model.WaktuModel;
 import com.apap.ta46.rest.Setting;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.apap.ta46.service.WaktuService;
 
 @Service
 @Transactional
@@ -26,6 +32,9 @@ public class DokterServiceImpl implements DokterService {
 	
 	@Autowired
     RestTemplate restTemplate;
+	
+	@Autowired
+	WaktuService waktuService;
 	
     @Bean
     public RestTemplate rest() {
@@ -66,6 +75,28 @@ public class DokterServiceImpl implements DokterService {
     	JsonNode result = node.get("result");
     	DokterModel[] listdokter = mapper.treeToValue(result, DokterModel[].class);
 		return listdokter;
+	}
+
+	@Override
+	public List<WaktuModel> getWaktuAvailable(long idDokter) {
+		// TODO Auto-generated method stub
+		
+		List<WaktuModel> listWaktuAvailable = new ArrayList<WaktuModel>();
+		List<WaktuModel> listWaktu = waktuService.getAllWaktu();
+		
+		List<JadwalJagaModel> listJadwalJaga = jadwalJagaService.getAllJadwalJagaByIdDokter(idDokter);
+		List<WaktuModel> listWaktuTaken = new ArrayList<WaktuModel>();
+		for (JadwalJagaModel jadwal: listJadwalJaga) {
+			listWaktuTaken.add(jadwal.getWaktu());
+		}
+		
+		for (WaktuModel waktu: listWaktu) {
+			if (!listWaktuTaken.contains(waktu)) {
+				listWaktuAvailable.add(waktu);
+			}
+		}
+		
+		return listWaktuAvailable;
 	}
 
 }
