@@ -121,11 +121,6 @@ h3.title{
 	margin-right: 200;
 }
 
-#gambar-kamar {
-	width: 500px;
-	height: 300px;
-}
-
 #user {
 	margin-right: 200;
 }
@@ -133,6 +128,12 @@ h3.title{
 #user-logout{
 	margin-right:40px;
 }
+
+#gambar-kamar {
+	width: 500px;
+	height: 300px;	
+}
+
 
 
 
