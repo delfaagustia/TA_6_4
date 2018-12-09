@@ -24,19 +24,20 @@
 		    <thead>
 		        <tr>
 			        <th>Nama Pasien</th>
-			        <th>Status Pasien</th>
-			        <th>Status Assign Kamar</th>
+			        <th>Nomor Kamar</th>
+			        <th>Pulangkan Pasien</th>
+			        
 		        </tr>
 		    </thead>
 		    <tbody>
-		        <tr th:each="requestPasien : ${requestPasienList}">
-					<td><p id="nama" th:text="${map.get(requestPasien).getNama()}"></p></td>
-					<td><p th:text="${map.get(requestPasien).getStatusPasien().getJenis()}"></p></td>
+		        <tr th:each="kamar : ${kamarList}">
+					<td><p id="nama" th:text="${map.get(kamar).getNama()}"></p></td>
+					<td><p th:text="${kamar.id}"></p></td>
 					
-					
-					<td> <a th:href="@{'/daftar-request/assign/'+ ${requestPasien.idPasien}}" 
-					th:text="${requestPasien.assign == 0} ? 'Not-assigned' : 'Assigned'"></a>
+					<td> <a th:href="@{'/daftar-ranap/pulang/'+ ${kamar.id}}" 
+					th:text="Pulangkan"></a>
 					</td>
+					
 					
 				</tr>
 		    </tbody>

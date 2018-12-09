@@ -1,6 +1,6 @@
 package com.apap.ta46.controller;
 
-import java.io.IOException; 
+import java.io.IOException;  
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,6 +57,34 @@ public class PenangananController {
 		return "list-pasien-rawat-inap";
 	}
 	
+
+	@RequestMapping(value= "/all")
+	private String viewAllPasienRawatInapSubmit(Model model) throws IOException {
+		List<PaviliunModel> listPaviliun = paviliunService.getAllPaviliun();
+		model.addAttribute("listPaviliun", listPaviliun);
+		
+		List<KamarModel> listKamarFix = new ArrayList<>();
+		
+		for (PaviliunModel paviliun: listPaviliun) {
+			for (KamarModel kamar: paviliun.getKamarList()) {
+				if (kamar.getStatus() == 1) {
+					listKamarFix.add(kamar);;
+				}
+			}
+		}
+		
+		Map<KamarModel, PasienModel> map = new HashMap<>();
+		for(KamarModel kamar : listKamarFix) {
+			String idPasien = Long.toString(kamar.getIdPasien());
+			map.put(kamar, pasienService.getPasien(idPasien));
+		}
+		
+		model.addAttribute("map", map);
+		model.addAttribute("listKamar", listKamarFix);
+		
+		return "list-pasien-rawat-inap";
+	}
+	
 	@RequestMapping(value = "", params= {"idPaviliun"})
 	private String viewPasienRawatInapSubmit(@RequestParam(value = "idPaviliun") long idPaviliun, Model model)  throws IOException {
 		List<PaviliunModel> listPaviliun = paviliunService.getAllPaviliun();
@@ -69,7 +97,7 @@ public class PenangananController {
 		List<KamarModel> listKamarFix = new ArrayList<>();
 		
 		for (KamarModel kamar: listKamar) {
-			if (kamar.getIdPasien()!=0) {
+			if (kamar.getStatus() == 1) {
 				listKamarFix.add(kamar);
 			}
 		}
@@ -96,12 +124,13 @@ public class PenangananController {
 		String statusPenanganan = null;
 		
 		if (listPenanganan.isEmpty()) {
-			statusPenanganan = "kosong";
+			statusPenanganan = "empty";
 		}
 		else {
-			statusPenanganan = "ada";
+			statusPenanganan = "exist";
 			model.addAttribute("listPenanganan", listPenanganan);
 		}
+		
 		model.addAttribute("statusPenanganan", statusPenanganan);
 
 		model.addAttribute("kamar", kamarService.getKamarByIdPasien(idPasien).getId());
@@ -140,6 +169,7 @@ public class PenangananController {
 		model.addAttribute("kamar", kamarService.getKamarByIdPasien(idPasien).getId());
 		model.addAttribute("paviliun", kamarService.getKamarByIdPasien(idPasien).getPaviliun().getNamaPaviliun());
 		
+		model.addAttribute("statusPenanganan", "exist");
 		return "detail-pasien";
 	}
 	

@@ -17,49 +17,60 @@
 
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	    <div class="container-fluid">
-	        <h2 th:text = " 'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
-	    	
-	        <div class="row">
-	        <form th:action="@{/request/assign}" method="POST">
-				Nama: <br>
-				<h2 th:text="${pasien.nama}"></h2>
+	       	<br>
+	    	<h3 style="text-align:center;" th:text="'Ubah Assign Kamar Pasien'"></h3>
+	        
+	        <form th:action="@{/daftar-request/assign}" method="POST">
+				
+				<h2 th:text="'Nama: '+${pasien.nama}"></h2>
 				<input class="form-control" type="hidden" name="idPasien" th:value="${pasien.id}"/>
 				<br>
 				<h2 th:text="'Paviliun'"></h2>
 		 		<h2>
-						<select id="paviliun" class="form-control"/>
-							<option disabled="disabled" selected="selected" >Pilih Paviliun</option>
-						<div th:each="paviliun : ${paviliunList}">
-						<option 
-						th:value="${paviliun.id}"
-						th:text="${paviliun.namaPaviliun}"></option>
-						</select>
-						
-						<select id="kamar" class="form-control"/>
-							<option disabled="disabled" selected="selected" >Pilih Kamar</option>
-						<option th:each="kamar : ${map.get(paviliun)}"
-						th:value="${kamar.id}"
-						th:text="${kamar.id}"></option>
-						</div>
+						 <select class="form-control" name="paviliun" id="paviliun">
+				  	<option disabled="disabled" selected="selected">-- Pilih Paviliun --</option>
+				    <option th:each="paviliun: ${paviliunList}" 
+				    		th:value="${paviliun.id}" 
+				    		th:text="${paviliun.namaPaviliun}"></option>
+				  </select>
 		 		</h2>
 				<br>
 				<h2 th:text="'Kamar'"></h2>
 		 		<h2>
-						<select id="kamar" class="form-control"/>
-							<option disabled="disabled" selected="selected" >Pilih Kamar</option>
-						<option th:each="kamar : ${map.get(paviliun)}"
-						th:value="${kamar.id}"
-						th:text="${kamar.id}"></option>
-						</select>
+					<select class="form-control" name="Id" id="kamar">
+				  		<option disabled="disabled" selected="selected">-- Pilih Kamar --</option>
+				  	</select>
+						
 		 		</h2>
-				<br>
-
 				<br>
 				<button  class="btn btn-primary btn" type="submit">Submit</button>
 			</form>
-	        </div>
+	        
 	        
 	    </div>
+	    
+	    <script>
+			$('#paviliun').change(
+				function() {
+		            $.getJSON("http://localhost:2000/paviliun-available", {
+		                idPaviliun : $(this).val(),
+		                ajax : 'true'
+		            }, 
+		            function(data) {
+		                var html = '<option disabled="disabled" selected="selected">-- Pilih Kamar --</option>';
+		                var len = data.length;
+		                console.log(len);
+		                for ( var i = 0; i < len; i++) {
+		                	html += 
+		                    	'<option value= "'+ data[i].id +'">' + data[i].id +'</option>';
+		                    console.log(data[i]);
+							console.log(data[i].id);
+							console.log(data[i].idPasien);         
+		               	} 
+		            	$('#kamar').html(html);
+					});
+	        });
+		</script>
 	   
 </body>
 </html>

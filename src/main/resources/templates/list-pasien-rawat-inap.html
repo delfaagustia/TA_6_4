@@ -7,6 +7,7 @@
    		<script type="text/javascript" charset="utf8" src="	https://code.jquery.com/jquery-3.3.1.js"></script>
 		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		
 		<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
   		<object th:include="fragments/fragment :: css" th:remove="tag"></object>
@@ -15,20 +16,33 @@
     	<style>
     		.paviliun-search-container{
 			    border-radius: 20px;
-			    padding: 50px;
+			    padding: 30px;
 			    width: 100%;
 		        margin: auto;
 			}
 			
 			.datatable-container{
 			    border-radius: 20px;
-			    padding: 50px;
+			    padding: 30px;
 			    width: 100%;
 		        margin: auto;
 			}
+			tr.group,
+			tr.group:hover {
+			    background-color: #ddd !important;
+			}
 			
+			#button1{
+				background-color:#00CED1;
+				width:10%;
+			}
+			
+			#button2{
+				background-color:#3C89A3;
+				width:20%;
+			}
     	</style>
-    		
+    	
 	</head>
 	<body>
 		<nav th:replace="fragments/fragment :: navbar"></nav>
@@ -46,7 +60,10 @@
 					    		th:selected="${paviliun} == ${paviliunSelected}"></option>
 				  	</select>
 				</div>
-				<button class="button" type="submit">Cari</button>	 
+				<button class="w3-button w3-block" id="button1"  type="submit">Cari</button>	 
+			</form><br>
+			<form th:action="@{/pasien-ranap/all}">
+				<button class="w3-button w3-block" id="button2" type="submit">Lihat Semua Pasien</button>	
 			</form>
 		</div>
 		<div class="datatable-container">
@@ -56,27 +73,58 @@
 			            <th>Nama</th>
 			            <th>Paviliun</th>
 			            <th>Kamar</th>
-			            <td></td>
 			        </tr>
 			    </thead>
 			    <tbody>	        
 			        <tr th:each = "kamar: ${listKamar}" align="center">
-			            <td th:text="${map.get(kamar).nama}"></td>
-			            <td th:text="${paviliunSelected.namaPaviliun}"></td>
+			            <td>
+			            	<a th:text="${map.get(kamar).nama}" th:href="@{'/pasien-ranap/' + ${kamar.idPasien}}"></a>
+			            </td>
+			            <td th:text="${kamar.paviliun.namaPaviliun}"></td>
 			            <td th:text="${kamar.id}"></td>
-	                  	<td>
-	                  		<form th:action="@{'/pasien-ranap/' + ${kamar.idPasien}}">
-	                  			<button type="submit">Lihat Pasien</button>
-	                  		</form>
-	                  	</td>   
 			        </tr>
 			    </tbody>
 			</table>
 		</div>
-	</body>
-	<script>
-			$(document).ready( function () {
-			    $('#pasienRawatInap').DataTable();
+		
+		<script>
+			$(document).ready(function() {
+			    var groupColumn = 1;
+			    var table = $('#pasienRawatInap').DataTable({
+			        "columnDefs": [
+			            { "visible": false, "targets": groupColumn }
+			        ],
+			        "order": [ groupColumn, 'asc' ],
+			        "displayLength": 25,
+			        "drawCallback": function ( settings ) {
+			            var api = this.api();
+			            var rows = api.rows( {page:'current'} ).nodes();
+			            var last=null;
+			 
+			            api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+			                if ( last !== group ) {
+			                    $(rows).eq( i ).before(
+			                        '<tr class="group" align="center"><td colspan="2">'+group+'</td></tr>'
+			                    );
+			 
+			                    last = group;
+			                }
+			            } );
+			        }
+			    } );
+			 
+			    // Order by the grouping
+			    $('#example tbody').on( 'click', 'tr.group', function () {
+			        var currentOrder = table.order()[0];
+			        if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
+			            table.order( [ groupColumn, 'desc' ] ).draw();
+			        }
+			        else {
+			            table.order( [ groupColumn, 'asc' ] ).draw();
+			        }
+			    } );
 			} );
-	</script>
+		</script>
+		
+	</body>
 </html>
