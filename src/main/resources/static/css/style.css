@@ -134,9 +134,16 @@ h3.title{
 
 #gambar-kamar {
 	width: 500px;
-	height: 300px;	
+	height: 300px;
+	box-shadow: #222 0.2em 0.2em 1em;
+  	transition: filter 0.3s, box-shadow 0.3s;
 }
 
+#gambar-kamar:hover{
+	-webkit-filter: sepia(70%);
+	filter:  sepia(70%);
+	box-shadow: #224 0.2em 0.2em 0.6em 0.1em;
+}
 
 
 
