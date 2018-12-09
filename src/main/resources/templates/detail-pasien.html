@@ -33,7 +33,6 @@
 			  text-align: center;
 			  font-family: arial;
 			}
-
 			.title {
 			  color: grey;
 			  font-size: 18px;
@@ -57,7 +56,10 @@
 						  	<p th:text="'Paviliun: ' + ${paviliun}"></p>
 						  	<p th:text="'Kamar: ' + ${kamar}"></p>
 				  		</div>
-						<a th:href="@{'/pasien-ranap/' + ${pasien.id} + '/insert'}" class="w3-button w3-block" id="button1" style="text-decoration:none">+Tambah Penanganan</a>
+			  			<form th:action="@{'/pasien-ranap/penanganan/insert'}" th:object="${pasien}" method="POST">
+							<input type="hidden" name="id" th:value="${pasien.id}"/>
+							<button type="submit" class="w3-button w3-block" id="button1">+Tambah Penanganan</button>						
+					  	</form>
 					</div>
 				</div>
 			</section>

@@ -146,10 +146,10 @@ public class PenangananController {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("/{idPasien}/insert")
-	private String addPenanganan(@PathVariable(value="idPasien") long idPasien, Model model) throws IOException {
+	@RequestMapping("/penanganan/insert")
+	private String addPenanganan(@ModelAttribute PasienModel pasien, Model model) throws IOException {
 		model.addAttribute("listDokter", dokterService.getAllDokter());
-		model.addAttribute("pasien", pasienService.getPasien(Long.toString(idPasien)));
+		model.addAttribute("pasien", pasienService.getPasien(Long.toString(pasien.getId())));
 		return "add-penanganan";
 	}
 	
