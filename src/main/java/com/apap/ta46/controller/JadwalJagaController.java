@@ -117,8 +117,8 @@ public class JadwalJagaController {
 	}
 	
 	@RequestMapping(value="/success", method = RequestMethod.POST)
-	private String ubahJadwalJagaSubmit(@ModelAttribute JadwalJagaModel jadwalJaga, Model model) throws IOException {
-		jadwalJagaService.add(jadwalJaga);
+	private String hapusJadwalJagaSubmit(@ModelAttribute JadwalJagaModel jadwalJaga, Model model) throws IOException {
+		jadwalJagaService.remove(jadwalJaga);
 		
 		return this.viewAllJadwalJaga(model);
 	}

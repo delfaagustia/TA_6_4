@@ -38,4 +38,10 @@ public class JadwalJagaServiceImpl implements JadwalJagaService{
 		// TODO Auto-generated method stub
 		return jadwalJagaDb.findById(idJadwalJaga).get();
 	}
+
+	@Override
+	public void remove(JadwalJagaModel jadwalJaga) {
+		// TODO Auto-generated method stub
+		jadwalJagaDb.delete(jadwalJaga);
+	}
 }
