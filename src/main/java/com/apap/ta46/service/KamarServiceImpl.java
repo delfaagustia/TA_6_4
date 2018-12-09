@@ -35,16 +35,6 @@ public class KamarServiceImpl implements KamarService {
 	
 	@Override
 	public void addKamar(KamarModel kamar) {
-		String idPaviliun = String.valueOf(kamar.getPaviliun().getId());
-		int banyakKamar = kamar.getPaviliun().getKamarList().size();
-		String urutan = "";
-		if(banyakKamar < 10) {
-			urutan = "0" + String.valueOf(banyakKamar);
-		}else {
-			urutan = String.valueOf(banyakKamar);
-		}
-		String id = idPaviliun + urutan;
-		kamar.setId(Long.parseLong(id));
 		kamarDb.save(kamar);
 	}
 	
