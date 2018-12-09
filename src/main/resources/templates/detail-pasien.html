@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Insert title here</title>
+		<title th:text="'Detail Pasien - ' + ${pasien.nama}"></title>
 			
 		<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
 	  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
@@ -18,7 +18,11 @@
 			    grid-gap: 1rem;
 			}
 			
-			#button{
+			#button1{
+				background-color:#3C89A3;
+			}
+			
+			#button2{
 				background-color:#00CED1;
 			}
 			   
@@ -53,7 +57,7 @@
 						  	<p th:text="'Paviliun: ' + ${paviliun}"></p>
 						  	<p th:text="'Kamar: ' + ${kamar}"></p>
 				  		</div>
-						<a th:href="@{'/pasien-ranap/' + ${pasien.id} + '/insert'}" class="w3-button w3-block" id="button" style="text-decoration:none">+Tambah Penanganan</a>
+						<a th:href="@{'/pasien-ranap/' + ${pasien.id} + '/insert'}" class="w3-button w3-block" id="button1" style="text-decoration:none">+Tambah Penanganan</a>
 					</div>
 				</div>
 			</section>
@@ -79,7 +83,7 @@
 									<div class="w3-container w3-white"><br>
 									  <p th:text="${penanganan.pemeriksaan}" ></p><br>
 									</div>
-									<a th:href="@{'/pasien-ranap/' + ${pasien.id} + '/penanganan/' + ${penanganan.id}}" class="w3-button w3-block" id="button" style="text-decoration:none">Lihat Penanganan</a>
+									<a th:href="@{'/pasien-ranap/' + ${pasien.id} + '/penanganan/' + ${penanganan.id}}" class="w3-button w3-block" id="button2" style="text-decoration:none">Lihat Penanganan</a>
 								</div>
 							</div>
 						</th:block>	
