@@ -21,12 +21,14 @@ import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.model.PasienModel;
 import com.apap.ta46.model.PaviliunModel;
 import com.apap.ta46.model.PemeriksaanModel;
+import com.apap.ta46.model.RequestObatModel;
 import com.apap.ta46.service.DokterService;
 import com.apap.ta46.service.JadwalJagaService;
 import com.apap.ta46.service.KamarService;
 import com.apap.ta46.service.PasienService;
 import com.apap.ta46.service.PaviliunService;
 import com.apap.ta46.service.PenangananService;
+import com.apap.ta46.service.RequestObatService;
 
 @Controller
 @RequestMapping("/pasien-ranap")
@@ -49,6 +51,9 @@ public class PenangananController {
 	
 	@Autowired
 	DokterService dokterService;
+	
+	@Autowired
+	RequestObatService requestObatService;
 	
 	@RequestMapping(value = "")
 	public String viewPasienRawatInap(Model model) {
@@ -146,10 +151,10 @@ public class PenangananController {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("/{idPasien}/insert")
-	private String addPenanganan(@PathVariable(value="idPasien") long idPasien, Model model) throws IOException {
+	@RequestMapping("/penanganan/insert")
+	private String addPenanganan(@ModelAttribute PasienModel pasien, Model model) throws IOException {
 		model.addAttribute("listDokter", dokterService.getAllDokter());
-		model.addAttribute("pasien", pasienService.getPasien(Long.toString(idPasien)));
+		model.addAttribute("pasien", pasienService.getPasien(Long.toString(pasien.getId())));
 		return "add-penanganan";
 	}
 	
@@ -190,6 +195,22 @@ public class PenangananController {
 		DokterModel dokter = dokterService.getDokterById(penanganan.getIdDokter());
 		model.addAttribute("dokter", dokter);
 
+		List<RequestObatModel> listAllObat = requestObatService.getAllObat();
+		List<RequestObatModel> listObatFix = new ArrayList<>();
+		for (RequestObatModel obat: listAllObat) {
+			if (obat.getPemeriksaan().getId() == idPenanganan) {
+				listObatFix.add(obat);
+			}
+		}
+		
+		if(listObatFix.isEmpty()) {
+			model.addAttribute("statusObat", "empty");
+		}
+		else {
+			model.addAttribute("statusObat", "exist");
+			model.addAttribute("listObat", listObatFix);
+		}
+		
 		return "detail-penanganan";
 	}
 	
