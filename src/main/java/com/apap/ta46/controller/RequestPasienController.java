@@ -135,7 +135,7 @@ public class RequestPasienController {
 			
 			//di request pasiennya jadi 0
 			RequestPasienModel req = requestPasienService.getRequestPasienByIdPasien(kamar.getIdPasien());
-			req.setAssign(0);
+			req.setAssign(2);
 			requestPasienService.updateRequestPasien(req);
 			
 			//di kamar pasiennya jadi 0 statusnya juga
