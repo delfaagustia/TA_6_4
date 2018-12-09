@@ -59,15 +59,16 @@
 		            function(data) {
 		                var html = '<option disabled="disabled" selected="selected">-- Pilih Kamar --</option>';
 		                var len = data.length;
+		                console.log(len);
 		                for ( var i = 0; i < len; i++) {
-		                    html += 
+		                	html += 
 		                    	'<option value= "'+ data[i].id +'">' + data[i].id +'</option>';
 		                    console.log(data[i]);
 							console.log(data[i].id);
-							console.log(data[i].idPasien);
-		                }
+							console.log(data[i].idPasien);         
+		               	} 
 		            	$('#kamar').html(html);
-	            	});
+					});
 	        });
 		</script>
 	   
