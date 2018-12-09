@@ -34,7 +34,6 @@ public class RequestObatServiceImpl implements RequestObatService {
 		return requestObatDb.findById(id);
 	}
 
-
 	@Override
 	public BaseResponse postRequestObat(List<RequestObatModel> requestObat, long idPemeriksaan) {
 		PemeriksaanModel archive = pemeriksaanService.getPemeriksaan(idPemeriksaan);
