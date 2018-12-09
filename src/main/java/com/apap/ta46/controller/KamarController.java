@@ -2,7 +2,9 @@ package com.apap.ta46.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.model.PasienModel;
 import com.apap.ta46.model.PaviliunModel;
+import com.apap.ta46.model.RequestPasienModel;
 import com.apap.ta46.service.KamarService;
 import com.apap.ta46.service.PasienService;
 import com.apap.ta46.service.PaviliunService;
+import com.apap.ta46.service.RequestPasienService;
 
 @Controller
 public class KamarController {
