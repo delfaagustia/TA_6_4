@@ -49,6 +49,7 @@ public class PemeriksaanModel implements Serializable {
 	private Timestamp waktu;
 	
 	@OneToMany(mappedBy="pemeriksaan", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JsonIgnore
 	private List<RequestObatModel> requestObatList;
 
 	public long getId() {

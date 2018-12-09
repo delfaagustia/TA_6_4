@@ -13,24 +13,24 @@
         <div class="row padding-top">
             <div class="col-sm-8 offset-sm-2">
             	
-            	<div class="card-login">
+            	<div class="card-login" align = "center" >
             		<div class = "row">
-		            	<div class="col-sm-6">    		
-		            		<h2 class = "title"> SIRANAP </h2>
-		            		<h3 class = "title"> Sistem Informasi Rawat Inap </h3>
+		            	<div class="col-sm-6" align = "center">    		
+		            		<h2 class = "title" align = "center"> SIRANAP </h2>
+		            		<h3 class = "title" align = "center"> Sistem Informasi Rawat Inap </h3>
 		            	</div>
             			<div class="col-sm-6 bg-left-card-login">
-            				<h4 class = "title"> Sign In </h4>
+            				<h4 class = "title" align = "center"> Masuk </h4>
             				
             				<div th:if="${param.error}">
-                            	<span style="color: red;padding-left:60px">Invalid username or password !</span>
+                            	<span style="color: red">Username dan password salah !</span>
                         	</div>
                         	
             		   		<form th:action="@{/login}" method="POST">
 				        		<div class="row" style="padding: 10px">
 				        			<div class="col-sm-10 offset-sm-1">
 				        				<div class="form group">
-			          						<input class="form-control login-input input-sm" placeholder="Username" type="text" name="username"/>
+			          						<input class="form-control login-input input-sm" placeholder= "Username" type="text" name="username"/>						        			
 						        		</div>
 				        			</div>
 					        		<div class="col-sm-10 offset-sm-1" style="padding-top: 15px">
@@ -39,12 +39,12 @@
 							        	</div>
 					        		</div>
 				        			<div style="padding-top:30px" class="col-sm-10 offset-sm-1">
-				        				<button id = "rounded-button" type="submit" class="btn btn-success btn-block btn-lg">LOGIN</button>
+				        				<button id = "rounded-button" type="submit" class="btn btn-success btn-block btn-lg">MASUK</button>
 				        			</div>
 				        		</div>
 				        	</form>
-				        	<div style="padding-top:10px;text-align:center;color:#666" class="col-sm-10 offset-sm-1">
-					        	OR | <a th:href="@{/register}">Create an Account</a>
+				        	<div style="padding-top:10px;margin-left:auto; margin-right: auto;color:#666" class="col-sm-10 offset-sm-1">
+					        	Belum punya akun? | <a th:href="@{/register}">Buat Akun</a>
 					        </div>
             			</div>
             		</div>	

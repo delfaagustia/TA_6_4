@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="paviliun")
 public class PaviliunModel implements Serializable {
@@ -38,9 +41,11 @@ public class PaviliunModel implements Serializable {
 	private int status;
 	
 	@OneToMany(mappedBy="paviliun", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JsonIgnore
 	private List<KamarModel> kamarList;
 	
 	@OneToMany(mappedBy="paviliun", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JsonIgnore
 	private List<JadwalJagaModel> jadwalJagaList;
 
 	public long getId() {

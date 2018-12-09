@@ -3,19 +3,18 @@
 
 
 <head>
-    <title>SIRANAP-ERROR 500</title>
+    <title>SIRANAP-Error 403</title>
 	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
   	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 
-<body>
+<body style= "min-height:100%">
 	<nav th:replace="fragments/fragment :: navbar"></nav>
-	
-	<div class="alert alert-danger" role="alert" style="margin-top: 30px; padding:20px;font-size:20px;margin-bottom:200px" align="center">
-  		<strong>Error!</strong> 500 Internal Server Error!
+	<div class="alert alert-danger" role="alert" style="margin-top: 30px; padding:20px;font-size:20px;margin-bottom:230px" align="center">
+  		<strong>Error!</strong> 403 Forbidden!
 	</div>
-	
+
 	<nav th:replace="fragments/footer :: footer"></nav>
 </body>
 </html>

@@ -17,19 +17,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure (HttpSecurity http) throws Exception {
 		http
+		.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/js/**").permitAll()
 			.antMatchers("/user/addUser").permitAll()
 			.antMatchers("/register").permitAll()
-			
+			.antMatchers("/api/daftar-ranap").permitAll()
+			.antMatchers("/api/get-all-kamar").permitAll()
+			.antMatchers("/api/obat/saves/").permitAll()
+			.antMatchers("/obat/simpan").permitAll()
+			.antMatchers("/obat/request/**").permitAll()
+			.antMatchers("/obat/service").permitAll()
 			//setting hak akses URL disini
 			.antMatchers("/daftar-request/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/penanganan/**").hasAnyAuthority("ADMIN", "DOKTER")
+			.antMatchers("/pasien-ranap/**").hasAnyAuthority("ADMIN", "DOKTER")
 			.antMatchers("/obat/request/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/jadwal-jaga/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/kamar/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/daftar-ranap/**").hasAnyAuthority("ADMIN")
+			.antMatchers("/daftar-pasien/**").hasAnyAuthority("ADMIN")
+			.antMatchers("/obat/save").hasAnyAuthority("ADMIN", "DOKTER")
 			.anyRequest().authenticated()
 			
 			.and()
@@ -53,4 +62,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
 	}
+	
 }
+

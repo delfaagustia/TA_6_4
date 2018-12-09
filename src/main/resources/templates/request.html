@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>SIRANAP-Home</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <script type="text/javascript" charset="utf8" src=" https://code.jquery.com/jquery-3.3.1.js"></script>
+  	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	    <div class="container-fluid">
+	        <h2 th:text = " 'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
+	    	
+	        
+	        <table id="pasienRawatInap" class="display">
+		    <thead>
+		        <tr>
+			        <th>Id Pasien</th>
+			        <th>Nama Pasien</th>
+			        <th>Status Pasien</th>
+			        <th>Status Assign Kamar</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr th:each="requestPasien : ${requestPasienList}">
+					<td><p id="idPasien" th:text="${requestPasien.idPasien}"></p></td>
+					<td><p id="nama" th:text="${map.get(requestPasien).getNama()}"></p></td>
+					<td><p th:text="${map.get(requestPasien).getStatusPasien().getJenis()}"></p></td>
+					<td><p th:text="${requestPasien.assign}"></p></td>
+					
+				</tr>
+		    </tbody>
+			</table>
+	        
+	        
+	    </div>
+	
+	<script>
+		$(document).ready( function () {
+	    $('#pasienRawatInap').DataTable();
+	   	} );
+	</script>
+	   
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Update Kamar</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br>
+	<h3 align="CENTER">Update Kamar</h3>
+	<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Update Kamar
+                    </div>
+                    <div class="card-body">
+                      
+                        <form th:action="@{'/kamar/' + ${kamar.id}}" th:object="${kamar}" method="POST">
+                        	<input type="hidden" name="id" th:value="*{id}"/>
+                            <div class="form-group">
+							    <label>Paviliun:</label>
+							    <select  class="form-control" name="paviliun">
+							      <option disabled="disabled" selected="selected"> --Pilih Paviliun-- </option>
+							      <option th:each="paviliun : ${listPaviliun}" th:value="${paviliun.id}" 
+							      th:text="${paviliun.namaPaviliun}" th:selected="${paviliun.id} == *{paviliun.id}"></option>
+							    </select>
+							</div>
+							<div class="form-group">
+							    <label>Pasien:</label>
+							    <select  class="form-control" name="idPasien">
+							      <option selected="true" th:value="0"> -Kosong- </option>
+							      <option th:each="pasien : ${listPasien}" th:value="${pasien.id}" 
+							      th:text="${pasien.nama}" th:selected="${pasien.id} == *{idPasien}"></option>
+							    </select>
+							</div>
+							<div class="form-group">
+							    <label>Status:</label>
+							    <select  class="form-control" required="required" name="status">
+							      <option th:value="0" th:selected="${0} == *{status}">Kosong</option>
+							      <option th:value="1" th:selected="${1} == *{status}">Terisi</option>
+							    </select>
+							</div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav th:replace="fragments/footer :: footer"></nav>
+</body>
+</html>

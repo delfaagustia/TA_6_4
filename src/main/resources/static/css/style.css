@@ -2,20 +2,28 @@
 
 body {
 	font-family: 'Raleway' !important;
+	background-color:  white !important;
+	height:100%;
+	min-height:100%;
+
 }
+
+.siranap{
+	font-size: 30px;	
+}
+
 .bg-home {
 	background: #00a2b1;  /* fallback for old browsers */
 	background: -webkit-linear-gradient(to right, #00a2b1, #00a2b1);  /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to right, #00a2b1, #034e61); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-	
 }
 
 .bg-left-card-login{
 	border-left: 1px solid #00a2b1;
-	
 }
+
 .padding-top {
-	padding-top: 180px;
+	padding-top: 110px;
 }
 
 .login-input {
@@ -32,13 +40,23 @@ body {
 	border: 2px solid #034e61;
 	height:45px;
 }
+
 #rounded-button{
 	border-radius : 50px !important;
 }
 
+#rounded-text{
+	border-radius : 50px !important;
+	display:block !important;
+	height:40px !important;
+	width: 100px !important;
+	border-radius: 25px !important;
+	border: 3px solid #e1e1e1; !important;
+}
+
 .card-login {
 	background-color: #e1e1e1;
-	padding: 50px;
+	padding: 20px;
 	border-radius: 3px 65px 25px;	
 }
 
@@ -55,28 +73,69 @@ body {
 
 h4.title{
 	color:  #034e61 !important;
-	margin-left: 160px;
 	margin-bottom: 25px;
-	font-size: 30px;
+	font-size: 35px;
 }
 
 h2.title{
 	color:  #034e61 !important;
-	padding-left:90px;
-	font-size: 50px;
+	font-size: 40px;
 	line-spacing : 80px;
 	padding-top: 70px;
 }
 
 h3.title{
 	color:  #034e61 !important;
-	margin-left:30px;
+	font-size:20px;
 }
 
 .navbar-ranap{
 	background-color: #00a2b1 !important;
 	color: white;
-	padding-top: 15px;
-	padding-bottom:15px;
+	padding-top: 7px;
+	padding-bottom: 7x;
+	padding-left : 70px;
+	padding-right: 70px;
 }
+
+.navbar-ranap-atas{
+	height:35px;
 }
+
+.navbar-ranap-atas.i{
+	font-size: 1px;
+}
+.navbar-ranap-atas.p{
+	font-size: 1px;
+}
+
+.menu{
+	margin-left:15px;
+	letter-spacing:0.9px;
+}
+.menu:hover{
+	color: #e1e1e1 !important;
+}
+
+.detail-kamar{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 200;
+}
+
+#gambar-kamar {
+	width: 500px;
+	height: 300px;
+}
+
+#user {
+	margin-right: 200;
+}
+
+#user-logout{
+	margin-right:40px;
+}
+
+
+

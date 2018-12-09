@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Sukses</title>
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br/>
+	
+	<div class="container">
+		<div class="alert alert-success" th:if="${alert == 1}">
+			<h3 th:text="${hasil}"></h3>
+		</div>
+		
+		<div class="alert alert-danger" th:if="${alert == 0}">
+			<h3 th:text="${hasil}"></h3>
+		</div>
+		
+		<nav th:replace="fragments/footer :: footer"></nav>
+	</div>
+	
+</body>
+</html>

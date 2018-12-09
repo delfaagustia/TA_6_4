@@ -1,28 +1,53 @@
 package com.apap.ta46.service;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.repository.KamarDb;
 
 @Service
 @Transactional
-public class KamarServiceImpl implements KamarService{
+public class KamarServiceImpl implements KamarService {
 	@Autowired
 	private KamarDb kamarDb;
 	
 	@Override
-	public List<KamarModel> getAllKamar() {
-		// TODO Auto-generated method stub
-		return kamarDb.findAll();
+	public KamarModel getKamar(long id) {
+		return kamarDb.findById(id);
 	}
 
 	@Override
+	public List<KamarModel> getAllKamar() {
+		return kamarDb.findAll();
+	}
+	
+	@Override
+	public void updateKamar(long id, KamarModel kamar) {
+		KamarModel archiveKamar = this.getKamar(id);
+		archiveKamar.setIdPasien(kamar.getIdPasien());
+		archiveKamar.setPaviliun(kamar.getPaviliun());
+		archiveKamar.setStatus(kamar.getStatus());
+	}
+	
+	@Override
+	public void addKamar(KamarModel kamar) {
+		kamarDb.save(kamar);
+	}
+	
 	public KamarModel getKamarByIdPasien(long idPasien) {
 		// TODO Auto-generated method stub
 		return kamarDb.findByIdPasien(idPasien);
+	}
+
+	@Override
+	public List<KamarModel> getPasienInKamar() {
+		// TODO Auto-generated method stub
+		long idPasien = 0;
+		return kamarDb.findByIdPasienNot(idPasien);
 	}
 
 }

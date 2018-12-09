@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Request Obat</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br/>
+		<h3 align="CENTER">Request Obat</h3>
+	<br/>
+	<form th:action="@{'/obat/request/' + ${idPemeriksaan}}" th:object="${pemeriksaan}" method="POST">
+		<table class="table">
+		  <thead>
+		    <tr>
+		    	<th style="text-align: center">No. </th>
+		      <th style="text-align: center">Nama Obat</th>
+		      <th style="text-align: center">Jumlah</th>
+		      <th style="text-align: center">Id Pasien</th>
+		      <th>
+		        <button type="submit" name="addRow" class="btn btn-primary btn-sm">Tambah Obat</button>
+		      </th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="obat, rowStat : *{requestObatList}">
+		      <td th:text="${rowStat.count}">1</td>
+		      <td>
+		      	<select class="form-control" th:field="*{requestObatList[__${rowStat.index}__].namaObat}">
+					<option value="Nourish Skin Ultimate Isi 30" >Nourish Skin Ultimate Isi 30</option>
+					<option value="Obat Batuk Ibu dan Anak 75 ML" >Obat Batuk Ibu dan Anak 75 ML</option>
+					<option value="Ampicillin KF 500 mg Tab" >Ampicillin KF 500 mg Tab</option>
+					<option value="Sanmol Tab 500 mg" >Sanmol Tab 500 mg</option>
+					<option value="Woods Herbal 60 ml" >Woods Herbal 60 ml</option>					
+				</select>
+		      </td>
+		      <td>
+		        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].jumlah}" />
+		      </td>
+		      <td>
+		        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].idPasien}" readonly/>
+		      </td>
+		      <td>
+		        <button type="submit" name="removeRow" 
+		                th:value="${rowStat.index}" class="btn btn-danger btn-sm">Hapus Obat</button>
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+		<button type="submit" name="save" class="btn btn-primary btn-sm">Submit</button>
+	</form>
+	<nav th:replace="fragments/footer :: footer"></nav>
+</body>
+</html>

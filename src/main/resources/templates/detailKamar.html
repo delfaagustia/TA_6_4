@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Detail Kamar</title>
+	
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br>
+	<div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Detail Kamar
+                    </div>
+                    <div class="card-body">
+                    	<div class="container">
+						  <div class="row">
+						    <div class="col-sm">
+						      Nomor Kamar 
+						    </div>
+						    <div class="col-sm">
+						      <p th:text="':  ' + ${kamar.paviliun.namaPaviliun} + '-' + ${kamar.id}"></p>
+						    </div>
+						  </div>
+						  <div class="row">
+						    <div class="col-sm">
+						      Paviliun 
+						    </div>
+						    <div class="col-sm">
+						      <p th:text="':  ' + ${kamar.paviliun.namaPaviliun}"></p> 
+						    </div>
+						   </div>
+						   <div class="row">
+						   	<div class="col-sm">
+						      Status 
+						    </div>
+						    <div class="col-sm">
+						      <p th:text="${kamar.status == 0} ? ': Kosong' : ': Terisi'"></p>
+						    </div>
+						   </div>
+						   <div class="row">
+						    <div class="col-sm">
+						      Nama Pasien 
+						    </div>
+						    <div class="col-sm">
+						      <p th:text="${kamar.idPasien == 0} ? ': -' : ': ' + ${pasien.nama}"></p> 
+						    </div>
+						   </div>
+						   <div class="row">
+						   		<form th:action="@{'/updatekamar/' + ${kamar.id}}">
+									<button type="submit" class="btn btn-success btn-sm">Update Kamar</button>
+								</form>
+						   </div>
+						</div>     
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+	   			<img id = "gambar-kamar" src = "http://rsmmc.co.id/new/userfiles/service/6/27/vip_delux2-400x0.JPG">
+	       	</div>
+        </div>
+    </div>
+    
+    <nav th:replace="fragments/footer :: footer"></nav>
+</body>
+</html>
