@@ -56,12 +56,12 @@
 				  </select>
 				</div>	
 				
-				<button class="button" type="submit">Submit</button>
+				<button class="btn btn-success btn-sm" type="submit">Submit</button>
 			</form>
 			<br>
 			<form th:action="@{'/jadwal-jaga/hapus/success'}" th:object="${jadwalJaga}" method="POST">
 				<input type="hidden" name="id" th:value="${jadwalJaga.id}">
-				<button class="button" type="submit">Delete</button>
+				<button class="btn btn-success btn-sm" type="submit">Delete</button>
 			</form>
 		</div>
 	</body>
