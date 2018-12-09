@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Insert title here</title>
+		<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+	  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	    <style>
+	    	.add-penanganan-container{
+			    border-radius: 20px;
+			    padding: 50px;
+			    width: 50%;
+		        margin: auto;
+			}
+		</style>			
+	</head>
+	<body>
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		
+		<div class="add-penanganan-container">
+			<h4 align="center">Tambah Jadwal Jaga</h4><br>
+		
+			<form th:action="@{'/jadwal-jaga/tambah/success'}" th:object="${jadwalJaga}" method="POST">
+				
+				
+				<div class="form-group">
+				  <label>Nama Dokter:</label>
+				  <select class="form-control" name="idDokter" id="dokter">
+				  	<option disabled="disabled" selected="selected" value="null">-- Pilih Dokter --</option>
+				    <option th:each="dokter: ${listDokter}" 
+				    		th:value="${dokter.id}" 
+				    		th:text="${dokter.nama}"></option>
+				  </select>
+				</div>		
+				
+				<div class="form-group">
+					<label>Status Dokter:</label>
+					<input class="form-control" type="text" name="statusDokter"/>
+				</div>	
+				
+				<div class="form-group">
+				  <label>Paviliun:</label>
+				  <select class="form-control" name="paviliun" id="paviliun">
+				  	<option disabled="disabled" selected="selected" value="null">-- Pilih Paviliun --</option>
+				    <option th:each="paviliun: ${listPaviliun}" 
+				    		th:value="${paviliun.id}" 
+				    		th:text="${paviliun.namaPaviliun}"></option>
+				  </select>
+				</div>	
+				
+				<div class="form-group">
+				  <label>Waktu Jaga:</label>
+				  <select class="form-control" name="waktu" id="waktu">
+				  	<option disabled="disabled" selected="selected">-- Pilih Waktu Jaga --</option>
+				  </select>
+				</div>	
+				
+				<button class="btn btn-success btn-sm" type="submit">Submit</button>
+			</form>
+		</div>
+		
+		<script>
+			$('#dokter').change(
+				function() {
+		            $.getJSON("http://localhost:2000/waktu-available", {
+		                idDokter : $(this).val(),
+		                ajax : 'true'
+		            }, 
+		            function(data) {
+		                var html = '<option disabled="disabled" selected="selected">-- Pilih Waktu Jaga --</option>';
+		                var len = data.length;
+		                for ( var i = 0; i < len; i++) {
+		                    html += 
+		                    	'<option value= "'+ data[i].id +'" + th:text="'+ data[i].waktu +'">' + data[i].waktu.replace("T", " ") + '</option>';
+		                }
+		            	$('#waktu').html(html);
+	            	});
+	        });
+		</script>
+	</body>
+</html>

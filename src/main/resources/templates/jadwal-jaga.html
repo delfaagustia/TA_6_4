@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+	<title>Daftar Jadwal Jaga</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.jqueryui.min.css"/>
+	<link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.jqueryui.min.js"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
+  	<style>
+	  	tr.group,
+		tr.group:hover {
+	    background-color: #ddd !important;
+		}
+  	</style>
+</head>
+
+<body>
+
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	    <br>
+		<h3 align="CENTER">Daftar Jadwal Jaga</h3>
+	    <div class="container">
+	    	<form th:action="@{'/jadwal-jaga/tambah'}">
+				<button type="submit" class="btn btn-success btn-sm">Tambah Jadwal Jaga</button>
+			</form>
+			<br>
+	       
+	        <table id="example" class="display">
+		    <thead>
+		        <tr align="center">
+			        <th>Nama Dokter</th>
+			        <th>Paviliun </th>
+			        <th>Status Dokter</th>
+			        <th>Waktu</th>
+			        <th>Ubah</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr th:each="jadwalJaga : ${listAllJadwalJaga}" align="center">
+		            <td th:text="${map.get(jadwalJaga).getNama()}">
+		            </td>
+					<td><p th:text="${jadwalJaga.paviliun.namaPaviliun}"></p></td>
+					<td><p th:text="${jadwalJaga.statusDokter}"></p></td>
+					<td>
+						<a th:text="${jadwalJaga.waktu.waktu}"></a>
+					</td>
+					<td>
+						<form th:action="@{'/jadwal-jaga/ubah/' + ${jadwalJaga.id}}">
+							<button type="submit" class="btn btn-success btn-sm">Ubah</button>
+						</form>
+					</td>
+				</tr>
+		    </tbody>
+			</table>
+	        
+	        
+	    </div>
+	
+	<script>
+	$(document).ready(function() {
+	    var groupColumn = 0;
+	    var table = $('#example').DataTable({
+	        "columnDefs": [
+	            { "visible": false, "targets": groupColumn }
+	        ],
+	        "order": [ groupColumn, 'asc' ],
+	        "displayLength": 25,
+	        "drawCallback": function ( settings ) {
+	            var api = this.api();
+	            var rows = api.rows( {page:'current'} ).nodes();
+	            var last=null;
+	 
+	            api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+	                if ( last !== group ) {
+	                    $(rows).eq( i ).before(
+	                        '<tr class="group" align="center"><td colspan="3">'+group+'</td></tr>'
+	                    );
+	 
+	                    last = group;
+	                }
+	            } );
+	        }
+	    } );
+	 
+	    // Order by the grouping
+	    $('#example tbody').on( 'click', 'tr.group', function () {
+	        var currentOrder = table.order()[0];
+	        if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
+	            table.order( [ groupColumn, 'desc' ] ).draw();
+	        }
+	        else {
+	            table.order( [ groupColumn, 'asc' ] ).draw();
+	        }
+	    } );
+	} );
+	</script>
+	   
+</body>
+</html>
