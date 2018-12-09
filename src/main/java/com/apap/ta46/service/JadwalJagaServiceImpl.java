@@ -22,4 +22,26 @@ public class JadwalJagaServiceImpl implements JadwalJagaService{
 		return jadwalJagaDb.findAll();
 	}
 
+	@Override
+	public void add(JadwalJagaModel jadwalJaga) {
+		// TODO Auto-generated method stub
+		jadwalJagaDb.save(jadwalJaga);
+	}
+	
+	@Override
+	public List<JadwalJagaModel> getAllJadwalJagaByIdDokter(long idDokter) {
+		return jadwalJagaDb.findAllByIdDokter(idDokter);
+	}
+
+	@Override
+	public JadwalJagaModel getJadwalJagaById(long idJadwalJaga) {
+		// TODO Auto-generated method stub
+		return jadwalJagaDb.findById(idJadwalJaga).get();
+	}
+
+	@Override
+	public void removeById(long id) {
+		// TODO Auto-generated method stub
+		jadwalJagaDb.deleteById(id);
+	}
 }

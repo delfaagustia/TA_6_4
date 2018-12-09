@@ -8,12 +8,16 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.apap.ta46.model.PasienModel;
 import com.apap.ta46.model.RequestPasienModel;
+import com.apap.ta46.rest.BaseResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -52,6 +56,18 @@ public class PasienServiceImpl implements PasienService {
     	JsonNode result = node.get("result");
     	PasienModel pas = mapper.treeToValue(result, PasienModel.class);
     	return pas;
+	}
+	
+	@Override
+	public BaseResponse postPasien(PasienModel pasien) {
+		BaseResponse response = null;
+		
+		HttpEntity<PasienModel> entity = new HttpEntity<PasienModel>(pasien);
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<BaseResponse> pasienEntity = restTemplate.exchange("http://si-appointment.herokuapp.com/api/4/updatePasien", HttpMethod.POST, entity, BaseResponse.class);
+		response = pasienEntity.getBody();
+			
+		return response;
 	}
 
 	@Override

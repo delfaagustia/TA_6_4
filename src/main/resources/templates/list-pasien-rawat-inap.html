@@ -1,82 +1,119 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
+		<meta charset="UTF-8">
 		<title>Pasien Rawat Inap</title>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-   		
-   		<script type="text/javascript" charset="utf8" src="	https://code.jquery.com/jquery-3.3.1.js"></script>
-		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-		
-		<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
-  		<object th:include="fragments/fragment :: css" th:remove="tag"></object>
-    	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
-    	
-    	<style>
-    		.paviliun-search-container{
-			    border-radius: 20px;
-			    padding: 50px;
-			    width: 100%;
-		        margin: auto;
-			}
-			
-			.datatable-container{
-			    border-radius: 20px;
-			    padding: 50px;
-			    width: 100%;
-		        margin: auto;
-			}
-			
-    	</style>
-    		
+		<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+		<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.jqueryui.min.css"/>
+		<link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.jqueryui.min.js"></script>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
 	</head>
+	
 	<body>
 		<nav th:replace="fragments/fragment :: navbar"></nav>
-	
-		<div class="paviliun-search-container">
-			<h3>Pasien Rawat Inap</h3>
-			<form th:action="@{/pasien-ranap}">
-				<div class="form-group">
-				 	<label>Paviliun:</label>
-				  	<select class="form-control" name="idPaviliun" id="paviliun">
-					  	<option disabled="disabled" selected="selected">-- Pilih Paviliun --</option>
-					    <option th:each="paviliun: ${listPaviliun}" 
-					    		th:value="${paviliun.id}" 
-					    		th:text="${paviliun.namaPaviliun}"
-					    		th:selected="${paviliun} == ${paviliunSelected}"></option>
-				  	</select>
-				</div>
-				<button class="button" type="submit">Cari</button>	 
-			</form>
-		</div>
-		<div class="datatable-container">
-			<table id="pasienRawatInap" class="display">
-			    <thead>
+		<br>
+		<h3 align="CENTER">Pasien Rawat Inap</h3>
+		<div class="container">
+	        <div class="row">
+        		<div class="col-md-3">
+        		</div>	            
+        		
+        		<div class="col-md-6">
+	                <div class="card">
+	                    <div class="card-header">
+	                        Cari Pasien
+	                    </div>
+	                    <div class="card-body">
+							<form th:action="@{/pasien-ranap}">
+								<div class="form-group">
+								 	<label>Paviliun:</label>
+								  	<select class="form-control" name="idPaviliun" id="paviliun">
+									  	<option disabled="disabled" selected="selected">-- Pilih Paviliun --</option>
+									    <option th:each="paviliun: ${listPaviliun}" 
+									    		th:value="${paviliun.id}" 
+									    		th:text="${paviliun.namaPaviliun}"
+									    		th:selected="${paviliun} == ${paviliunSelected}"></option>
+								  	</select>
+								</div>
+	                            <button type="submit" class="btn btn-primary">Submit</button>
+	                        </form><br>
+	                        <form th:action="@{/pasien-ranap/all}">
+								<button class="btn btn-info" type="submit">Lihat Semua Pasien</button>	
+							</form>
+	                    </div>
+	                </div>
+	            </div>
+	            
+	            <div class="col-md-3">
+        		</div>
+	        </div>
+	        <br/>
+	        <h3 align="CENTER">Daftar Pasien</h3>
+	        <table id="pasienRawatInapTable" class="display">
+				<thead>
 			        <tr align="center">
 			            <th>Nama</th>
 			            <th>Paviliun</th>
 			            <th>Kamar</th>
-			            <td></td>
 			        </tr>
 			    </thead>
-			    <tbody>	        
+		    	<tbody>	        
 			        <tr th:each = "kamar: ${listKamar}" align="center">
-			            <td th:text="${map.get(kamar).nama}"></td>
-			            <td th:text="${paviliunSelected.namaPaviliun}"></td>
+			            <td>
+			            	<a th:text="${map.get(kamar).nama}" th:href="@{'/pasien-ranap/' + ${kamar.idPasien}}"></a>
+			            </td>
+			            <td th:text="${kamar.paviliun.namaPaviliun}"></td>
 			            <td th:text="${kamar.id}"></td>
-	                  	<td>
-	                  		<form th:action="@{'/pasien-ranap/' + ${kamar.idPasien}}">
-	                  			<button type="submit">Lihat Pasien</button>
-	                  		</form>
-	                  	</td>   
 			        </tr>
 			    </tbody>
-			</table>
-		</div>
-	</body>
-	<script>
-			$(document).ready( function () {
-			    $('#pasienRawatInap').DataTable();
+		    </table>
+	    </div>    
+	    
+	    <script>
+			$(document).ready(function() {
+			    var groupColumn = 1;
+			    var table = $('#pasienRawatInapTable').DataTable({
+			        "columnDefs": [
+			            { "visible": false, "targets": groupColumn }
+			        ],
+			        "order": [ groupColumn, 'asc' ],
+			        "displayLength": 25,
+			        "drawCallback": function ( settings ) {
+			            var api = this.api();
+			            var rows = api.rows( {page:'current'} ).nodes();
+			            var last=null;
+			 
+			            api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+			                if ( last !== group ) {
+			                    $(rows).eq( i ).before(
+			                        '<tr class="group" align="center"><td colspan="2">'+group+'</td></tr>'
+			                    );
+			 
+			                    last = group;
+			                }
+			            } );
+			        }
+			    } );
+			 
+			    // Order by the grouping
+			    $('#example tbody').on( 'click', 'tr.group', function () {
+			        var currentOrder = table.order()[0];
+			        if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
+			            table.order( [ groupColumn, 'desc' ] ).draw();
+			        }
+			        else {
+			            table.order( [ groupColumn, 'asc' ] ).draw();
+			        }
+			    } );
 			} );
-	</script>
+		</script>
+	    
+	   	<nav th:replace="fragments/footer :: footer"></nav>
+	    
+	</body>
+	
 </html>

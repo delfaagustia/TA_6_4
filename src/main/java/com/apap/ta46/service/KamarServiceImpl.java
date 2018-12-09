@@ -1,5 +1,6 @@
 package com.apap.ta46.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -48,6 +49,31 @@ public class KamarServiceImpl implements KamarService {
 		// TODO Auto-generated method stub
 		long idPasien = 0;
 		return kamarDb.findByIdPasienNot(idPasien);
+	}
+
+	@Override
+	public List<KamarModel> getAllKamarByStatus(int status) {
+		// TODO Auto-generated method stub
+		List<KamarModel> search = new ArrayList<>();
+		
+		for(KamarModel kamar : kamarDb.findAll()) {
+			if (kamar.getStatus() == status) {
+				search.add(kamar);
+			}
+		}
+		return search;
+	}
+
+	@Override
+	public List<KamarModel> getAllKamarByIdPaviliun(long idPaviliun) {
+		// TODO Auto-generated method stub
+		List<KamarModel> search = new ArrayList<>();
+		for(KamarModel kamar : kamarDb.findAll()) {
+			if (kamar.getPaviliun().getId() == idPaviliun) {
+				search.add(kamar);
+			}
+		}
+		return search;
 	}
 
 }

@@ -11,4 +11,5 @@ public interface RequestObatService {
 	void addObat(RequestObatModel obat);
 	RequestObatModel findObatById(long id);
 	BaseResponse postRequestObat(List<RequestObatModel> requestObat, long idPemeriksaan);
+	List<RequestObatModel> getAllObat();
 }

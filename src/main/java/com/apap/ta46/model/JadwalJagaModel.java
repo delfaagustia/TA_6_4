@@ -45,8 +45,11 @@ public class JadwalJagaModel implements Serializable {
 	@Column(name="status_dokter", nullable=false)
 	private String statusDokter;
 	
-	@OneToMany(mappedBy="jadwalJaga", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<JadwalJagaDokterModel> jadwalJagaDokterList;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_waktu", referencedColumnName="id", nullable=false)
+	@OnDelete(action=OnDeleteAction.NO_ACTION)
+	@JsonIgnore
+	private WaktuModel waktu;
 
 	public long getId() {
 		return Id;
@@ -72,14 +75,6 @@ public class JadwalJagaModel implements Serializable {
 		this.statusDokter = statusDokter;
 	}
 
-	public List<JadwalJagaDokterModel> getJadwalJagaDokterList() {
-		return jadwalJagaDokterList;
-	}
-
-	public void setJadwalJagaDokterList(List<JadwalJagaDokterModel> jadwalJagaDokterList) {
-		this.jadwalJagaDokterList = jadwalJagaDokterList;
-	}
-
 	public long getIdDokter() {
 		return idDokter;
 	}
@@ -87,5 +82,15 @@ public class JadwalJagaModel implements Serializable {
 	public void setIdDokter(long idDokter) {
 		this.idDokter = idDokter;
 	}
+
+	public WaktuModel getWaktu() {
+		return waktu;
+	}
+
+	public void setWaktu(WaktuModel waktu) {
+		this.waktu = waktu;
+	}
+	
+	
 	
 }

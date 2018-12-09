@@ -1,6 +1,6 @@
 package com.apap.ta46.controller;
 
-import java.io.IOException; 
+import java.io.IOException;  
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,12 +21,14 @@ import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.model.PasienModel;
 import com.apap.ta46.model.PaviliunModel;
 import com.apap.ta46.model.PemeriksaanModel;
+import com.apap.ta46.model.RequestObatModel;
 import com.apap.ta46.service.DokterService;
 import com.apap.ta46.service.JadwalJagaService;
 import com.apap.ta46.service.KamarService;
 import com.apap.ta46.service.PasienService;
 import com.apap.ta46.service.PaviliunService;
 import com.apap.ta46.service.PenangananService;
+import com.apap.ta46.service.RequestObatService;
 
 @Controller
 @RequestMapping("/pasien-ranap")
@@ -50,10 +52,41 @@ public class PenangananController {
 	@Autowired
 	DokterService dokterService;
 	
+	@Autowired
+	RequestObatService requestObatService;
+	
 	@RequestMapping(value = "")
 	public String viewPasienRawatInap(Model model) {
 		List<PaviliunModel> listPaviliun = paviliunService.getAllPaviliun();
 		model.addAttribute("listPaviliun", listPaviliun);
+		return "list-pasien-rawat-inap";
+	}
+	
+
+	@RequestMapping(value= "/all")
+	private String viewAllPasienRawatInapSubmit(Model model) throws IOException {
+		List<PaviliunModel> listPaviliun = paviliunService.getAllPaviliun();
+		model.addAttribute("listPaviliun", listPaviliun);
+		
+		List<KamarModel> listKamarFix = new ArrayList<>();
+		
+		for (PaviliunModel paviliun: listPaviliun) {
+			for (KamarModel kamar: paviliun.getKamarList()) {
+				if (kamar.getStatus() == 1) {
+					listKamarFix.add(kamar);;
+				}
+			}
+		}
+		
+		Map<KamarModel, PasienModel> map = new HashMap<>();
+		for(KamarModel kamar : listKamarFix) {
+			String idPasien = Long.toString(kamar.getIdPasien());
+			map.put(kamar, pasienService.getPasien(idPasien));
+		}
+		
+		model.addAttribute("map", map);
+		model.addAttribute("listKamar", listKamarFix);
+		
 		return "list-pasien-rawat-inap";
 	}
 	
@@ -69,7 +102,7 @@ public class PenangananController {
 		List<KamarModel> listKamarFix = new ArrayList<>();
 		
 		for (KamarModel kamar: listKamar) {
-			if (kamar.getIdPasien()!=0) {
+			if (kamar.getStatus() == 1) {
 				listKamarFix.add(kamar);
 			}
 		}
@@ -96,12 +129,13 @@ public class PenangananController {
 		String statusPenanganan = null;
 		
 		if (listPenanganan.isEmpty()) {
-			statusPenanganan = "kosong";
+			statusPenanganan = "empty";
 		}
 		else {
-			statusPenanganan = "ada";
+			statusPenanganan = "exist";
 			model.addAttribute("listPenanganan", listPenanganan);
 		}
+		
 		model.addAttribute("statusPenanganan", statusPenanganan);
 
 		model.addAttribute("kamar", kamarService.getKamarByIdPasien(idPasien).getId());
@@ -117,10 +151,10 @@ public class PenangananController {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("/{idPasien}/insert")
-	private String addPenanganan(@PathVariable(value="idPasien") long idPasien, Model model) throws IOException {
+	@RequestMapping("/penanganan/insert")
+	private String addPenanganan(@ModelAttribute PasienModel pasien, Model model) throws IOException {
 		model.addAttribute("listDokter", dokterService.getAllDokter());
-		model.addAttribute("pasien", pasienService.getPasien(Long.toString(idPasien)));
+		model.addAttribute("pasien", pasienService.getPasien(Long.toString(pasien.getId())));
 		return "add-penanganan";
 	}
 	
@@ -140,6 +174,7 @@ public class PenangananController {
 		model.addAttribute("kamar", kamarService.getKamarByIdPasien(idPasien).getId());
 		model.addAttribute("paviliun", kamarService.getKamarByIdPasien(idPasien).getPaviliun().getNamaPaviliun());
 		
+		model.addAttribute("statusPenanganan", "exist");
 		return "detail-pasien";
 	}
 	
@@ -160,6 +195,22 @@ public class PenangananController {
 		DokterModel dokter = dokterService.getDokterById(penanganan.getIdDokter());
 		model.addAttribute("dokter", dokter);
 
+		List<RequestObatModel> listAllObat = requestObatService.getAllObat();
+		List<RequestObatModel> listObatFix = new ArrayList<>();
+		for (RequestObatModel obat: listAllObat) {
+			if (obat.getPemeriksaan().getId() == idPenanganan) {
+				listObatFix.add(obat);
+			}
+		}
+		
+		if(listObatFix.isEmpty()) {
+			model.addAttribute("statusObat", "empty");
+		}
+		else {
+			model.addAttribute("statusObat", "exist");
+			model.addAttribute("listObat", listObatFix);
+		}
+		
 		return "detail-penanganan";
 	}
 	

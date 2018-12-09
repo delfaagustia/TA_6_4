@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>Insert title here</title>
+		<title>Tambah Penanganan</title>
 		<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
 	  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	    
 	    <style>
 	    	.add-penanganan-container{
 			    border-radius: 20px;
 			    padding: 50px;
 			    width: 50%;
 		        margin: auto;
+			}
+			
+			#button1{
+				background-color:#00CED1;
+		        margin: 1px;
+				width:48%;
+			}
+			
+			#button2{
+				background-color:#ff6666;
+	        	margin: 1px;
+				width:48%;
 			}
 		</style>			
 	</head>
@@ -30,8 +44,8 @@
 				
 				<div class="form-group">
 				  <label>Nama Dokter:</label>
-				  <select class="form-control" name="idDokter">
-				  	<option disabled="disabled" selected="selected" >-- Pilih Dokter --</option>
+				  <select class="form-control" name="idDokter" required="required">
+				  	<option disabled="disabled" selected="selected" value="">-- Pilih Dokter --</option>
 				    <option th:each="dokter: ${listDokter}" 
 				    		th:value="${dokter.id}" 
 				    		th:text="${dokter.nama}"></option>
@@ -40,19 +54,23 @@
 				
 				<div class="form-group">
 				  <label>Waktu:</label>
-				  <input class="form-control" type="datetime-local" step="1" name="waktuFix"/>
+				  <input class="form-control" type="datetime-local" step="1" name="waktuFix" required/>
 				</div>
 				
 			    <input type="hidden" name="waktu" value="2018-11-01 06:08:00"/>
 				
 				<div class="form-group">
 					<label>Pemeriksaan:</label>
-					<input class="form-control" type="text" name="pemeriksaan" maxlength="255" required/>
+					<textarea class="form-control" name="pemeriksaan" required></textarea>
 				</div>
 				
-				<button class="button" type="submit">Submit</button>
+				<button class="w3-button w3-block" id="button1" type="submit" style="float: left">Submit</button>
+				<a th:href="@{'/pasien-ranap/' + ${pasien.id}}" class="w3-button w3-block" id="button2" style="text-decoration:none; float: right">Cancel</a>
+				
 			</form>
 		</div>
-		
+
+		<nav th:replace="fragments/footer :: footer"></nav>
+
 	</body>
 </html>
