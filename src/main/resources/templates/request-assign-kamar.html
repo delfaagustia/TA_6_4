@@ -3,63 +3,89 @@
 
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>SIRANAP-Home</title>
-	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
-  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
-    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
-    <script type="text/javascript" charset="utf8" src=" https://code.jquery.com/jquery-3.3.1.js"></script>
-  	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-  	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<meta charset="UTF-8">
+<title>Assign Pasien Rujukan</title>
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.15/css/dataTables.jqueryui.min.css" />
+<link
+	href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.15/js/dataTables.jqueryui.min.js"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}" />
 </head>
 
 <body>
-
 	<nav th:replace="fragments/fragment :: navbar"></nav>
-	    <div class="container-fluid">
-	        <h2 th:text = " 'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
-	    	
-	        <div class="row">
-	        <form th:action="@{/request/assign}" method="POST">
-				Nama: <br>
-				<h2 th:text="${pasien.nama}"></h2>
-				<input class="form-control" type="hidden" name="idPasien" th:value="${pasien.id}"/>
-				<br>
-				<h2 th:text="'Paviliun'"></h2>
-		 		<h2>
-						<select id="paviliun" class="form-control"/>
-							<option disabled="disabled" selected="selected" >Pilih Paviliun</option>
-						<div th:each="paviliun : ${paviliunList}">
-						<option 
-						th:value="${paviliun.id}"
-						th:text="${paviliun.namaPaviliun}"></option>
-						</select>
-						
-						<select id="kamar" class="form-control"/>
-							<option disabled="disabled" selected="selected" >Pilih Kamar</option>
-						<option th:each="kamar : ${map.get(paviliun)}"
-						th:value="${kamar.id}"
-						th:text="${kamar.id}"></option>
-						</div>
-		 		</h2>
-				<br>
-				<h2 th:text="'Kamar'"></h2>
-		 		<h2>
-						<select id="kamar" class="form-control"/>
-							<option disabled="disabled" selected="selected" >Pilih Kamar</option>
-						<option th:each="kamar : ${map.get(paviliun)}"
-						th:value="${kamar.id}"
-						th:text="${kamar.id}"></option>
-						</select>
-		 		</h2>
-				<br>
+	<br>
+	<h3 align="CENTER">Assign Pasien Rujukan</h3>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">Assign Pasien Rujukan</div>
+					<div class="card-body">
 
-				<br>
-				<button  class="btn btn-primary btn" type="submit">Submit</button>
-			</form>
-	        </div>
-	        
-	    </div>
-	   
+						<form th:action="@{/daftar-request/assign}" method="POST">
+							<input class="form-control" type="hidden" name="idPasien"
+								th:value="${pasien.id}" />
+							<div class="form-group">
+								<label th:text="'Nama: '+${pasien.nama}"></label>
+							</div>
+							<div class="form-group">
+								<label>Paviliun:</label> <select class="form-control"
+									name="paviliun" id="paviliun">
+									<option disabled="disabled" selected="selected">--
+										Pilih Paviliun --</option>
+									<option th:each="paviliun: ${paviliunList}"
+										th:value="${paviliun.id}" th:text="${paviliun.namaPaviliun}"></option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Kamar</label> <select class="form-control" name="Id"
+									id="kamar">
+									<option disabled="disabled" selected="selected">--
+										Pilih Kamar --</option>
+								</select>
+							</div>
+							<button class="btn btn-primary btn" type="submit">Submit</button>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<nav th:replace="fragments/footer :: footer"></nav>
+
+	<script>
+			$('#paviliun').change(
+				function() {
+		            $.getJSON("http://localhost:8080/paviliun-available", {
+		                idPaviliun : $(this).val(),
+		                ajax : 'true'
+		            }, 
+		            function(data) {
+		                var html = '<option disabled="disabled" selected="selected">-- Pilih Kamar --</option>';
+		                var len = data.length;
+		                console.log(len);
+		                for ( var i = 0; i < len; i++) {
+		                	html += 
+		                    	'<option value= "'+ data[i].id +'">' + data[i].id +'</option>';
+		                    console.log(data[i]);
+							console.log(data[i].id);
+							console.log(data[i].idPasien);         
+		               	} 
+		            	$('#kamar').html(html);
+					});
+	        });
+		</script>
+
 </body>
 </html>
