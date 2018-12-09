@@ -67,9 +67,12 @@
 				</div>
 				
 				<button class="w3-button w3-block" id="button1" type="submit" style="float:left">Submit</button>
-				<a th:href="@{'/pasien-ranap/' + ${pasien.id}}" class="w3-button w3-block" id="button2" style="text-decoration:none; float: right">Cancel</a>
+				<a th:href="@{'/pasien-ranap/' + ${pasien.id} + '/penanganan/' + ${penanganan.id}}" class="w3-button w3-block" id="button2" style="text-decoration:none; float: right">Cancel</a>
 				
 			</form>
 		</div>
+
+		<nav th:replace="fragments/footer :: footer"></nav>
+
 	</body>
 </html>
