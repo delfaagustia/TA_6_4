@@ -9,6 +9,7 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<br/>
+		<h3 align="CENTER">Request Obat</h3>
 	<br/>
 	<form th:action="@{'/obat/request/' + ${idPemeriksaan}}" th:object="${pemeriksaan}" method="POST">
 		<table class="table">
@@ -27,7 +28,13 @@
 		    <tr th:each="obat, rowStat : *{requestObatList}">
 		      <td th:text="${rowStat.count}">1</td>
 		      <td>
-		        <input class="form-control" type="text" th:field="*{requestObatList[__${rowStat.index}__].namaObat}" />
+		      	<select class="form-control" th:field="*{requestObatList[__${rowStat.index}__].namaObat}">
+					<option value="Nourish Skin Ultimate Isi 30" >Nourish Skin Ultimate Isi 30</option>
+					<option value="Obat Batuk Ibu dan Anak 75 ML" >Obat Batuk Ibu dan Anak 75 ML</option>
+					<option value="Ampicillin KF 500 mg Tab" >Ampicillin KF 500 mg Tab</option>
+					<option value="Sanmol Tab 500 mg" >Sanmol Tab 500 mg</option>
+					<option value="Woods Herbal 60 ml" >Woods Herbal 60 ml</option>					
+				</select>
 		      </td>
 		      <td>
 		        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].jumlah}" />
@@ -44,5 +51,6 @@
 		</table>
 		<button type="submit" name="save" class="btn btn-primary btn-sm">Submit</button>
 	</form>
+	<nav th:replace="fragments/footer :: footer"></nav>
 </body>
 </html>

@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.ta46.model.PemeriksaanModel;
 import com.apap.ta46.model.RequestObatModel;
@@ -70,7 +68,14 @@ public class RequestObatController {
 	
 	@PostMapping(value="/obat/request/{idPemeriksaan}", params={"save"})
 	private String saveObat(@PathVariable(value = "idPemeriksaan") String idPemeriksaan, @ModelAttribute PemeriksaanModel pemeriksaan, Model model) {		
-		requestObatService.postRequestObat(pemeriksaan.getRequestObatList(), Long.parseLong(idPemeriksaan));
-		return "redirect:/";
+		BaseResponse response = requestObatService.postRequestObat(pemeriksaan.getRequestObatList(), Long.parseLong(idPemeriksaan));
+		if(response.getStatus() == 200) {
+			model.addAttribute("hasil", "Request obat berhasil");
+			model.addAttribute("alert", 1);
+		} else {
+			model.addAttribute("hasil", "Request obat tidak berhasil");
+			model.addAttribute("alert", 0);
+		}
+		return "sukses";
 	}
 }

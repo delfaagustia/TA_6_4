@@ -1,0 +1,10 @@
+#kamarTable tr td {
+    height: 50px;
+}
+table.display tbody tr:nth-child(even):hover td{
+    background-color: #43b0d0 !important;
+}
+ 
+table.display tbody tr:nth-child(odd):hover td {
+    background-color: #95c8d4 !important;
+}
