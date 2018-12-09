@@ -40,12 +40,12 @@
 		    <tbody>
 		        <tr th:each="jadwalJaga : ${listAllJadwalJaga}" align="center">
 		            <td>
-			            <a th:text="${map.get(jadwalJaga).getNama()}" th:href="@{'jadwal-jaga/dokter/' + ${jadwalJaga.idDokter}}"></a>
+			            <a th:text="${map.get(jadwalJaga).getNama()}" th:href="@{'/jadwal-jaga/dokter/' + ${jadwalJaga.idDokter}}"></a>
 		            </td>
 					<td><p th:text="${jadwalJaga.paviliun.namaPaviliun}"></p></td>
 					<td><p th:text="${jadwalJaga.statusDokter}"></p></td>
 					<td>
-						<a th:text="${jadwalJaga.waktu.waktu}" th:href="@{'jadwal-jaga/ubah/' + ${jadwalJaga.id}}"></a>
+						<a th:text="${jadwalJaga.waktu.waktu}" th:href="@{'/jadwal-jaga/ubah/' + ${jadwalJaga.id}}"></a>
 					</td>
 				</tr>
 		    </tbody>

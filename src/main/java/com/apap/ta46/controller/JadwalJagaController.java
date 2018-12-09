@@ -83,15 +83,9 @@ public class JadwalJagaController {
 		return "tambah-jadwal-jaga";
 	}
 	
-	@RequestMapping(value="", method = RequestMethod.POST)
+	@RequestMapping(value="/tambah/success", method = RequestMethod.POST)
 	private String tambahJadwalJagaSubmit(@ModelAttribute JadwalJagaModel jadwalJaga, Model model) throws IOException {
-//		System.out.println(jadwalJaga.getStatusDokter());
-//		
-//		JadwalJagaModel jadwalJaga2 = new JadwalJagaModel();
-//		jadwalJaga2.setIdDokter(jadwalJaga.getIdDokter());
-//		jadwalJaga2.setPaviliun(jadwalJaga.getPaviliun());
-//		jadwalJaga2.setStatusDokter(jadwalJaga.getStatusDokter());
-//		jadwalJaga2.setWaktu(jadwalJaga.getWaktu());
+
 		
 		jadwalJagaService.add(jadwalJaga);
 		
@@ -116,9 +110,11 @@ public class JadwalJagaController {
 		return "ubah-jadwal-jaga";
 	}
 	
-	@RequestMapping(value="/success", method = RequestMethod.POST)
+	@RequestMapping(value="/hapus/success", method = RequestMethod.POST)
 	private String hapusJadwalJagaSubmit(@ModelAttribute JadwalJagaModel jadwalJaga, Model model) throws IOException {
-		jadwalJagaService.remove(jadwalJaga);
+		System.out.println("masuk sini");
+		
+		jadwalJagaService.removeById(jadwalJaga.getId());
 		
 		return this.viewAllJadwalJaga(model);
 	}

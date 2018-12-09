@@ -40,8 +40,8 @@ public class JadwalJagaServiceImpl implements JadwalJagaService{
 	}
 
 	@Override
-	public void remove(JadwalJagaModel jadwalJaga) {
+	public void removeById(long id) {
 		// TODO Auto-generated method stub
-		jadwalJagaDb.delete(jadwalJaga);
+		jadwalJagaDb.deleteById(id);
 	}
 }

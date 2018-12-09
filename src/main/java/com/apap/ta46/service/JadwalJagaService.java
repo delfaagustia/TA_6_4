@@ -8,5 +8,5 @@ public interface JadwalJagaService {
 	void add(JadwalJagaModel jadwalJaga);
 	List<JadwalJagaModel> getAllJadwalJagaByIdDokter(long idDokter);
 	JadwalJagaModel getJadwalJagaById(long idJadwalJaga);
-	void remove(JadwalJagaModel jadwalJaga);
+	void removeById(long idJadwalJaga);
 }
