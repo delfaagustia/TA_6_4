@@ -27,28 +27,19 @@
 				<br>
 				<h2 th:text="'Paviliun'"></h2>
 		 		<h2>
-						<select id="paviliun" class="form-control"/>
-							<option disabled="disabled" selected="selected" >Pilih Paviliun</option>
-						<option th:each="paviliun : ${paviliunList}"
-						
-						th:value="${paviliun.id}"
-						th:text="${paviliun.namaPaviliun}"></option>
-						</select>
+						 <select class="form-control" name="paviliun" id="paviliun">
+				  	<option disabled="disabled" selected="selected">-- Pilih Paviliun --</option>
+				    <option th:each="paviliun: ${paviliunList}" 
+				    		th:value="${paviliun.id}" 
+				    		th:text="${paviliun.namaPaviliun}"></option>
+				  </select>
 		 		</h2>
 				<br>
 				<h2 th:text="'Kamar'"></h2>
 		 		<h2>
-						<select name="Id" id="Id" class="form-control"/>
-							<option disabled="disabled" selected="selected" >Pilih Kamar</option>
-						<!-- <option th:each="kamar : ${map.get(paviliun)}" -->
-						<div th:each = "paviliun :${paviliunList}">
-						<option
-						th:each = "kamar : ${paviliun.kamarList}"
-						
-						th:value="${kamar.id}"
-						th:text="${paviliun.namaPaviliun} +'-'+ ${kamar.id}"></option>
-						</div>
-						</select>
+					<select class="form-control" name="Id" id="kamar">
+				  		<option disabled="disabled" selected="selected">-- Pilih Kamar --</option>
+				  	</select>
 						
 		 		</h2>
 				<br>
@@ -57,6 +48,28 @@
 	        
 	        
 	    </div>
+	    
+	    <script>
+			$('#paviliun').change(
+				function() {
+		            $.getJSON("http://localhost:2000/paviliun-available", {
+		                idPaviliun : $(this).val(),
+		                ajax : 'true'
+		            }, 
+		            function(data) {
+		                var html = '<option disabled="disabled" selected="selected">-- Pilih Kamar --</option>';
+		                var len = data.length;
+		                for ( var i = 0; i < len; i++) {
+		                    html += 
+		                    	'<option value= "'+ data[i].id +'">' + data[i].id +'</option>';
+		                    console.log(data[i]);
+							console.log(data[i].id);
+							console.log(data[i].idPasien);
+		                }
+		            	$('#kamar').html(html);
+	            	});
+	        });
+		</script>
 	   
 </body>
 </html>

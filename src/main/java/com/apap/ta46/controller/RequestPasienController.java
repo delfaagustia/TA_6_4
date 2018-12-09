@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.apap.ta46.model.KamarModel;
@@ -124,6 +125,12 @@ public class RequestPasienController {
 			kamarService.updateKamar(kamar);
 			
 			return this.viewAllPasienRanap(model);
+		}
+		
+		@RequestMapping(value="/paviliun-available", method=RequestMethod.GET)
+		public @ResponseBody List<KamarModel> getAllPaviliunAvailable(@RequestParam(value="idPaviliun") long idPaviliun){
+			System.out.println(paviliunService.getKamarAvailable(idPaviliun).get(0).getId());
+			return paviliunService.getKamarAvailable(idPaviliun);
 		}
 	
 	
