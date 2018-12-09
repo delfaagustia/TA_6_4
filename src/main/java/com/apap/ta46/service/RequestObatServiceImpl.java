@@ -48,4 +48,10 @@ public class RequestObatServiceImpl implements RequestObatService {
 		}
 		return response;
 	}
+
+	@Override
+	public List<RequestObatModel> getAllObat() {
+		// TODO Auto-generated method stub
+		return requestObatDb.findAll();
+	}
 }

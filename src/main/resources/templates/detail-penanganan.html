@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>Insert title here</title>
+		<title th:text="'Penanganan ' + ${penanganan.waktu}"></title>
 		<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
 	  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
@@ -15,9 +15,15 @@
 			    width: 60%;
 		        margin: auto;
 			}
-						#button{
+			#button1{
 				background-color:#00CED1;
-				 width:50%;
+				width:49%;
+				margin: 1px;
+			}
+			#button2{
+				background-color:#3C89A3;
+				width:49%;
+				margin: 1px;
 			}
 		</style>
 	</head>
@@ -31,8 +37,20 @@
 			<h5><b>Dokter:</b></h5>
 			<p th:text= "${dokter.nama}"></p><br>
 			<h5><b>Request Obat:</b></h5>
-			<p>blablabla</p><br>
-			<a th:href="@{'/pasien-ranap/' + ${penanganan.idPasien} + '/ubah-penanganan/' + ${penanganan.id}}" class="w3-button w3-block" id="button" style="text-decoration:none">Ubah Penanganan</a>
+			<th:block th:switch="${statusObat}">
+				<div th:case="'empty'">
+					<p>-</p>
+				</div>
+				<div th:case="'exist'">
+					<th:block th:each="obat: ${listObat}">
+						<p th:text="${obat.namaObat} + ' - ' + ${obat.jumlah}"></p>
+					</th:block><br>
+				</div>				
+			</th:block>
+
+			<a th:href="@{'/pasien-ranap/' + ${penanganan.idPasien} + '/ubah-penanganan/' + ${penanganan.id}}" class="w3-button w3-block" id="button1" style="text-decoration:none; float:left">Ubah Penanganan</a>
+			<a th:href="@{'/obat/request/' + ${penanganan.id}}" class="w3-button w3-block" id="button2" style="text-decoration:none; float: right">+Tambah Request Obat</a>
+		
 		</div>
 		
 		<nav th:replace="fragments/footer :: footer"></nav>
