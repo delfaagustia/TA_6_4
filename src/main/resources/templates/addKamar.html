@@ -23,11 +23,14 @@
 	<br>
 	
 	<div class="container">
-        <div th:if="${message}" class="alert">
+        <div th:if="${message} and ${alert == 1}" class="alert">
 			<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 			<h5 th:text="${message}"></h5> 
 		</div>
-		
+		<div th:if="${message} and ${alert == 0}" class="alert danger">
+			<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+			<h5 th:text="${message}"></h5> 
+		</div>
         <h3 align="CENTER">Kelola Kamar</h3>
         <div class="row">
         	<div class="col-md-3">
@@ -43,7 +46,7 @@
                             <div class="form-group">
 							    <label>Paviliun:</label>
 							    <select  class="form-control" name="paviliun">
-							      <option disabled="disabled" selected="selected"> --Pilih Paviliun-- </option>
+							      <option disabled="disabled" selected="selected" th:value="0"> --Pilih Paviliun-- </option>
 							      <option th:each="paviliun : ${listPaviliun}" th:value="${paviliun.id}" 
 							      th:text="${paviliun.namaPaviliun}"></option>
 							    </select>
