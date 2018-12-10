@@ -54,11 +54,13 @@
 				</div>			
 				
 				<div class="form-group">
-				  <label>Waktu Jaga:</label>
-				  <select class="form-control" name="waktu" id="waktu">
-				  	<option disabled="disabled" selected="selected">-- Pilih Waktu --</option>
+				  <label>Waktu:</label>
+				  <select class="form-control" name="waktuFix" id="waktu" required="required">
+				  	<option disabled="disabled" selected="selected" value="">-- Pilih Waktu --</option>
 				  </select>
 				</div>
+				
+				<input type="hidden" name="waktu" value="2018-11-01 06:08:00"/>
 				
 				<div class="form-group">
 					<label>Pemeriksaan:</label>
@@ -83,11 +85,11 @@
 		                ajax : 'true'
 		            }, 
 		            function(data) {
-		                var html = '<option disabled="disabled" selected="selected">-- Pilih Waktu --</option>';
+		                var html = '<option disabled="disabled" selected="selected" value="">-- Pilih Waktu --</option>';
 		                var len = data.length;
 		                for ( var i = 0; i < len; i++) {
 		                    html += 
-		                    	'<option value= "'+ data[i].id +'" + th:text="'+ data[i].waktu +'">' + data[i].waktu + '</option>';
+		                    	'<option value= "'+ data[i].waktu +'" + th:text="'+ data[i].waktu +'">' + data[i].waktu.replace("T", " ") + '</option>';
 		                }
 		            	$('#waktu').html(html);
 		           	});

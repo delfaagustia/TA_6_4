@@ -107,17 +107,14 @@ public class DokterServiceImpl implements DokterService {
 	public List<WaktuModel> getAllWaktuJagaByPaviliunAndIdDokter(long idDokter, long idPaviliun) {
 		// TODO Auto-generated method stub
 		PaviliunModel paviliun = paviliunService.getPaviliunById(idPaviliun);
-		System.out.println(paviliun.getNamaPaviliun());
 		List<WaktuModel> listWaktuJagaBasedOnPaviliunAndIdDokter = new ArrayList<>();
 		
 		List<JadwalJagaModel> listJadwalJaga = jadwalJagaService.getAllJadwalJagaByIdDokter(idDokter);
-		System.out.println(listJadwalJaga.size());
 		for (JadwalJagaModel jadwal: listJadwalJaga) {
 			if (jadwal.getPaviliun().equals(paviliun)) {
 				listWaktuJagaBasedOnPaviliunAndIdDokter.add(jadwal.getWaktu());
 			}
 		}
-		System.out.println(listWaktuJagaBasedOnPaviliunAndIdDokter.size());
 		return listWaktuJagaBasedOnPaviliunAndIdDokter;
 	}
 

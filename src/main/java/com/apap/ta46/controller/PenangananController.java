@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,6 +28,7 @@ import com.apap.ta46.model.PasienModel;
 import com.apap.ta46.model.PaviliunModel;
 import com.apap.ta46.model.PemeriksaanModel;
 import com.apap.ta46.model.RequestObatModel;
+import com.apap.ta46.model.WaktuModel;
 import com.apap.ta46.service.DokterService;
 import com.apap.ta46.service.JadwalJagaService;
 import com.apap.ta46.service.KamarService;
@@ -34,6 +36,7 @@ import com.apap.ta46.service.PasienService;
 import com.apap.ta46.service.PaviliunService;
 import com.apap.ta46.service.PenangananService;
 import com.apap.ta46.service.RequestObatService;
+import com.apap.ta46.service.WaktuService;
 
 @Controller
 @RequestMapping("/pasien-ranap")
@@ -59,6 +62,9 @@ public class PenangananController {
 	
 	@Autowired
 	RequestObatService requestObatService;
+	
+	@Autowired
+	WaktuService waktuService;
 	
 	@RequestMapping(value = "")
 	public String viewPasienRawatInap(Model model) {
@@ -161,13 +167,16 @@ public class PenangananController {
 		PaviliunModel paviliun = kamarService.getKamarByIdPasien(pasien.getId()).getPaviliun();
 		
 		List<JadwalJagaModel> listJadwalJaga = jadwalJagaService.getAllJadwalJaga();
-		List<DokterModel> listDokter = new ArrayList<>();
+		Set<DokterModel> listDokter = new HashSet<DokterModel>();
+		
+		List<Long> listIdDokterYangUdahAda = new ArrayList<>();
 		for (JadwalJagaModel jadwal: listJadwalJaga) {
-			if (jadwal.getPaviliun().equals(paviliun)) {
+			if (jadwal.getPaviliun().equals(paviliun) && !listIdDokterYangUdahAda.contains(jadwal.getIdDokter())) {
 				listDokter.add(dokterService.getDokterById(jadwal.getIdDokter()));
+				listIdDokterYangUdahAda.add(jadwal.getIdDokter());
 			}
 		}
-		
+
 		model.addAttribute("paviliun", paviliun);
 		model.addAttribute("listDokter", listDokter);
 		model.addAttribute("pasien", pasienService.getPasien(Long.toString(pasien.getId())));
@@ -180,6 +189,8 @@ public class PenangananController {
 									   @RequestParam("waktuFix") String waktuFix, 
 									   Model model, RedirectAttributes redirectAttr) throws IOException, ParseException {
 		penanganan.setWaktu(stringToTimestamp(waktuFix));
+		System.out.println("waktu fix:" + waktuFix);
+		System.out.println("waktu fix setelah di otak atik:" + penanganan.getWaktu());
 		penangananService.add(penanganan);
 		
 		PasienModel pasien = pasienService.getPasien(Long.toString(idPasien));
@@ -253,11 +264,22 @@ public class PenangananController {
 		DokterModel dokter = dokterService.getDokterById(penanganan.getIdDokter());
 		model.addAttribute("dokterSelected", dokter);
 		
-		String waktu = penanganan.getWaktu().toString().replaceAll(" ", "T");
-		model.addAttribute("waktu", waktu);
+		PaviliunModel paviliun = kamarService.getKamarByIdPasien(pasien.getId()).getPaviliun();
+		model.addAttribute("paviliun", paviliun);
 		
-		model.addAttribute("listDokter", dokterService.getAllDokter());
+		List<JadwalJagaModel> listJadwalJaga = jadwalJagaService.getAllJadwalJaga();
+		Set<DokterModel> listDokter = new HashSet<DokterModel>();
 		
+		List<Long> listIdDokterYangUdahAda = new ArrayList<>();
+		for (JadwalJagaModel jadwal: listJadwalJaga) {
+			if (jadwal.getPaviliun().equals(paviliun) && !listIdDokterYangUdahAda.contains(jadwal.getIdDokter())) {
+				listDokter.add(dokterService.getDokterById(jadwal.getIdDokter()));
+				listIdDokterYangUdahAda.add(jadwal.getIdDokter());
+			}
+		}
+		
+		model.addAttribute("listDokter", listDokter);
+		model.addAttribute("listWaktuJaga", dokterService.getAllWaktuJagaByPaviliunAndIdDokter(dokter.getId(), paviliun.getId()));
 		return "update-penanganan";
 	}
 	
