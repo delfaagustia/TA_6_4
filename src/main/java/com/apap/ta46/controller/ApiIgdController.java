@@ -38,41 +38,50 @@ public class ApiIgdController {
     public BaseResponse<RequestPasienModel> addPasienRujukan (@RequestBody @Valid PasienModel pasien, BindingResult bindingResult) throws IOException {
         BaseResponse<RequestPasienModel> response = new BaseResponse<RequestPasienModel>();
         
-        if (bindingResult.hasErrors() || pasien.equals (null) || pasien.getId() <= 0) { //INI TANYA LAGI
+        if (bindingResult.hasErrors() || pasien.equals (null) || pasien.getId() <= 0) {
             response.setStatus(500);
-            response.setMessage("error data Pasien");
+            response.setMessage("error: data pasien salah");
         } 
         
         else {
-        	//try update status pasien SI APPT
             //get objek pasien dari SI APPT
             PasienModel pasienFull = pasienService.getPasien(Long.toString(pasien.getId()));
         	
-            //buat dan set status pasien
-            StatusPasienModel statusMasukRanap = new StatusPasienModel();
-            statusMasukRanap.setId(4);
-            statusMasukRanap.setJenis("Mendaftar di Rawat Inap");
-            pasienFull.setStatusPasien(statusMasukRanap);
-            
-            //post status ke si appointment (ini yang buat post ulangnya)
-            String path = "http://si-appointment.herokuapp.com/api/4/updatePasien";
-            BaseResponse<PasienModel> detail = restTemplate.postForObject(path, pasienFull, BaseResponse.class);
-            
-            //jika sukses update status pasien & add pasien ke db ranap
-            if (detail.getStatus() == 200) {
-            	RequestPasienModel pasienRujukan = new RequestPasienModel ();
-            	pasienRujukan.setIdPasien(pasien.getId());
-            	pasienRujukan.setAssign(0); //belum assign kamar
-            	requestPasienDb.save(pasienRujukan);
+            // jika pasien sudah di SIRANAP
+            if (pasienFull.getStatusPasien().getId() == 4 || pasienFull.getStatusPasien().getId() == 5) {
+        		response.setStatus(403);
+        		response.setMessage("error: pasien sedang berada di rawat inap");
+        	}
+        	
+        	else {
+                StatusPasienModel statusMasukRanap = new StatusPasienModel();
+                statusMasukRanap.setId(4);
+                statusMasukRanap.setJenis("Mendaftar di Rawat Inap");
+                pasienFull.setStatusPasien(statusMasukRanap);
                 
-            	response.setStatus(200);
-                response.setMessage("success");
-                response.setResult(pasienRujukan);
-            }
-            else {
-            	response.setStatus(403);
-            	response.setMessage("forbidden");
-            }
+                //post status ke si appointment (ini yang buat post ulangnya)
+                String path = "http://si-appointment.herokuapp.com/api/4/updatePasien";
+                BaseResponse<PasienModel> detail = restTemplate.postForObject(path, pasienFull, BaseResponse.class);
+                
+                //jika sukses update status pasien & add pasien ke db ranap
+                if (detail.getStatus() == 200) {
+                	RequestPasienModel pasienRujukan = new RequestPasienModel ();
+                	pasienRujukan.setIdPasien(pasien.getId());
+                	pasienRujukan.setAssign(0); //belum assign kamar
+                	requestPasienDb.save(pasienRujukan);
+                    
+                	response.setStatus(200);
+                    response.setMessage("success: pasien dirujuk ke SIRANAP");
+                    response.setResult(pasienRujukan);
+                }
+                
+                //bukan pasien ranap
+                else {
+                	response.setStatus(403);
+                	response.setMessage("forbidden: bukan pasien kelompok 4");
+                }
+        	}
+            
         }
         return response;
     }
