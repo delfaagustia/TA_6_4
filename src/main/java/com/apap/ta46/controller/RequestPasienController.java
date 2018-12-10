@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.model.PasienModel;
@@ -80,7 +81,7 @@ public class RequestPasienController {
 	}
 	
 	@RequestMapping(value="/daftar-request/assign", method = RequestMethod.POST)
-	private String assignKamarPasienSubmit(@ModelAttribute KamarModel kamarPalsu, Model model) throws IOException {
+	private String assignKamarPasienSubmit(@ModelAttribute KamarModel kamarPalsu, Model model, RedirectAttributes redirectAttr) throws IOException {
 		KamarModel kamarAsli = kamarService.getKamar(kamarPalsu.getId());
 		
 		RequestPasienModel rp = requestPasienService.getRequestPasienByIdPasien(kamarPalsu.getIdPasien());
@@ -98,7 +99,11 @@ public class RequestPasienController {
 		pasienService.postPasien(pasien);
 		
 		kamarService.addKamar(kamarAsli);
-		return this.viewAllPasienRanap(model);
+		
+		//alert
+		redirectAttr.addFlashAttribute("message", "Pasien berhasil di Assign");
+		
+		return "redirect:/daftar-ranap";
 	}
 	
 	//HALOOO SEMENTARA GUA TARO SINI YA, SOALNYA BERHUBUNGAN BANGET SAMA KAMAR NIH//
@@ -121,7 +126,7 @@ public class RequestPasienController {
 		}
 		
 		@RequestMapping(value="/daftar-ranap/pulang/{idKamar}")
-		private String kosongkanKamar(@PathVariable("idKamar") String idKamar, Model model) throws IOException {
+		private String kosongkanKamar(@PathVariable("idKamar") String idKamar, Model model, RedirectAttributes redirectAttr) throws IOException {
 			
 			KamarModel kamar = kamarService.getKamar(Long.parseLong(idKamar));
 			
@@ -143,7 +148,10 @@ public class RequestPasienController {
 			kamar.setStatus(0);
 			kamarService.addKamar(kamar);
 			
-			return this.viewAllPasienRanap(model);
+			//alert
+			redirectAttr.addFlashAttribute("message", "Pasien berhasil di pulangkan");
+			
+			return "redirect:/daftar-ranap";
 		}
 		
 		@RequestMapping(value="/paviliun-available", method=RequestMethod.GET)

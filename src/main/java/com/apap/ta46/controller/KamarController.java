@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.model.PasienModel;
@@ -59,9 +60,10 @@ public class KamarController {
 	}
 	
 	@PostMapping(value="/kamar/insert")
-	private String addKamarSubmit(@ModelAttribute KamarModel kamar, Model model) {
+	private String addKamarSubmit(@ModelAttribute KamarModel kamar, Model model, RedirectAttributes redirectAttr) {
 		kamarService.addKamar(kamar);
 		model.addAttribute("listKamar", kamarService.getAllKamar());
+		redirectAttr.addFlashAttribute("message", "Kamar Berhasil ditambahkan");
 		return "redirect:/kamar";
 	}
 	
@@ -76,8 +78,9 @@ public class KamarController {
 	}
 	
 	@PostMapping(value="/kamar/{id}")
-	private String updateKamarSubmit(@PathVariable("id") String id, @ModelAttribute KamarModel kamar, Model model){
+	private String updateKamarSubmit(@PathVariable("id") String id, @ModelAttribute KamarModel kamar, RedirectAttributes redirectAttr){
 		kamarService.updateKamar(Long.parseLong(id), kamar);
+		redirectAttr.addFlashAttribute("message", "Kamar Berhasil diupdate");
 		return "redirect:/kamar";
 	}
 

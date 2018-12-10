@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.jqueryui.min.js"></script>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/alert.css}"/>
   	<style>
 	  	tr.group,
 		tr.group:hover {
@@ -27,6 +28,11 @@
 	    <br>
 		<h3 align="CENTER">Daftar Jadwal Jaga</h3>
 	    <div class="container">
+	    	<br>
+	    	<div th:if="${message}" class="alert">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				<h5 th:text="${message}"></h5> 
+			</div>
 	    	<form th:action="@{'/jadwal-jaga/tambah'}">
 				<button type="submit" class="btn btn-success btn-sm">Tambah Jadwal Jaga</button>
 			</form>

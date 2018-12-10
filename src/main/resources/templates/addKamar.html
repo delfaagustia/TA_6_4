@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.jqueryui.min.js"></script>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/alert.css}"/>
 	<script type="text/javascript">
 		$(document).ready( function () {
 		    $('#kamarTable').DataTable();
@@ -20,8 +21,14 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<br>
-	<h3 align="CENTER">Kelola Kamar</h3>
+	
 	<div class="container">
+        <div th:if="${message}" class="alert">
+			<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+			<h5 th:text="${message}"></h5> 
+		</div>
+		
+        <h3 align="CENTER">Kelola Kamar</h3>
         <div class="row">
         	<div class="col-md-3">
         	</div>

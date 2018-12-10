@@ -30,7 +30,7 @@
 			    <tr th:each="obat, rowStat : *{requestObatList}">
 			      <td th:text="${rowStat.count}">1</td>
 			      <td>
-			      	<select class="form-control" th:field="*{requestObatList[__${rowStat.index}__].namaObat}">
+			      	<select class="form-control" th:field="*{requestObatList[__${rowStat.index}__].namaObat}" required>
 						<option value="Nourish Skin Ultimate Isi 30" >Nourish Skin Ultimate Isi 30</option>
 						<option value="Obat Batuk Ibu dan Anak 75 ML" >Obat Batuk Ibu dan Anak 75 ML</option>
 						<option value="Ampicillin KF 500 mg Tab" >Ampicillin KF 500 mg Tab</option>
@@ -39,10 +39,10 @@
 					</select>
 			      </td>
 			      <td>
-			        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].jumlah}" />
+			        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].jumlah}" required/>
 			      </td>
 			      <td>
-			        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].idPasien}" readonly/>
+			        <input class="form-control" type="number" th:field="*{requestObatList[__${rowStat.index}__].idPasien}" readonly required/>
 			      </td>
 			      <td>
 			        <button type="submit" name="removeRow" 
