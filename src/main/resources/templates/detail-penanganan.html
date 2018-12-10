@@ -8,6 +8,7 @@
 	
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" type="text/css" th:href="@{/css/alert.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/alert.css}"/>
 	
 		<style>
 			.detail-penanganan-container {
@@ -30,36 +31,40 @@
 	</head>
 	<body>
 		<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+		<div class="container"> 
+			<br>
+			<div th:if="${message}" class="alert" align="center">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				<h5 th:text="${message}"></h5> 
+			</div>
 
-		<div class="detail-penanganan-container">
-			<div th:if="${message} and ${alert == 1}" class="alert">
-				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-				<h5 th:text="${message}"></h5> 
-			</div>
-			<div th:if="${message} and ${alert == 0}" class="alert danger">
-				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-				<h5 th:text="${message}"></h5> 
-			</div>
-			<h3 th:text="'Penanganan ' + ${penanganan.waktu}"></h3><hr>
-			<h5><b>Deskripsi:</b></h5>
-			<p th:text= "${penanganan.pemeriksaan}"></p><br>
-			<h5><b>Dokter:</b></h5>
-			<p th:text= "${dokter.nama}"></p><br>
-			<h5><b>Request Obat:</b></h5>
-			<th:block th:switch="${statusObat}">
-				<div th:case="'empty'">
-					<p>-</p>
+			<div class="detail-penanganan-container">
+				<div th:if="${message} and ${alert == 0}" class="alert danger">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<h5 th:text="${message}"></h5> 
 				</div>
-				<div th:case="'exist'">
-					<th:block th:each="obat: ${listObat}">
-						<p th:text="${obat.namaObat} + ' - ' + ${obat.jumlah}"></p>
-					</th:block><br>
-				</div>				
-			</th:block>
-
-			<a th:href="@{'/pasien-ranap/' + ${penanganan.idPasien} + '/ubah-penanganan/' + ${penanganan.id}}" class="w3-button w3-block" id="button1" style="text-decoration:none; float:left">Ubah Penanganan</a>
-			<a th:href="@{'/obat/request/' + ${penanganan.id}}" class="w3-button w3-block" id="button2" style="text-decoration:none; float: right">+Tambah Request Obat</a>
-		
+				<h3 th:text="'Penanganan ' + ${penanganan.waktu}"></h3><hr>
+				<h5><b>Deskripsi:</b></h5>
+				<p th:text= "${penanganan.pemeriksaan}"></p><br>
+				<h5><b>Dokter:</b></h5>
+				<p th:text= "${dokter.nama}"></p><br>
+				<h5><b>Request Obat:</b></h5>
+				<th:block th:switch="${statusObat}">
+					<div th:case="'empty'">
+						<p>-</p>
+					</div>
+					<div th:case="'exist'">
+						<th:block th:each="obat: ${listObat}">
+							<p th:text="${obat.namaObat} + ' - ' + ${obat.jumlah}"></p>
+						</th:block><br>
+					</div>				
+				</th:block>
+	
+				<a th:href="@{'/pasien-ranap/' + ${penanganan.idPasien} + '/ubah-penanganan/' + ${penanganan.id}}" class="w3-button w3-block" id="button1" style="text-decoration:none; float:left">Ubah Penanganan</a>
+				<a th:href="@{'/obat/request/' + ${penanganan.id}}" class="w3-button w3-block" id="button2" style="text-decoration:none; float: right">+Tambah Request Obat</a>
+			
+			</div>
 		</div>
 		
 		<nav th:replace="fragments/footer :: footer"></nav>

@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.apap.ta46.model.DokterModel;
+import com.apap.ta46.model.JadwalJagaModel;
 import com.apap.ta46.model.KamarModel;
 import com.apap.ta46.model.PasienModel;
 import com.apap.ta46.model.PaviliunModel;
@@ -153,7 +158,18 @@ public class PenangananController {
 	 */
 	@RequestMapping("/penanganan/insert")
 	private String addPenanganan(@ModelAttribute PasienModel pasien, Model model) throws IOException {
-		model.addAttribute("listDokter", dokterService.getAllDokter());
+		PaviliunModel paviliun = kamarService.getKamarByIdPasien(pasien.getId()).getPaviliun();
+		
+		List<JadwalJagaModel> listJadwalJaga = jadwalJagaService.getAllJadwalJaga();
+		List<DokterModel> listDokter = new ArrayList<>();
+		for (JadwalJagaModel jadwal: listJadwalJaga) {
+			if (jadwal.getPaviliun().equals(paviliun)) {
+				listDokter.add(dokterService.getDokterById(jadwal.getIdDokter()));
+			}
+		}
+		
+		model.addAttribute("paviliun", paviliun);
+		model.addAttribute("listDokter", listDokter);
 		model.addAttribute("pasien", pasienService.getPasien(Long.toString(pasien.getId())));
 		return "add-penanganan";
 	}
@@ -161,7 +177,8 @@ public class PenangananController {
 	@RequestMapping("/{idPasien}/success")
 	private String addPenangananSubmit(@ModelAttribute PemeriksaanModel penanganan, 
 									   @PathVariable(value="idPasien") long idPasien,
-									   @RequestParam("waktuFix") String waktuFix, Model model) throws IOException, ParseException {
+									   @RequestParam("waktuFix") String waktuFix, 
+									   Model model, RedirectAttributes redirectAttr) throws IOException, ParseException {
 		penanganan.setWaktu(stringToTimestamp(waktuFix));
 		penangananService.add(penanganan);
 		
@@ -175,7 +192,9 @@ public class PenangananController {
 		model.addAttribute("paviliun", kamarService.getKamarByIdPasien(idPasien).getPaviliun().getNamaPaviliun());
 		
 		model.addAttribute("statusPenanganan", "exist");
-		return "detail-pasien";
+		
+		redirectAttr.addFlashAttribute("message", "Data Penanganan Berhasil Ditambahkan!");
+		return "redirect:/pasien-ranap/" + idPasien;
 	}
 	
 	/**
@@ -223,7 +242,8 @@ public class PenangananController {
 	 */
 	@RequestMapping("/{idPasien}/ubah-penanganan/{idPenanganan}")
 	private String updatePenanganan(@PathVariable(value="idPasien") long idPasien,
-									@PathVariable(value="idPenanganan") long idPenanganan, Model model) throws IOException {
+									@PathVariable(value="idPenanganan") long idPenanganan, 
+									Model model) throws IOException {
 		PasienModel pasien = pasienService.getPasien(Long.toString(idPasien));
 		model.addAttribute("pasien", pasien);
 
@@ -245,7 +265,8 @@ public class PenangananController {
 	private String updatePenangananSubmit(@ModelAttribute PemeriksaanModel penanganan, 
 										  @PathVariable(value="idPasien") long idPasien,
 										  @PathVariable(value="idPenanganan") long idPenanganan,
-										  @RequestParam("waktuFix") String waktuFix, Model model) throws IOException, ParseException  {
+										  @RequestParam("waktuFix") String waktuFix, 
+										  Model model, RedirectAttributes redirectAttr) throws IOException, ParseException  {
 		penanganan.setWaktu(stringToTimestamp(waktuFix));
 		penangananService.add(penanganan);
 
@@ -270,7 +291,8 @@ public class PenangananController {
 		DokterModel dokter = dokterService.getDokterById(penanganan.getIdDokter());
 		model.addAttribute("dokter", dokter);
 		
-		return "detail-penanganan";
+		redirectAttr.addFlashAttribute("message", "Data Penanganan Berhasil Diubah!");
+		return "redirect:/pasien-ranap/" + idPasien + "/penanganan/" + idPenanganan;
 	}
 	
 	//method yang merubah tipe data String menjadi Timestamp, untuk kebutuhan input waktu dari form ke object penanganan 
