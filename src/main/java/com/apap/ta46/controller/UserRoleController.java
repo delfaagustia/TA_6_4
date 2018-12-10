@@ -18,7 +18,6 @@ public class UserRoleController {
 	
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	private String addUserSubmit(@ModelAttribute UserRoleModel user, Model model) {
-		System.out.println("masuk sini");
 		String msg = "";
 		userService.addUser(user);
 		msg = "user berhasil dibuat";

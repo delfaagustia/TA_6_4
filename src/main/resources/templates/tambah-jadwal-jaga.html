@@ -58,11 +58,12 @@
 				<button class="btn btn-success btn-sm" type="submit">Submit</button>
 			</form>
 		</div>
+		<nav th:replace="fragments/footer :: footer"></nav>
 		
 		<script>
 			$('#dokter').change(
 				function() {
-		            $.getJSON("http://localhost:2000/waktu-available", {
+		            $.getJSON("http://localhost:8080/waktu-available", {
 		                idDokter : $(this).val(),
 		                ajax : 'true'
 		            }, 

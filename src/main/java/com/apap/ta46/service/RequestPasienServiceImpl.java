@@ -22,13 +22,37 @@ public class RequestPasienServiceImpl implements RequestPasienService{
 	@Override
 	public RequestPasienModel getRequestPasienByIdPasien(long idPasien) {
 		// TODO Auto-generated method stub
-		return requestPasienDb.findByIdPasien(idPasien);
+		List<RequestPasienModel> requestList = requestPasienDb.findAll();
+		for(RequestPasienModel request : requestList) {
+			if(request.getAssign()==0) {
+				if(request.getIdPasien()==idPasien) {
+					return request;
+				}
+			}
+		}
+		return null;
+		
 	}
 
 	@Override
 	public void updateRequestPasien(RequestPasienModel req) {
 		// TODO Auto-generated method stub
 		requestPasienDb.save(req);
+	}
+
+	@Override
+	public RequestPasienModel getRequestPasienByIdPasienPulang(long idPasien) {
+		// TODO Auto-generated method stub
+		List<RequestPasienModel> requestList = requestPasienDb.findAll();
+		for(RequestPasienModel request : requestList) {
+			if(request.getAssign()==1) {
+				if(request.getIdPasien()==idPasien) {
+					return request;
+				}
+			}
+		}
+		return null;
+		
 	}
 
 }

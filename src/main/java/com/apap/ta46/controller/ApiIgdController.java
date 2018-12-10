@@ -1,10 +1,7 @@
 package com.apap.ta46.controller;
 
-
 import java.io.IOException;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.validation.BindingResult;
@@ -13,14 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import com.apap.ta46.model.PasienModel;
 import com.apap.ta46.model.RequestPasienModel;
 import com.apap.ta46.model.StatusPasienModel;
 import com.apap.ta46.repository.RequestPasienDb;
 import com.apap.ta46.rest.BaseResponse;
 import com.apap.ta46.service.PasienService;
-
 
 @RestController
 @RequestMapping("/api")
@@ -30,17 +25,19 @@ public class ApiIgdController {
 	
 	@Autowired
 	    RestTemplate restTemplate;
+	
 	@Bean
 	public RestTemplate restTemplate() {
 	    return new RestTemplate();
 	}
+	
 	@Autowired
 		private PasienService pasienService;
 	
 	@PostMapping(value = "/daftar-ranap")
     public BaseResponse<RequestPasienModel> addPasienRujukan (@RequestBody @Valid PasienModel pasien, BindingResult bindingResult) throws IOException {
         BaseResponse<RequestPasienModel> response = new BaseResponse<RequestPasienModel>();
-        System.out.println(pasien.getId()+"hahah");
+        
         if (bindingResult.hasErrors() || pasien.equals (null) || pasien.getId() <= 0) { //INI TANYA LAGI
             response.setStatus(500);
             response.setMessage("error data Pasien");
