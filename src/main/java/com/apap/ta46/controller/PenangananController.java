@@ -251,6 +251,22 @@ public class PenangananController {
 
 		model.addAttribute("penanganan", penanganan);
 
+		List<RequestObatModel> listAllObat = requestObatService.getAllObat();
+		List<RequestObatModel> listObatFix = new ArrayList<>();
+		for (RequestObatModel obat: listAllObat) {
+			if (obat.getPemeriksaan().getId() == idPenanganan) {
+				listObatFix.add(obat);
+			}
+		}
+		
+		if(listObatFix.isEmpty()) {
+			model.addAttribute("statusObat", "empty");
+		}
+		else {
+			model.addAttribute("statusObat", "exist");
+			model.addAttribute("listObat", listObatFix);
+		}
+		
 		DokterModel dokter = dokterService.getDokterById(penanganan.getIdDokter());
 		model.addAttribute("dokter", dokter);
 		
