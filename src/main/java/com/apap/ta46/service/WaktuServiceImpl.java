@@ -1,5 +1,6 @@
 package com.apap.ta46.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,4 +24,5 @@ public class WaktuServiceImpl implements WaktuService {
 		// TODO Auto-generated method stub
 		return waktuDb.findAll();
 	}
+
 }

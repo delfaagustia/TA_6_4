@@ -44,5 +44,11 @@ public class PaviliunServiceImpl implements PaviliunService{
 		return kamarAvailable;
 	}
 
+	@Override
+	public PaviliunModel getPaviliunById(long idPaviliun) {
+		// TODO Auto-generated method stub
+		return paviliunDb.findById(idPaviliun);
+	}
+
 	
 }

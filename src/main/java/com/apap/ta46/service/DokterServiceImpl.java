@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import com.apap.ta46.model.DokterModel;
 import com.apap.ta46.model.JadwalJagaModel;
 import com.apap.ta46.model.PasienModel;
+import com.apap.ta46.model.PaviliunModel;
 import com.apap.ta46.model.WaktuModel;
 import com.apap.ta46.rest.Setting;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -35,6 +36,9 @@ public class DokterServiceImpl implements DokterService {
 	
 	@Autowired
 	WaktuService waktuService;
+	
+	@Autowired
+	PaviliunService paviliunService;
 	
     @Bean
     public RestTemplate rest() {
@@ -97,6 +101,21 @@ public class DokterServiceImpl implements DokterService {
 		}
 		
 		return listWaktuAvailable;
+	}
+
+	@Override
+	public List<WaktuModel> getAllWaktuJagaByPaviliunAndIdDokter(long idDokter, long idPaviliun) {
+		// TODO Auto-generated method stub
+		PaviliunModel paviliun = paviliunService.getPaviliunById(idPaviliun);
+		List<WaktuModel> listWaktuJagaBasedOnPaviliunAndIdDokter = new ArrayList<>();
+		
+		List<JadwalJagaModel> listJadwalJaga = jadwalJagaService.getAllJadwalJagaByIdDokter(idDokter);
+		for (JadwalJagaModel jadwal: listJadwalJaga) {
+			if (jadwal.getPaviliun().equals(paviliun)) {
+				listWaktuJagaBasedOnPaviliunAndIdDokter.add(jadwal.getWaktu());
+			}
+		}
+		return listWaktuJagaBasedOnPaviliunAndIdDokter;
 	}
 
 }

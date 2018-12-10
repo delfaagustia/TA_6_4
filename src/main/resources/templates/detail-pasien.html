@@ -10,6 +10,7 @@
 	    
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/alert.css}"/>
 
 	    <style>
 			.container1{
@@ -53,55 +54,64 @@
 	<body>
 		<nav th:replace="fragments/fragment :: navbar"></nav>
 		
-		<div class="container1" align="center">
-				<div class="w3-card-4" style="width:80%" align="center">
-					<img src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style="width:100%">
-
-				  	<h1 th:text="${pasien.nama}"></h1>
-
-					<div class="w3-container w3-white">
-					  	<p th:text="'ID: ' + ${pasien.id}"></p>
-					  	<p th:text="'Paviliun: ' + ${paviliun}"></p>
-					  	<p th:text="'Kamar: ' + ${kamar}"></p>
-			  		</div>
-		  			<form th:action="@{'/pasien-ranap/penanganan/insert'}" th:object="${pasien}" method="POST">
-						<input type="hidden" name="id" th:value="${pasien.id}"/>
-						<button type="submit" class="w3-button w3-block" id="button1">+Tambah Penanganan</button>						
-				  	</form>
-				</div>
+		<div class="container" align="center">
+			<br>
+			<div th:if="${message}" class="alert">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				<h5 th:text="${message}"></h5> 
+			</div>
+			
+			<div class="container1" align="center">
+			
+					<div class="w3-card-4" style="width:80%" align="center">
+						<img src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style="width:100%">
+	
+					  	<h1 th:text="${pasien.nama}"></h1>
+	
+						<div class="w3-container w3-white">
+						  	<p th:text="'ID: ' + ${pasien.id}"></p>
+						  	<p th:text="'Paviliun: ' + ${paviliun}"></p>
+						  	<p th:text="'Kamar: ' + ${kamar}"></p>
+				  		</div>
+			  			<form th:action="@{'/pasien-ranap/penanganan/insert'}" th:object="${pasien}" method="POST">
+							<input type="hidden" name="id" th:value="${pasien.id}"/>
+							<button type="submit" class="w3-button w3-block" id="button1">+Tambah Penanganan</button>						
+					  	</form>
+					</div>
+			</div>
+		
+			<div class="container">
+				<th:block th:switch="${statusPenanganan}">
+					<div th:case="'empty'">
+						<div class="container2">
+							<section class="container2">
+								<h5 align="center" style="color:grey">Tidak ditemukan data penanganan</h5>
+							</section>
+						</div>
+					</div>
+					<div th:case="'exist'">
+						<div class="container2">
+							<section class="container2">
+								<th:block th:each="penanganan: ${listPenanganan}">
+									<div class="w3-container" align="center">
+										<div class="w3-card-4" style="width:100%">
+											<header class="w3-container w3-light-grey">
+											  <h4 th:text="'Penanganan ' + ${penanganan.waktu}"></h4>
+											</header>
+											<div class="w3-container w3-white"><br>
+											  <p th:text="${penanganan.pemeriksaan}" ></p><br>
+											</div>
+											<a th:href="@{'/pasien-ranap/' + ${pasien.id} + '/penanganan/' + ${penanganan.id}}" class="w3-button w3-block" id="button2" style="text-decoration:none">Lihat Penanganan</a>
+										</div>
+									</div>
+								</th:block>	
+							</section>
+						</div>
+					</div>
+				</th:block>	
+			</div>
 		</div>
 		
-		<div class="container">
-			<th:block th:switch="${statusPenanganan}">
-				<div th:case="'empty'">
-					<div class="container2">
-						<section class="container2">
-							<h5 align="center" style="color:grey">Tidak ditemukan data penanganan</h5>
-						</section>
-					</div>
-				</div>
-				<div th:case="'exist'">
-					<div class="container2">
-						<section class="container2">
-							<th:block th:each="penanganan: ${listPenanganan}">
-								<div class="w3-container" align="center">
-									<div class="w3-card-4" style="width:100%">
-										<header class="w3-container w3-light-grey">
-										  <h4 th:text="'Penanganan ' + ${penanganan.waktu}"></h4>
-										</header>
-										<div class="w3-container w3-white"><br>
-										  <p th:text="${penanganan.pemeriksaan}" ></p><br>
-										</div>
-										<a th:href="@{'/pasien-ranap/' + ${pasien.id} + '/penanganan/' + ${penanganan.id}}" class="w3-button w3-block" id="button2" style="text-decoration:none">Lihat Penanganan</a>
-									</div>
-								</div>
-							</th:block>	
-						</section>
-					</div>
-				</div>
-			</th:block>	
-		</div>
-
 		<nav th:replace="fragments/footer :: footer"></nav>
 
 	</html>

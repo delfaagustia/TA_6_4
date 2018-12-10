@@ -9,4 +9,5 @@ public interface PaviliunService {
 	List<PaviliunModel> getAllPaviliun();
 	PaviliunModel getPaviliun(Long id);
 	List<KamarModel> getKamarAvailable(Long idPaviliun);
+	PaviliunModel getPaviliunById(long idPaviliun);
 }

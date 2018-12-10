@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.apap.ta46.model.PaviliunModel;
 import com.apap.ta46.model.WaktuModel;
 import com.apap.ta46.service.DokterService;
 import com.apap.ta46.service.JadwalJagaService;
@@ -28,5 +29,11 @@ public class DokterController {
 	@RequestMapping(value="/waktu-available", method=RequestMethod.GET) 
 	public @ResponseBody List<WaktuModel> getAllWaktuAvailable(@RequestParam(value="idDokter") long idDokter){
 		return dokterService.getWaktuAvailable(idDokter);
+	}
+	
+	@RequestMapping(value="/waktu-available-paviliun", method=RequestMethod.GET)
+	public @ResponseBody List<WaktuModel> getAllWaktuJagaByPaviliunAndIdDokter(@RequestParam(value="idDokter") long idDokter,
+																	     	   @RequestParam(value="idPaviliun") long idPaviliun){
+		return (dokterService.getAllWaktuJagaByPaviliunAndIdDokter(idDokter, idPaviliun));
 	}
 }
