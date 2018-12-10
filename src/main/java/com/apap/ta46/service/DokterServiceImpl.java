@@ -33,13 +33,14 @@ public class DokterServiceImpl implements DokterService {
 	@Autowired
     RestTemplate restTemplate;
 	
-	@Autowired
-	WaktuService waktuService;
-	
-    @Bean
+	@Bean
     public RestTemplate rest() {
     	return new RestTemplate();
     }
+	
+	@Autowired
+	WaktuService waktuService;
+	
 	
 	@Override
 	public DokterModel getDokterById(long idDokter) throws IOException {

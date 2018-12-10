@@ -61,9 +61,14 @@ public class KamarController {
 	
 	@PostMapping(value="/kamar/insert")
 	private String addKamarSubmit(@ModelAttribute KamarModel kamar, Model model, RedirectAttributes redirectAttr) {
-		kamarService.addKamar(kamar);
-		model.addAttribute("listKamar", kamarService.getAllKamar());
-		redirectAttr.addFlashAttribute("message", "Kamar Berhasil ditambahkan");
+		if(kamar.getPaviliun() == null) {
+			redirectAttr.addFlashAttribute("message", "Kamar Tidak Berhasil ditambahkan");
+			redirectAttr.addFlashAttribute("alert", 0);
+		}else {
+			kamarService.addKamar(kamar);
+			redirectAttr.addFlashAttribute("message", "Kamar Berhasil ditambahkan");
+			redirectAttr.addFlashAttribute("alert", 1);
+		}
 		return "redirect:/kamar";
 	}
 	
@@ -79,9 +84,14 @@ public class KamarController {
 	
 	@PostMapping(value="/kamar/{id}")
 	private String updateKamarSubmit(@PathVariable("id") String id, @ModelAttribute KamarModel kamar, RedirectAttributes redirectAttr){
-		kamarService.updateKamar(Long.parseLong(id), kamar);
-		redirectAttr.addFlashAttribute("message", "Kamar Berhasil diupdate");
+		if((kamar.getIdPasien() != 0 && kamar.getStatus() == 0) || (kamar.getIdPasien() == 0 && kamar.getStatus() == 1)) {
+			redirectAttr.addFlashAttribute("message", "Kamar Tidak Berhasil diupdate");
+			redirectAttr.addFlashAttribute("alert", 0);
+		} else {
+			kamarService.updateKamar(Long.parseLong(id), kamar);
+			redirectAttr.addFlashAttribute("message", "Kamar Berhasil diupdate");
+			redirectAttr.addFlashAttribute("alert", 1);
+		}
 		return "redirect:/kamar";
 	}
-
 }
