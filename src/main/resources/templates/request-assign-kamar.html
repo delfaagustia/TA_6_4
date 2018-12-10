@@ -65,26 +65,34 @@
 	<nav th:replace="fragments/footer :: footer"></nav>
 
 	<script>
-			$('#paviliun').change(
-				function() {
-		            $.getJSON("http://localhost:8080/paviliun-available", {
-		                idPaviliun : $(this).val(),
-		                ajax : 'true'
-		            }, 
-		            function(data) {
-		                var html = '<option disabled="disabled" selected="selected">-- Pilih Kamar --</option>';
-		                var len = data.length;
-		                console.log(len);
-		                for ( var i = 0; i < len; i++) {
-		                	html += 
-		                    	'<option value= "'+ data[i].id +'">' + data[i].id +'</option>';
-		                    console.log(data[i]);
-							console.log(data[i].id);
-							console.log(data[i].idPasien);         
-		               	} 
-		            	$('#kamar').html(html);
-					});
-	        });
+			$(document).ready(function(){
+				console.log("hello")
+				$('#paviliun').change(function() {
+					valueProv = $(this).val();
+					$.ajax({
+						type: "GET",
+						url: "http://localhost:8080/paviliun-available",
+						data: {
+							'idPaviliun' : valueProv
+						},
+						dataType: 'json',
+						success: function(data) {
+							getIns = '';
+							var size = data.length;
+							for (var i = 0; i<size; i++) {
+								getIns+='<option value="'+data[i].id+'">'+data[i].id+'</option>';
+								console.log(data[i]);
+								console.log(data[i].id)
+							}
+							console.log(getIns);
+							$('#kamar').append(getIns);
+						},
+						error: function(rs,e) {
+							alert(rs.responseText)
+						}
+					})
+				})
+			});
 		</script>
 
 </body>

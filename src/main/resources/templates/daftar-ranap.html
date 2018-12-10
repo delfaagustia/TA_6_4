@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.jqueryui.min.js"></script>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/alert.css}"/>
 </head>
 
 <body>
@@ -21,6 +22,11 @@
 	    <br>
 	    <h3 align="CENTER">Daftar Pasien Rawat Inap</h3>
 	    <div class="container">
+	    	<br>
+	    	<div th:if="${message}" class="alert">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				<h5 th:text="${message}"></h5> 
+			</div>
 	    	<br>
 	        <table id="pasienRawatInap" class="display">
 		    <thead>
@@ -34,7 +40,7 @@
 		    <tbody>
 		        <tr th:each="kamar : ${kamarList}">
 					<td><p id="nama" th:text="${map.get(kamar).getNama()}"></p></td>
-					<td><p th:text="${kamar.id}"></p></td>
+					<td><p th:text="${kamar.paviliun.namaPaviliun}+'-'+${kamar.id}"></p></td>
 					
 					<td> <a th:href="@{'/daftar-ranap/pulang/'+ ${kamar.id}}" 
 					th:text="Pulangkan"></a>
