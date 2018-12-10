@@ -13,4 +13,5 @@ public interface KamarDb extends JpaRepository<KamarModel, Long> {
 	KamarModel findByStatus(int status);
 	List<KamarModel> findByIdPasienNot(long idPasien);
 	KamarModel findByIdPasien(long idPasien);
+	List<KamarModel> findByIdPasienNotAndStatus(long idPasien, int status);
 }

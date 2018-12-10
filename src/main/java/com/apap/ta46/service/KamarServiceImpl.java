@@ -48,7 +48,8 @@ public class KamarServiceImpl implements KamarService {
 	public List<KamarModel> getPasienInKamar() {
 		// TODO Auto-generated method stub
 		long idPasien = 0;
-		return kamarDb.findByIdPasienNot(idPasien);
+		int status = 1;
+		return kamarDb.findByIdPasienNotAndStatus(idPasien, status);
 	}
 
 	@Override
