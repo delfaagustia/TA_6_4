@@ -77,7 +77,6 @@
 			$('#dokter').change(
 				function() {
 					var $pav = document.getElementById("paviliun").value;
-					alert ($pav);
 		            $.getJSON("http://localhost:8080/waktu-available-paviliun", {
 		                idDokter : $(this).val(),
 		            	idPaviliun : $pav,
