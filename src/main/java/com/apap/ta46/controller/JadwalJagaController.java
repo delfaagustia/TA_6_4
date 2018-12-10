@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.ta46.model.DokterModel;
 import com.apap.ta46.model.JadwalJagaModel;
@@ -84,12 +85,14 @@ public class JadwalJagaController {
 	}
 	
 	@RequestMapping(value="/tambah/success", method = RequestMethod.POST)
-	private String tambahJadwalJagaSubmit(@ModelAttribute JadwalJagaModel jadwalJaga, Model model) throws IOException {
-
+	private String tambahJadwalJagaSubmit(@ModelAttribute JadwalJagaModel jadwalJaga, Model model, RedirectAttributes redirectAttr) throws IOException {
 		
 		jadwalJagaService.add(jadwalJaga);
 		
-		return this.viewAllJadwalJaga(model);
+		//alert
+		redirectAttr.addFlashAttribute("message", "Jadwal berhasil ditambahkan / diubah");
+		
+		return "redirect:/jadwal-jaga";
 	}
 	
 	@RequestMapping(value="/ubah/{idJadwalJaga}", method = RequestMethod.GET)

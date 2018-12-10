@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>Insert title here</title>
+		<title>Tambah Jadwal Jaga</title>
 		<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
 	  	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
@@ -61,22 +61,35 @@
 		<nav th:replace="fragments/footer :: footer"></nav>
 		
 		<script>
-			$('#dokter').change(
-				function() {
-		            $.getJSON("http://localhost:8080/waktu-available", {
-		                idDokter : $(this).val(),
-		                ajax : 'true'
-		            }, 
-		            function(data) {
-		                var html = '<option disabled="disabled" selected="selected">-- Pilih Waktu Jaga --</option>';
-		                var len = data.length;
-		                for ( var i = 0; i < len; i++) {
-		                    html += 
-		                    	'<option value= "'+ data[i].id +'" + th:text="'+ data[i].waktu +'">' + data[i].waktu.replace("T", " ") + '</option>';
-		                }
-		            	$('#waktu').html(html);
-	            	});
-	        });
+				console.log("hello")
+				$('#dokter').change(function() {
+					valueProv = $(this).val();
+					$.ajax({
+						type: "GET",
+						url: "http://localhost:8080/waktu-available",
+						data: {
+							'idDokter' : valueProv
+						},
+						dataType: 'json',
+						success: function(data) {
+							getIns = '<option disabled="disabled" selected="selected">-- Pilih Waktu Jaga --</option>';
+							var size = data.length;
+							for (var i = 0; i<size; i++) {
+								getIns+='<option value= "'+ data[i].id +'" + th:text="'+ data[i].waktu +'">' + data[i].waktu.replace("T", " ") + '</option>';
+								console.log(data[i]);
+								console.log(data[i].id)
+							}
+							console.log(getIns);
+							$('#waktu').html(getIns);
+						},
+						error: function(rs,e) {
+							getIns = '<option disabled="disabled" selected="selected">-- Tidak ada Waktu Jaga Available --</option>';
+							$('#waktu').html(getIns);
+							console.log(rs.responseText)
+						}
+					})
+			
+			});
 		</script>
 	</body>
 </html>

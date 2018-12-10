@@ -30,11 +30,6 @@ public class PasienServiceImpl implements PasienService {
 	
 	@Autowired
     RestTemplate restTemplate;
-	
-    @Bean
-    public RestTemplate rest() {
-    	return new RestTemplate();
-    }
     
 	@Override
 	public PasienModel[] getAllPasien() throws IOException {
