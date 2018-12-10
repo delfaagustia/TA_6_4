@@ -67,15 +67,17 @@ public class RequestObatController {
 	}
 	
 	@PostMapping(value="/obat/request/{idPemeriksaan}", params={"save"})
-	private String saveObat(@PathVariable(value = "idPemeriksaan") String idPemeriksaan, @ModelAttribute PemeriksaanModel pemeriksaan, Model model) {		
+	private String saveObat(@PathVariable(value = "idPemeriksaan") String idPemeriksaan, @ModelAttribute PemeriksaanModel pemeriksaan, RedirectAttributes redirectAttr) {
+		String idPasien = String.valueOf(pemeriksaan.getIdPasien());
 		BaseResponse response = requestObatService.postRequestObat(pemeriksaan.getRequestObatList(), Long.parseLong(idPemeriksaan));
 		if(response.getStatus() == 200) {
-			model.addAttribute("hasil", "Request obat berhasil");
-			model.addAttribute("alert", 1);
+			redirectAttr.addFlashAttribute("message", "Request Obat Berhasil");
+			redirectAttr.addFlashAttribute("alert", 1);
 		} else {
-			model.addAttribute("hasil", "Request obat tidak berhasil");
-			model.addAttribute("alert", 0);
+			redirectAttr.addFlashAttribute("message", "Request Obat Tidak Berhasil");
+			redirectAttr.addFlashAttribute("alert", 0);
 		}
-		return "sukses";
+		String path = "redirect:/pasien-ranap/"+ idPasien+"/penanganan/"+idPemeriksaan;
+		return path;
 	}
 }
